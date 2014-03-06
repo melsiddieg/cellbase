@@ -224,6 +224,7 @@ var genesSelect = myApp.controller('genesSelect', ['$scope', '$rootScope', 'mySh
             $(this).tab('show')
         })
     };
+
 }]);
 
 genesSelect.$inject = ['$scope', 'mySharedService'];
