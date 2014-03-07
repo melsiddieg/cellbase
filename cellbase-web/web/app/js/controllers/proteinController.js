@@ -42,6 +42,8 @@ var proteinCtrl = myApp.controller('proteinCtrl', ['$scope', '$rootScope', 'mySh
     ];
     $scope.color = $scope.colors[2];
 
+
+    //<!--------------Events---------------->
     $scope.selectedOption  = function(){
         console.log($scope.color.name)
         proteinService.prepForBroadcast($scope.color.name);
@@ -51,6 +53,7 @@ var proteinCtrl = myApp.controller('proteinCtrl', ['$scope', '$rootScope', 'mySh
         $scope.proteinChange($scope.message);
     }
 
+    //<!--------------Broadcast---------------->
     $scope.$on('handleBroadcast', function() {
         $scope.message =  proteinService.message;
     });
