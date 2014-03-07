@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="proteinCtrl">
     <div class="row">
         <div class="col-md-3">
             <div  class="panel panel-success">
@@ -6,12 +6,26 @@
                     <h3 class="panel-title">Testsefsef {{specie.longName}}</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <div ng-controller="proteinSelect">
+                        <input ng-model="message" >
+                        <button ng-click="handleClick(message);">BROADCAST</button>
+                        Color:
+                        <select ng-model="color" ng-options="c.name for c in colors" ng-change="selectedOption()"></select>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">.col-md-2</div>
-        <div class="col-md-6">.col-md-8</div>
+
+        <div class="col-md-3">.col-md-2
+            <div ng-controller="proteinResult">
+                <input ng-model="message" ng-change="change()">
+            </div>
+        </div>
+        <div class="col-md-6">.col-md-8
+            <div ng-controller="proteinView">
+                <input ng-model="message" ng-change="change()">
+            </div>
+        </div>
     </div>
 </div>
