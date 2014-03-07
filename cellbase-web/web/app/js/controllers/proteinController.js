@@ -2,10 +2,10 @@
  * Created by jag on 06/03/2014.
  */
 
-myApp2.factory('proteinService', function($rootScope) {
+myApp.factory('proteinService', function($rootScope) {
     var proteinService = {};
 
-    proteinService.message = '';
+    proteinService.message = 'test';
 
     proteinService.prepForBroadcast = function(msg) {
         this.message = msg;
@@ -26,20 +26,12 @@ myApp2.factory('proteinService', function($rootScope) {
 
 var proteinCtrl = myApp.controller('proteinCtrl', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService','proteinService', function ($scope, $rootScope, mySharedService, CellbaseService, proteinService) {
 
- $scope.proteinChange = function(msg){
-    proteinService.proteinChange(msg);
- }
+    $scope.specie = mySharedService.genesSpecie;
 
-}]);
-
-function proteinSelect($scope, proteinService) {
-    $scope.handleClick = function(msg) {
-        proteinService.prepForBroadcast(msg);
-    };
-
-    $scope.$on('handleBroadcast', function() {
-        $scope.message = proteinService.message;
-    });
+    $scope.message = proteinService.message;
+    $scope.proteinChange = function(){
+        proteinService.proteinChange($scope.message);
+    }
 
     $scope.colors = [
         {name:'black', shade:'dark'},
@@ -54,25 +46,6 @@ function proteinSelect($scope, proteinService) {
         console.log($scope.color.name)
         proteinService.prepForBroadcast($scope.color.name);
     }
-}
-
-function proteinResult($scope, proteinService) {
-    $scope.change = function(){
-        $scope.proteinChange($scope.message);
-    }
-
-    $scope.selectedOption  = function(){
-        proteinService.prepForBroadcast($scope.color.name);
-    }
-    $scope.$on('handleBroadcast', function() {
-        $scope.message =  proteinService.message;
-    });
-    $scope.$on('broadcastProteinChange', function() {
-        $scope.message =  proteinService.message;
-    });
-}
-
-function proteinView($scope, proteinService) {
 
     $scope.change = function(){
         $scope.proteinChange($scope.message);
@@ -81,11 +54,11 @@ function proteinView($scope, proteinService) {
     $scope.$on('handleBroadcast', function() {
         $scope.message =  proteinService.message;
     });
-
     $scope.$on('broadcastProteinChange', function() {
         $scope.message =  proteinService.message;
     });
-}
+
+}]);
 
 proteinCtrl.$inject = ['$scope', 'mySharedService'];
 proteinCtrl.$inject = ['$scope', 'proteinService'];

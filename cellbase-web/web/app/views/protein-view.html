@@ -6,7 +6,7 @@
                     <h3 class="panel-title">Testsefsef {{specie.longName}}</h3>
                 </div>
                 <div class="panel-body">
-                    <div ng-controller="proteinSelect">
+                    <div>
                         <input ng-model="message" >
                         <button ng-click="handleClick(message);">BROADCAST</button>
                         Color:
@@ -18,13 +18,13 @@
 
 
         <div class="col-md-3">.col-md-2
-            <div ng-controller="proteinResult">
-                <input ng-model="message" ng-change="change()">
+            <div >
+                <input ng-model="message" ng-change="proteinChange()">
             </div>
         </div>
         <div class="col-md-6">.col-md-8
-            <div ng-controller="proteinView">
-                <input ng-model="message" ng-change="change()">
+            <div>
+                <input ng-model="message" ng-change="proteinChange()">
             </div>
         </div>
     </div>
