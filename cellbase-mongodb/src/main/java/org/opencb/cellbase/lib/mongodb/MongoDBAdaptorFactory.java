@@ -1,18 +1,18 @@
 package org.opencb.cellbase.lib.mongodb;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.ServerAddress;
-
+import com.mongodb.*;
 import org.opencb.cellbase.core.lib.DBAdaptorFactory;
 import org.opencb.cellbase.core.lib.api.*;
+import org.opencb.cellbase.core.lib.api.network.PathwayDBAdaptor;
+import org.opencb.cellbase.core.lib.api.network.ProteinProteinInteractionDBAdaptor;
 import org.opencb.cellbase.core.lib.api.regulatory.RegulatoryRegionDBAdaptor;
 import org.opencb.cellbase.core.lib.api.regulatory.TfbsDBAdaptor;
 import org.opencb.cellbase.core.lib.api.variation.MutationDBAdaptor;
 import org.opencb.cellbase.core.lib.api.variation.StructuralVariationDBAdaptor;
 import org.opencb.cellbase.core.lib.api.variation.VariantEffectDBAdaptor;
 import org.opencb.cellbase.core.lib.api.variation.VariationDBAdaptor;
+import org.opencb.cellbase.lib.mongodb.network.PathwayMongoDBAdaptor;
+import org.opencb.cellbase.lib.mongodb.network.ProteinProteinInteractionMongoDBAdaptor;
 import org.opencb.cellbase.lib.mongodb.regulatory.RegulatoryRegionMongoDBAdaptor;
 import org.opencb.cellbase.lib.mongodb.regulatory.TfbsMongoDBAdaptor;
 
@@ -93,9 +93,13 @@ public class MongoDBAdaptorFactory extends DBAdaptorFactory {
                 mc = new MongoClient(new ServerAddress(applicationProperties.getProperty(dbPrefix + ".HOST",
                         "localhost"), Integer.parseInt(applicationProperties.getProperty(dbPrefix + ".PORT", "27017"))),
                         mongoClientOptions);
+//                mc.setReadPreference(ReadPreference.secondary(new BasicDBObject("dc", "PG")));
+//                mc.setReadPreference(ReadPreference.primary());
+//                System.out.println("Replica Status: "+mc.getReplicaSetStatus());
                 System.out.println(applicationProperties.getProperty(speciesVersionPrefix + ".DATABASE"));
                 db = mc.getDB(applicationProperties.getProperty(speciesVersionPrefix + ".DATABASE"));
-
+//db.setReadPreference(ReadPreference.secondary(new BasicDBObject("dc", "PG")));
+//db.setReadPreference(ReadPreference.primary());
                 String user = applicationProperties.getProperty(dbPrefix+".USERNAME");
                 String pass = applicationProperties.getProperty(dbPrefix+".PASSWORD");
                 if(!user.equals("") || !pass.equals("")){
@@ -311,14 +315,18 @@ public class MongoDBAdaptorFactory extends DBAdaptorFactory {
 
     @Override
     public RegulatoryRegionDBAdaptor getRegulatoryRegionDBAdaptor(String species) {
-        // TODO Auto-generated method stub
-        return null;
+        return getRegulatoryRegionDBAdaptor(species, null);
     }
 
     @Override
     public RegulatoryRegionDBAdaptor getRegulatoryRegionDBAdaptor(String species, String version) {
-        // TODO Auto-generated method stub
-        return null;
+        String speciesVersionPrefix = getSpeciesVersionPrefix(species, version);
+        if (!mongoDBFactory.containsKey(speciesVersionPrefix)) {
+            DB db = createCellBaseMongoDB(speciesVersionPrefix);
+            mongoDBFactory.put(speciesVersionPrefix, db);
+        }
+        return (RegulatoryRegionDBAdaptor) new RegulatoryRegionMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
+                speciesAlias.get(species), version);
     }
 
     @Override
@@ -389,19 +397,37 @@ public class MongoDBAdaptorFactory extends DBAdaptorFactory {
                 speciesAlias.get(species), version);
     }
 
-    public RegulationDBAdaptor getRegulationDBAdaptor(String species) {
-        return getRegulationDBAdaptor(species, null);
+
+    @Override
+    public ProteinProteinInteractionDBAdaptor getProteinProteinInteractionDBAdaptor(String species) {
+        return getProteinProteinInteractionDBAdaptor(species, null);
     }
 
-    public RegulationDBAdaptor getRegulationDBAdaptor(String species, String version) {
+    @Override
+    public ProteinProteinInteractionDBAdaptor getProteinProteinInteractionDBAdaptor(String species, String version) {
         String speciesVersionPrefix = getSpeciesVersionPrefix(species, version);
         if (!mongoDBFactory.containsKey(speciesVersionPrefix)) {
             DB db = createCellBaseMongoDB(speciesVersionPrefix);
             mongoDBFactory.put(speciesVersionPrefix, db);
         }
-        return (RegulationDBAdaptor) new RegulatoryRegionMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
+        return (ProteinProteinInteractionDBAdaptor) new ProteinProteinInteractionMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
                 speciesAlias.get(species), version);
     }
+
+
+//    public RegulatoryRegionDBAdaptor getRegulationDBAdaptor(String species) {
+//        return getRegulationDBAdaptor(species, null);
+//    }
+//
+//    public RegulatoryRegionDBAdaptor getRegulationDBAdaptor(String species, String version) {
+//        String speciesVersionPrefix = getSpeciesVersionPrefix(species, version);
+//        if (!mongoDBFactory.containsKey(speciesVersionPrefix)) {
+//            DB db = createCellBaseMongoDB(speciesVersionPrefix);
+//            mongoDBFactory.put(speciesVersionPrefix, db);
+//        }
+//        return (RegulatoryRegionDBAdaptor) new RegulatoryRegionMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
+//                speciesAlias.get(species), version);
+//    }
 
     public VariationDBAdaptor getVariationDBAdaptor(String species) {
         return getVariationDBAdaptor(species, null);
@@ -429,6 +455,22 @@ public class MongoDBAdaptorFactory extends DBAdaptorFactory {
             mongoDBFactory.put(speciesVersionPrefix, db);
         }
         return (ConservedRegionDBAdaptor) new ConservedRegionMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
+                speciesAlias.get(species), version);
+    }
+
+    @Override
+    public ProteinFunctionPredictorDBAdaptor getProteinFunctionPredictorDBAdaptor(String species) {
+        return getProteinFunctionPredictorDBAdaptor(species, null);
+    }
+
+    @Override
+    public ProteinFunctionPredictorDBAdaptor getProteinFunctionPredictorDBAdaptor(String species, String version) {
+        String speciesVersionPrefix = getSpeciesVersionPrefix(species, version);
+        if (!mongoDBFactory.containsKey(speciesVersionPrefix)) {
+            DB db = createCellBaseMongoDB(speciesVersionPrefix);
+            mongoDBFactory.put(speciesVersionPrefix, db);
+        }
+        return (ProteinFunctionPredictorDBAdaptor) new ProteinFunctionPredictorMongoDBAdaptor(mongoDBFactory.get(speciesVersionPrefix),
                 speciesAlias.get(species), version);
     }
 

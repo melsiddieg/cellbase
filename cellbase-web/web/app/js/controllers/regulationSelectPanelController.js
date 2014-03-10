@@ -1,4 +1,4 @@
-var regulationsSelect = myApp.controller('regulationsSelect', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
 
     $scope.specie = mySharedService.regulationsSpecie;
     $scope.chromSelected = [];
@@ -91,7 +91,7 @@ var regulationsSelect = myApp.controller('regulationsSelect', ['$scope', '$rootS
     };
     $scope.selectAllFeatureClassFilter = function () {
 
-        $('#featureClassMultiSelect').children().children().addClass("btn-primary");
+        $('#featureClassMultiSelect').children().addClass("btn-primary");
 
         for (var i in $scope.listOfFeatureTypeFilters) {
             $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
@@ -104,7 +104,7 @@ var regulationsSelect = myApp.controller('regulationsSelect', ['$scope', '$rootS
     };
     $scope.deselectAllFeatureClassFilter = function () {
 
-        $('#featureClassMultiSelect').children().children().removeClass("btn-primary");
+        $('#featureClassMultiSelect').children().removeClass("btn-primary");
 
         $scope.featureClassFilter = [];
 

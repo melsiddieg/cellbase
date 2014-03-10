@@ -1,7 +1,8 @@
 package org.opencb.cellbase.build.transform;
 
-import org.opencb.cellbase.build.transform.serializers.CellbaseSerializer;
+import org.opencb.cellbase.build.transform.serializers.CellBaseSerializer;
 import org.opencb.cellbase.build.transform.utils.FileUtils;
+import org.opencb.cellbase.build.transform.utils.VariationUtils;
 import org.opencb.cellbase.core.common.variation.Mutation;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,11 +22,11 @@ import java.util.List;
  */
 public class MutationParser {
 
-    private CellbaseSerializer serializer;
+    private CellBaseSerializer serializer;
 
     private static final int CHUNK_SIZE = 1000;
 
-    public MutationParser(CellbaseSerializer serializer) {
+    public MutationParser(CellBaseSerializer serializer) {
         this.serializer = serializer;
     }
 
@@ -54,7 +56,7 @@ public class MutationParser {
     // 23 Tumour origin***
     // 24 Comments
 
-    public void parse(Path mutationFile) {
+    public void parseCosmic(Path cosmicMutationFile) {
         try {
 //            BufferedReader br;
 //            if(mutationFile.getName().endsWith(".gz")) {
@@ -63,7 +65,7 @@ public class MutationParser {
 //                br = Files.newBufferedReader(Paths.get(mutationFile.getAbsolutePath()), Charset.defaultCharset());
 //            }
 
-            BufferedReader br = FileUtils.newBufferedReader(mutationFile, Charset.defaultCharset());
+            BufferedReader br = FileUtils.newBufferedReader(cosmicMutationFile, Charset.defaultCharset());
 
             String chunkIdSuffix = CHUNK_SIZE/1000+"k";
             MutationMongoDB mutation;
@@ -82,7 +84,7 @@ public class MutationParser {
                         mutation = new MutationMongoDB("COSM"+fields[11], regionFields[0], Integer.parseInt(regionFields[1]), Integer.parseInt(regionFields[2]),
                                 fields[19], "", proteinStart, 0, fields[0], fields[1], fields[2], fields[4], fields[3], fields[22], fields[5],
                                 fields[6], fields[7], fields[8], fields[9], fields[10], fields[12],
-                                fields[13], fields[15], fields[20], fields[21], fields[23], fields[14]);
+                                fields[13], fields[15], fields[20], fields[21], fields[23], fields[14], "cosmic");
                         int chunkStart = (mutation.getStart()) / CHUNK_SIZE;
                         int chunkEnd = (mutation.getEnd()) / CHUNK_SIZE;
                         for(int i=chunkStart; i<=chunkEnd; i++) {
@@ -96,7 +98,6 @@ public class MutationParser {
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
     }
 
     public class MutationMongoDB extends Mutation{
@@ -107,8 +108,8 @@ public class MutationParser {
             chunkIds = new ArrayList<>(2);
         }
 
-        public MutationMongoDB(String mutationID, String chromosome, int start, int end, String strand, String protein, int proteinStart, int proteinEnd, String geneName, String ensemblTranscriptId, String hgncId, String sampleName, String sampleId, String tumourId, String primarySite, String siteSubtype, String primaryHistology, String histologySubtype, String genomeWideScreen, String mutationCDS, String mutationAA, String mutationZygosity, String mutationSomaticStatus, String pubmedPMID, String sampleSource, String tumourOrigin, String description) {
-            super(mutationID, chromosome, start, end, strand, protein, proteinStart, proteinEnd, geneName, ensemblTranscriptId, hgncId, sampleName, sampleId, tumourId, primarySite, siteSubtype, primaryHistology, histologySubtype, genomeWideScreen, mutationCDS, mutationAA, mutationZygosity, mutationSomaticStatus, pubmedPMID, sampleSource, tumourOrigin, description);
+        public MutationMongoDB(String mutationID, String chromosome, int start, int end, String strand, String protein, int proteinStart, int proteinEnd, String geneName, String ensemblTranscriptId, String hgncId, String sampleName, String sampleId, String tumourId, String primarySite, String siteSubtype, String primaryHistology, String histologySubtype, String genomeWideScreen, String mutationCDS, String mutationAA, String mutationZygosity, String mutationSomaticStatus, String pubmedPMID, String sampleSource, String tumourOrigin, String description, String source) {
+            super(mutationID, chromosome, start, end, strand, protein, proteinStart, proteinEnd, geneName, ensemblTranscriptId, hgncId, sampleName, sampleId, tumourId, primarySite, siteSubtype, primaryHistology, histologySubtype, genomeWideScreen, mutationCDS, mutationAA, mutationZygosity, mutationSomaticStatus, pubmedPMID, sampleSource, tumourOrigin, description, source);
             chunkIds = new ArrayList<>(2);
         }
 
@@ -120,5 +121,6 @@ public class MutationParser {
             this.chunkIds = chunkIds;
         }
     }
+
 
 }

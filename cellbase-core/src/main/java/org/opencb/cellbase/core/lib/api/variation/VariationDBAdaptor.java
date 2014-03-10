@@ -15,6 +15,22 @@ public interface VariationDBAdaptor {
 
     public List<QueryResult> getAllByIdList(List<String> idList, QueryOptions options);
 
+    public QueryResult getAllConsequenceTypes(QueryOptions options);
+
+
+    public QueryResult getAllPhenotypes(QueryOptions options);
+
+    public List<QueryResult> getAllPhenotypeByRegion(List<Region> regions, QueryOptions options);
+
+    public QueryResult getAllByPhenotype(String phenotype, QueryOptions options);
+
+    public List<QueryResult> getAllByPhenotypeList(List<String> phenotypeList, QueryOptions options);
+
+    public QueryResult getAllGenesByPhenotype(String phenotype, QueryOptions options);
+
+    public List<QueryResult> getAllGenesByPhenotypeList(List<String> phenotypeList, QueryOptions options);
+
+
     
 	public QueryResult getAllByPosition(String chromosome, int position, QueryOptions options);
 
@@ -33,7 +49,7 @@ public interface VariationDBAdaptor {
 
     public List<QueryResult> getAllIntervalFrequencies(List<Region> regions, QueryOptions options);
 
-//    public List<Variation> getById(String id, List<String> exclude);
+//    public List<Variation> getAllById(String id, List<String> exclude);
 //
 //    List<List<Variation>> getByIdList(List<String> idList, List<String> exclude);
 //

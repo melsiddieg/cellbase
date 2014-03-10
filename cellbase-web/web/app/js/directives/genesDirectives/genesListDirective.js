@@ -1,4 +1,4 @@
-myApp.directive('witchedGenesList', function () {
+genesModule.directive('witchedGenesList', function () {
     return {
         restrict: 'E',
         replace: true,

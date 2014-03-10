@@ -1,24 +1,21 @@
-myApp.directive('genesGenomeViewer', function () {
+genesModule.directive('genomeViewer', function () {
     return {
-        restrict: 'A',
-        replace: true,
+        restrict: 'E',
+        replace: false,
         transclude: true,
-        templateUrl: './views/genes-gv.html',
-        controller: function($scope,mySharedService) {
+        scope: {
+            targetId: '@id'
+        },
+        controller: function($scope,$rootScope,mySharedService) {
 
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";
 
-            $scope.broadcastRegion = true;
-
-            $scope.$on('genesRegionToGV', function () {
-                if(mySharedService.genesSpecie.shortName == "hsapiens" || mySharedService.genesSpecie.shortName == "mmusculus"){
-                    $scope.broadcastRegion = false;
-                    $scope.genomeViewer.setRegion(new Region(mySharedService.genesRegionToGV));
-    //                $scope.genomeViewer.setSpecies(mySharedService.genesSpecie.shortName);
+            $scope.$on($scope.targetId+':regionToGV', function (event, region, specie) {
+                if(specie== "hsapiens" || specie == "mmusculus"){
+                    $scope.genomeViewer.setRegion(new Region(region));
                 }
             });
-
 
             /* region and species configuration */
             var region = new Region({
@@ -58,7 +55,7 @@ myApp.directive('genesGenomeViewer', function () {
             var species = availableSpecies.items[0].items[0];
 
             $scope.genomeViewer = new GenomeViewer({
-                targetId: 'genome-viewer-div',
+                targetId: $scope.targetId,
                 region: region,
                 availableSpecies: availableSpecies,
                 species: species,
@@ -78,25 +75,17 @@ myApp.directive('genesGenomeViewer', function () {
                 },
                 handlers:{
                     'region:change':function(event){
-                        console.log(event);
-
-                        if(mySharedService.genesSpecie.shortName == "hsapiens" || mySharedService.genesSpecie.shortName == "mmusculus"){
-
-                            if($scope.broadcastRegion){
-                            mySharedService.broadcastGenesRegionGV(event.region.chromosome + ":" + event.region.start + "-" + event.region.end);
-                        }
-                        $scope.broadcastRegion = true;
+                        if(!(event.sender instanceof GenomeViewer)) {
+                            $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
                         }
                     },
                     'region:move':function(event){
-                        if(mySharedService.genesSpecie.shortName == "hsapiens" || mySharedService.genesSpecie.shortName == "mmusculus"){
-                            mySharedService.broadcastGenesRegionGV(event.region.chromosome + ":" + event.region.start + "-" + event.region.end);
-                        }
+                        $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
                     },
 //                    'chromosome-button:change':function(event){
 //                    },
                     'species:change':function(event){
-                        mySharedService.broadcastGenesSpecieGV(event.species.text);
+//                        $rootScope.$broadcast($scope.targetId+":specieFromGV", event);
                     }
                 }
                 //        chromosomeList:[]

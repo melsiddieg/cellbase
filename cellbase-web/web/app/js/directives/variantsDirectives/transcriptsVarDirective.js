@@ -1,4 +1,4 @@
-myApp.directive('transcriptsVar', function () {
+variantsModule.directive('transcriptsVar', function () {
     return {
         restrict: 'E',
             replace: true,

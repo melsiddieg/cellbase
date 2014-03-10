@@ -1,4 +1,4 @@
-myApp.directive('transcripts', function () {
+genesModule.directive('transcripts', function () {
     return {
         restrict: 'E', //Restricting as 'E' means you restrict it as an Element
             replace: true,

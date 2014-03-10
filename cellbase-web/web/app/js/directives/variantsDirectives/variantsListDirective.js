@@ -1,4 +1,4 @@
-myApp.directive('witchedVariantsList', function () {
+variantsModule.directive('witchedVariantsList', function () {
     return {
         restrict: 'E',
         replace: true,
