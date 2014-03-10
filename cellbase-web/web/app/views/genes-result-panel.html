@@ -70,7 +70,7 @@
 
         <ul class="nav nav-tabs" id="genesResultTab">
             <li class="active"><a href="#genesOverviewInfo" data-toggle="tab">Overview Info</a></li>
-            <li id="genesGV"><a href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a></li>
+            <li id="genesGVtab"><a href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a></li>
             <li id=""><a href="#genesNVtab" ng-click="changeResultTab()" data-toggle="tab">Network Viewer</a></li>
         </ul>
 
@@ -99,11 +99,17 @@
                     </div>
                 </div>
             </div>
-            <div class="panel tab-pane" id="genes_GV">
-                <div genes-genome-viewer class="ocb-gv"></div>
+
+            <!--<div class="panel tab-pane" id="genes_GV">-->
+                <!--<div genes-genome-viewer class="ocb-gv"></div>-->
+            <!--</div>-->
+
+            <div class="tab-pane" id="genes_GV" style=" width:765px">
+                <genome-viewer id="genesGV" style=" width:765px"></genome-viewer>
             </div>
-            <div class="panel tab-pane ocb-nv" id="genesNVtab">
-                <genes-network-viewer id="genesNV" class="ocb-nv"></genes-network-viewer>
+
+            <div class="panel tab-pane" style="width:765px;height:665px;" id="genesNVtab">
+                <genes-network-viewer id="genesNV" style="width:765px;height:665px;"></genes-network-viewer>
             </div>
 
 

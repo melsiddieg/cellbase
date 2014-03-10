@@ -1,4 +1,4 @@
-myApp.directive('witchedRegulationsList', function () {
+regulationsModule.directive('witchedRegulationsList', function () {
     return {
         restrict: 'E',
         replace: true,

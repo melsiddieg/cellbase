@@ -1,4 +1,4 @@
-var regulationsResult = myApp.controller('regulationsResult', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var regulationsResult = regulationsModule.controller('regulationsResult', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
 
     $scope.toggleTree = []; //array of booleans that will show of hide the elements of the tree
 

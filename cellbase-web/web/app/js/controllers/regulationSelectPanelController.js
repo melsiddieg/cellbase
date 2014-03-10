@@ -1,4 +1,4 @@
-var regulationsSelect = myApp.controller('regulationsSelect', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
 
     $scope.specie = mySharedService.regulationsSpecie;
     $scope.chromSelected = [];

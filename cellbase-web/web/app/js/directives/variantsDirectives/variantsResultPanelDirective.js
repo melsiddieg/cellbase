@@ -1,4 +1,4 @@
-myApp.directive('variantsResult', function () {
+variantsModule.directive('variantsResult', function () {
     return {
         restrict: 'A',
         replace: true,

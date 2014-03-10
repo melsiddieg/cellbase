@@ -1,4 +1,4 @@
-myApp.directive('variantsAndTranscVar', function () {
+variantsModule.directive('variantsAndTranscVar', function () {
     return {
         restrict: 'E',
         replace: true,

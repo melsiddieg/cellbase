@@ -1,4 +1,4 @@
-myApp.directive('geneAndTransc', function () {
+genesModule.directive('geneAndTransc', function () {
     return {
         restrict: 'E',
         replace: true,
