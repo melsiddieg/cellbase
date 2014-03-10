@@ -89,7 +89,7 @@ var variantsSelect = variantsModule.controller('variantsSelect', ['$scope', '$ro
     };
     $scope.selectAllConseqTypeFilter = function () {
 
-        $('#conseqTypeMultiSelect').children().children().addClass("btn-primary");
+        $('#conseqTypeMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.listOfConseqTypes) {
             $scope.conseqTypesFilter.push($scope.listOfConseqTypes[i]);
         }
@@ -101,7 +101,7 @@ var variantsSelect = variantsModule.controller('variantsSelect', ['$scope', '$ro
     };
     $scope.deselectAllConseqTypeFilter = function () {
 
-        $('#conseqTypeMultiSelect').children().children().removeClass("btn-primary");
+        $('#conseqTypeMultiSelect').children().removeClass("btn-primary");
         $scope.conseqTypesFilter = [];
 
 //        $scope.conseqTypesFilter = [];

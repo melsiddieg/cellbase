@@ -91,7 +91,7 @@ var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$sco
     };
     $scope.selectAllFeatureClassFilter = function () {
 
-        $('#featureClassMultiSelect').children().children().addClass("btn-primary");
+        $('#featureClassMultiSelect').children().addClass("btn-primary");
 
         for (var i in $scope.listOfFeatureTypeFilters) {
             $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
@@ -104,7 +104,7 @@ var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$sco
     };
     $scope.deselectAllFeatureClassFilter = function () {
 
-        $('#featureClassMultiSelect').children().children().removeClass("btn-primary");
+        $('#featureClassMultiSelect').children().removeClass("btn-primary");
 
         $scope.featureClassFilter = [];
 
