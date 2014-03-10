@@ -160,6 +160,9 @@
     <!---------regulations widgets--------->
     <script src="js/directives/regulationsDirectives/regulationsDirective.js"></script>
 
+    <!---------------protein directives------------->
+    <script src="js/directives/proteinDirectives/proteinDirective.js"></script>
+
     <!--======================CONTROLLERS======================-->
     <script src="js/controllers/optionsBarController.js"></script>
     <!----------------genes controllers--------------->
@@ -173,6 +176,10 @@
     <!----------------regulation controllers--------------->
     <script src="js/controllers/regulationSelectPanelController.js"></script>
     <script src="js/controllers/regulationResultPanelController.js"></script>
+
+    <!----------------protein controllers--------------->
+    <script src="js/controllers/proteinController.js"></script>
+
 
 
 
@@ -252,6 +259,7 @@
                         <li class="active"><a href="#genes" >Gene</a></li>
                         <li id="variationDiv"><a href="#variation">Variation</a></li>
                         <li id="regulationDiv"><a href="#regulation">Regulation</a></li>
+                        <li id="proteinDiv"><a href="#protein">Protein</a></li>
                     </ul>
                 </div>
             </div>
@@ -296,6 +304,10 @@
             <div id="regulationsResultDiv" class="col-sm-9 col-md-10 col-lg-10" ng-controller="regulationsResult">
                 <div regulations-result></div>
             </div>
+        </div>
+
+        <div class="tab-pane" id="protein">
+            <protein></protein>
         </div>
         <!--<div class="tab-pane" id="regulation">-->
         <!--<div class="pull-left ocb-select-panel-width" ng-controller="regulationsSelect">-->
