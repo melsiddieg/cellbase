@@ -3,21 +3,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
     $scope.toggleTree = []; //array of booleans that will show of hide the elements of the tree
 
     $scope.regulationsData = []; //$scope.regulationsData = {};
-//    $scope.paginationData = [];
-//    $scope.featureTypes = [];
-//
-//    $scope.firstGeneId = "";
-//    $scope.showAll = true;
-//
-//    $scope.showGenePanel = false;
-//    $scope.showMoreAndLessGeneData = "+";
-//    $scope.genePanelMore = false;
-//    $scope.genePanelStatus = "-";
-//
-//    $scope.showTranscriptPanel = false;
-//    $scope.showMoreAndLessTranscriptData = "+";
-//    $scope.transcriptPanelMore = false;
-//    $scope.transcriptPanelStatus = "-";
 
     $scope.showPagination = false;
     $scope.firstPages = false;
@@ -34,7 +19,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
     $scope.disableThirdNumber = false;
 
     $scope.featureClassTypes = ["Histone", "Open Chromatin",  "Transcription Factor", "Polymerase", "microRNA" ];
-
 
     //========================Pagination==================================
     $scope.goToFirstPage = function () {
@@ -158,13 +142,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
         var ini = (page - 1) * $scope.numDataPerPage;
         $scope.paginationData = [];
         var geneId;
-//
-//        for (var i = ini; i < ini + $scope.numDataPerPage; i++) {
-//            geneId = Object.keys($scope.regulationsData)[i];
-//            if (Object.keys($scope.regulationsData)[i] != null) {
-//                $scope.paginationData.push($scope.regulationsData[geneId]);
-//            }
-//        }
 
         for (var i = ini; i < ini + $scope.numDataPerPage; i++) {
             if ($scope.regulationsData[i] != null) {
@@ -215,14 +192,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
         // 19 --> ...
         else {
             $scope.simplePagination = false;
-//            var geneId;
-//
-//            for (var i = 0; i < $scope.numDataPerPage; i++) {
-//                geneId = Object.keys($scope.regulationsData)[i];
-//                if (Object.keys($scope.regulationsData)[i] != null) {
-//                    $scope.paginationData.push($scope.regulationsData[geneId]);
-//                }
-//            }
 
             for (var i = 0; i < $scope.numDataPerPage; i++) {
                 if ($scope.regulationsData[i] != null) {
@@ -246,59 +215,26 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
         }
     };
 
-
     $scope.clearAll = function(){
         $scope.showAll = false;
     };
-//    $scope.clear = function () {
-//        $scope.showGenePanel = false;
-//        $scope.showTranscriptPanel = false;
-//    };
+
     $scope.setResult = function(){
         $scope.featureClassFilters = mySharedService.featureClassFilter;
         $scope.selectedSpecie = mySharedService.regulationsSpecie;
 
         $scope.regulationsData = []; //$scope.regulationsData = {};
 
-
         var featureClassFilter = [];
         var arrayOfRegulations = [];
 
-
-
-        //check if there are filters
-//        if ($scope.featureTypeFilters.length != 0) {
-//            arrayOfRegulations = CellbaseService.getGenesAndTranscripts($scope.selectedSpecie.shortName, mySharedService.regionsAndChromosomesGenes, $scope.featureTypeFilters);
-//
-//            for (var i in arrayOfRegulations) {
-//                $scope.regulationsData[arrayOfRegulations[i].id] = arrayOfRegulations[i];
-//            }
-//        }
-//        if ($scope.featureClassFilters.length != 0) {
-//            featureClassFilter = CellbaseService.getGenesAndTranscriptsByIdOrName($scope.selectedSpecie.shortName, $scope.featureClassFilters);  //obtener los datos
-//
-//            $scope.checkGeneFilter(featureClassFilter)
-//        }
-//        //if there aren't any filters, show all genes data
         if ($scope.featureClassFilters.length == 0) {
-//            arrayOfRegulations = CellbaseService.getAllRegulationsData($scope.selectedSpecie.shortName, mySharedService.regionsAndChromosomesRegulations, [], []);
             $scope.regulationsData= CellbaseService.getAllRegulationsData($scope.selectedSpecie.shortName, mySharedService.regionsAndChromosomesRegulations, []);
-
-
             $scope.separateFeatureClassTypes();
-
-
-            //save the data in a hash table
-//            for (var i in arrayOfRegulations) {
-//                $scope.regulationsData[arrayOfRegulations[i].id] = arrayOfRegulations[i];
-//            }
         }
         $scope.numResults = $scope.regulationsData.length; //$scope.numResults = arrayOfRegulations.length;
         $scope.initPagination();
-//        $scope.clear();
 
-
-//
         if($scope.numResults != 0){
             $scope.toggleTree = [];
 
@@ -308,48 +244,12 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
                 $scope.toggleTree.push(false);
             }
             $scope.showAll = true;
-//            $scope.firstGeneId = Object.keys($scope.regulationsData)[0];
-//            $scope.lastDataShow = Object.keys($scope.regulationsData)[0];
-//            $scope.selectedGene = CellbaseService.getGenesAllDataById($scope.selectedSpecie.shortName, $scope.lastDataShow);
-//            //show the informtion of the first gen
-//            $scope.showSelectedGene(Object.keys($scope.regulationsData)[0], 0);
-//
-//            $scope.showTranscriptPanel = true;
-//            $scope.selectedTranscript = $scope.selectedGene.transcripts[0];
         }
         else{
             alert("No results with this data");
-////            alert("No correct data selected");
-//            $scope.paginationData = [];
         }
     };
-//    //save thee correct results and alert the incorrect
-//    $scope.checkGeneFilter = function(featureClassFilter){
-//        var genesIdError = [];
-//        var featureClassFilters =  $scope.featureClassFilters.split(",");
-//        var error = false;
-//
-//        for(var i in featureClassFilter){
-//            if(featureClassFilter[i] == undefined){
-//                genesIdError.push([i]);
-//                error = true
-//            }
-//            else{
-//                $scope.regulationsData[featureClassFilter[i].id] = (featureClassFilter[i]);
-//            }
-//        }
-//        if(error){
-//        var messageError = "";
-//        if(genesIdError.length != 0){
-//            messageError = genesIdError[0];
-//            for(var i=1;i<genesIdError.length;i++){
-//                messageError = messageError + ", " + genesIdError[i];
-//            }
-//        }
-//        messageError = messageError + " incorrect";
-//        alert(messageError);
-//        }
-//    };
+
 
 
     $scope.separateFeatureClassTypes = function () {
@@ -359,7 +259,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
         $scope.transcriptionFactor = [];
         $scope.polymerase = [];
         $scope.microRNA = [];
-
 
         $scope.dataNames={};
 
@@ -425,10 +324,7 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
 
     };
 
-
-//    //===================== tree events ========================
-//    //show gen panel
-
+    //===================== tree events ========================
 
     //-------------Show Type Info-----------------
     $scope.showHistoneInfo = function () {
@@ -459,7 +355,6 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
     };
 
 
-
     //--------------Show Name Info--------------
     $scope.showHistoneNameInfo = function (name) {
         $scope.showTypeNameData($scope.histone, name);
@@ -488,158 +383,18 @@ var regulationsResult = regulationsModule.controller('regulationsResult', ['$sco
         $scope.initPagination();
     };
 
-
-//    $scope.showSelectedType = function (type, index) {
-//        if($scope.toggleTree[index]){
-//            $scope.toggleTree[index] = false;
-//        }
-//        else{
-//            $scope.toggleTree[index] = true;
-//        }
-
-
-//        if ($scope.lastDataShow != geneId) {
-//            $scope.lastDataShow = geneId;
-//            $scope.showGenePanel = true;
-//            $scope.selectedGene = CellbaseService.getGenesAllDataById($scope.selectedSpecie.shortName, geneId);
-//
-//
-//            $scope.showTranscriptPanel = false;
-//        }
-//        else {
-//            if (!$scope.showGenePanel) {
-//                $scope.showGenePanel = true;
-//            }
-//        }
-//        $scope.selectedTranscripts = $scope.selectedGene.transcripts;
-//
-//        mySharedService.broadcastGenesRegionToGV($scope.selectedGene.chromosome+":"+$scope.selectedGene.start+"-"+$scope.selectedGene.end);
-//    };
-    //show transcripts panel
     $scope.showSelectedRegulation = function (geneId, transcriptName) {
-//        var transcripts;
-//
-//        if ($scope.lastDataShow != geneId) {
-//            $scope.lastDataShow = geneId;
-//            $scope.showGenePanel = false;
-//            $scope.selectedGene = CellbaseService.getGenesAllDataById($scope.selectedSpecie.shortName, geneId);
-//        }
-//        $scope.showTranscriptPanel = true;
-//        transcripts = $scope.selectedGene.transcripts;
-//        for (var i in transcripts) {
-//            if (transcripts[i].name == transcriptName) {
-//                $scope.selectedTranscript = transcripts[i];
-//            }
-//        }
-//
-//        mySharedService.broadcastGenesRegionToGV($scope.selectedTranscript.chromosome+":"+$scope.selectedTranscript.start+"-"+$scope.selectedTranscript.end);
-//
+
     };
-//
-//    //show transcripts panel from transcripts table
-//    $scope.showTanscriptFromTable = function (transcriptName) {
-//        var transcripts = $scope.selectedGene.transcripts;
-//        for (var i in transcripts) {
-//            if (transcripts[i].name == transcriptName) {
-//                $scope.selectedTranscript = transcripts[i];
-//            }
-//        }
-//        $scope.transcriptInfo = false;
-//        $scope.showTranscriptPanel = true;
-//    };
-//
-//    $scope.expandAllGenesTree = function () {
-//        for(var i in $scope.toggleTree){
-//            $scope.toggleTree[i] = true;
-//        }
-//    };
-//    $scope.collapseAllGenesTree = function () {
-//        for(var i in $scope.toggleTree){
-//            $scope.toggleTree[i] = false;
-//        }
-//    };
-//
-//    //show more info in gen panel
-//    $scope.showMoreGeneData = function () {
-//        $scope.genePanelMore = !$scope.genePanelMore;
-//        if ($scope.showMoreAndLessGeneData == "+") {
-//            $scope.showMoreAndLessGeneData = "-";
-//        }
-//        else {
-//            $scope.showMoreAndLessGeneData = "+";
-//        }
-//    };
-//    //show more info in transcript panel
-//    $scope.showMoreTranscriptData = function () {
-//        $scope.transcriptPanelMore = !$scope.transcriptPanelMore;
-//        if ($scope.showMoreAndLessTranscriptData == "+") {
-//            $scope.showMoreAndLessTranscriptData = "-";
-//        }
-//        else {
-//            $scope.showMoreAndLessTranscriptData = "+";
-//        }
-//    };
-//
-//    //show/hide gen panel information
-//    $scope.openCloseGenePanel = function () {
-//        if ($scope.genePanelStatus == "+") {
-//            $scope.genePanelStatus = "-";
-//        }
-//        else {
-//            $scope.genePanelStatus = "+";
-//        }
-//    };
-//    //show/hide transcript panel information
-//    $scope.openCloseTranscriptPanel = function () {
-//        if ($scope.transcriptPanelStatus == "+") {
-//            $scope.transcriptPanelStatus = "-";
-//        }
-//        else {
-//            $scope.transcriptPanelStatus = "+";
-//        }
-//    };
-//
-//    //genesResult div width is the rest of the document
-//    $scope.getWidth = function () {
-//        var resultPartWidth = $(document).width() - 220 - 260 - 60;
-//
-//        console.log(resultPartWidth);
-//        return  {width: resultPartWidth}
-//    };
-//    //tabs
-//    $scope.goToTab = function () {
-//        $(function () {
-//            $('#transcriptsTab a:first').tab('show')
-//        })
-//        $('#transcriptsTab a').click(function (e) {
-//            e.preventDefault()
-//            $(this).tab('show')
-//        })
-//    };
-//
-//    $scope.changeResultTab = function () {
-//        $(function () {
-//            $('#genesResultTab a:first').tab('show')
-//        })
-//        $('#genesResultTab a').click(function (e) {
-//            e.preventDefault()
-//            $(this).tab('show')
-//        })
-//    };
-//
+
     //--------the initial result----------
     $scope.setResult();
 
     //--------------EVENTS-------------------
-    $scope.$on('clear', function () {
+    $scope.$on('regulationsClear', function () {
         $scope.clearAll();
     });
-//    $scope.$on('newSpecie', function () {
-//        $scope.clearAll();
-//    });
-////    $scope.$on('genesNewSpecieGV', function () {
-////        $scope.clearAll();
-////    });
+
     $scope.$on('regulationsNewResult', function () {
         $scope.setResult();
     });

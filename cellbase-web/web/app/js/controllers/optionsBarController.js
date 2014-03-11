@@ -17,26 +17,10 @@ var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$ro
 
     $scope.selectedSpecie = "Homo sapiens";
 
-    //tabs
-    $scope.goToTab = function () {
-        $(function () {
-            $('#myTab a:first').tab('show')
-        })
-        $('#myTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    };
-    $scope.new = function () {
-        mySharedService.broadcastNew({longName: "Homo sapiens", shortName: "hsapiens", ensemblName: "Homo_sapiens"});
-    };
     //comunicate the new specie selected
     $scope.setSelectedSpecie = function (specie) {
         $scope.selectedSpecie = specie.longName;
         mySharedService.broadcastSpecie(specie);
-    };
-    $scope.example = function () {
-        mySharedService.broadcastExample({longName: "Homo sapiens", shortName: "hsapiens", ensemblName: "Homo_sapiens"});
     };
 
     //------------------EVENTS-------------------

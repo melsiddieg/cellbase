@@ -113,10 +113,21 @@ var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$sco
     };
 
     //-----------EVENTS---------------
-    $scope.$on('clear', function () {
+    $scope.reload = function () {
         $scope.init();
         $scope.setSpecie();
-    });
+        $scope.regions = "3:555-622666";
+        $scope.chromSelected = [];
+        $scope.setResult();
+    };
+
+    $scope.clear = function () {
+        $scope.init();
+        $scope.setSpecie();
+        mySharedService.broadcastRegulationsClear();
+    };
+
+
     $scope.$on('newSpecie', function () {
 
 
@@ -131,15 +142,7 @@ var regulationsSelect = regulationsModule.controller('regulationsSelect', ['$sco
             $scope.setResult();
         }
     });
-    $scope.$on('example', function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.regions = "3:555-622666";
-        $scope.chromSelected = [];
 
-        $scope.setResult();
-
-    });
 //    $scope.$on('regulationsNewSpecieGV', function () {
 //        $scope.init();
 //        $scope.specie = mySharedService.regulationsSpecieGV;
