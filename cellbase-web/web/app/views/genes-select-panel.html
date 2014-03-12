@@ -6,11 +6,11 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h6><strong>Filters</strong></h6>
+            <strong class="ocb-font-size-14">Filters</strong>
         </div>
         <div class="panel-body">
             <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group">
+                <div class="btn-group ocb-margin-2">
                     <button type="button" class="btn btn-default btn-xs" ng-click="reload()" >
                         Reload
                     </button>
@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <div class="btn-group">
-                    <a type="button" class="btn btn-default btn-xs" ng-click="newResult()" >
+                    <a type="button" class="btn btn-default btn-sm ocb-result-bottom ocb-bold ocb-margin-2" ng-click="newResult()" >
                         Results
                     </a>
                 </div>
@@ -27,52 +27,28 @@
         </div>
     </div>
 
-    <!--<div class="panel panel-primary">-->
-    <!--<div class="panel-heading">-->
-    <!--<div data-toggle="collapse" data-parent="#accordion" href="#collapseChrom" style="cursor: pointer">-->
-    <!--Chromosomes-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div id="collapseChrom" class="panel-collapse collapse in">-->
-    <!--<div class="panel-body">-->
-    <!--<div id="genesChromMultiSelect">-->
-    <!--<witched-chrom ids="typeOfData" chrom-names="chromNames" on-click="addChrom" my-class="ocb-chrom-buttons"></witched-chrom>-->
-    <!--</div>-->
-
-    <!--<div class="btn-toolbar" role="toolbar">-->
-    <!--<button type="button" class="btn btn-default btn-xs" ng-click="selectAllChrom()" >-->
-    <!--Select all-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-default btn-xs" ng-click="deselectAllChrom()">-->
-    <!--Deselect all-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseRegion" style="cursor: pointer">
+            <div data-toggle="collapse" data-parent="#accordion" href="#collapseRegion" class="ocb-cursor-pointer">
                 Region
             </div>
         </div>
         <div id="collapseRegion" class="panel-collapse collapse in">
             <div class="panel-body">
-                <div id="genesChromMultiSelect">
+                <div id="genesChromMultiSelect" class="ocb-text-center ocb-scroll">
                     <witched-chrom ids="typeOfData" chrom-names="chromNames" on-click="addChrom" my-class="ocb-chrom-buttons"></witched-chrom>
                 </div>
 
-                <div class="btn-toolbar" role="toolbar">
-                    <button type="button" class="btn btn-default btn-xs" ng-click="selectAllChrom()" >
+                <div class="btn-toolbar ocb-text-center ocb-margin-top-5" role="toolbar">
+                    <button type="button" class="btn btn-default btn-xs ocb-info-button" ng-click="selectAllChrom()" >
                         Select all
                     </button>
-                    <button type="button" class="btn btn-default btn-xs" ng-click="deselectAllChrom()">
+                    <button type="button" class="btn btn-default btn-xs ocb-info-button" ng-click="deselectAllChrom()">
                         Deselect all
                     </button>
                 </div>
 
-                <p class="text-muted"><b>chom:start-end</b></p>
+                <p class="text-muted ocb-margin-top-5"><b>chom:start-end</b></p>
                 <textarea type="text" ng-model="regions" rows="4" class="form-control"></textarea>
             </div>
         </div>
@@ -80,7 +56,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseGene" style="cursor: pointer">
+            <div data-toggle="collapse" data-parent="#accordion" href="#collapseGene" class="ocb-cursor-pointer">
                 Gene Id/Name
             </div>
         </div>
@@ -94,28 +70,26 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseBiotype" style="cursor: pointer">
+            <div data-toggle="collapse" data-parent="#accordion" href="#collapseBiotype" class="ocb-cursor-pointer">
                 Biotype
             </div>
         </div>
         <div id="collapseBiotype" class="panel-collapse collapse">
             <div class="panel-body">
                 <div>
-                    <div id="BiotypesMultiSelect" style="overflow: scroll;height: 222px">
-                        <!--<div ng-repeat="biotype in listOfbiotypeFilters">-->
+                    <div id="BiotypesMultiSelect" class="ocb-filter-scroll">
                         <button id="{{biotype}}"  ng-repeat="biotype in listOfbiotypeFilters"
                                 ng-click="addBiotypeFilter(biotype)" type="button"
-                                class="btn btn-default btn-sm ocb-filter-width">{{biotype}}
+                                class="btn btn-default btn-sm ocb-filter-width ocb-margin-1" >{{biotype}}
                         </button>
-                        <!--</div>-->
                     </div>
                 </div>
 
-                <div class="btn-toolbar" role="toolbar">
-                    <button type="button" class="btn btn-default btn-xs" ng-click="selectAllBiotypeFilter()">
+                <div class="btn-toolbar ocb-text-center ocb-margin-top-5" role="toolbar">
+                    <button type="button" class="btn btn-default btn-xs ocb-info-button" ng-click="selectAllBiotypeFilter()">
                         Select all
                     </button>
-                    <button type="button" class="btn btn-default btn-xs" ng-click="deselectAllBiotypeFilter()">
+                    <button type="button" class="btn btn-default btn-xs ocb-info-button" ng-click="deselectAllBiotypeFilter()">
                         Deselect all
                     </button>
                 </div>
