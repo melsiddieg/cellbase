@@ -13,6 +13,7 @@ genesModule.directive('genesNetworkViewer', function () {
 //
 //                for(var i in proteinsIdLinks){
 //                    $scope.networkViewer.networkSvgLayout.createVertex(40+(10*i), 80);
+                      
 //                }
             });
 
