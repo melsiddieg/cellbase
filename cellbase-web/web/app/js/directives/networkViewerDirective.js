@@ -6,15 +6,43 @@ genesModule.directive('genesNetworkViewer', function () {
         scope: {
             targetId: '@id'
         },
-        controller: function($scope, $rootScope) {
+        controller: function ($scope, $rootScope) {
 
             $scope.$on($scope.targetId + ':geneProteins', function (event, geneProteinId, proteinsIdLinks) {
-//                $scope.networkViewer.networkSvgLayout.createVertex(40,40);
-//
-//                for(var i in proteinsIdLinks){
-//                    $scope.networkViewer.networkSvgLayout.createVertex(40+(10*i), 80);
-                      
-//                }
+
+                $scope.networkViewer.clean();
+
+                var graph = new Graph();
+
+                var geneProteinV = new Vertex({
+                    id: geneProteinId
+                });
+                graph.addVertex(geneProteinV);
+
+
+                for (var i in proteinsIdLinks) {
+                    var proteinV = new Vertex({
+                        id: proteinsIdLinks[i]
+                    });
+                    graph.addVertex(proteinV);
+
+                    /** create edge **/
+                    var edgeId = geneProteinId + '_' + 'pp' + '_' + proteinsIdLinks[i];
+                    var edge = new Edge({
+                        id: edgeId,
+                        relation: 'pp',
+                        source: geneProteinV,
+                        target: proteinV,
+                        weight: 1,
+                        directed: true
+                    });
+                    graph.addEdge(edge);
+                }
+
+                $scope.networkViewer.setGraph(graph);
+                $scope.networkViewer.setLayout('Force directed');
+
+
             });
 
             $scope.networkViewer = new NetworkViewer({
@@ -24,6 +52,10 @@ genesModule.directive('genesNetworkViewer', function () {
                 overviewPanel: false
             });
             $scope.networkViewer.draw();
+//            $scope.networkViewer.clean();
+
+            //TEST resference
+            nvtest = $scope.networkViewer;
 //            $scope.networkViewer.networkSvgLayout.createVertex(200,300);
         }
     }
