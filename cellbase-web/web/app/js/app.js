@@ -93,6 +93,8 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
 
         if(specie.data.search("variation") == -1){
             //disable variation tab
+
+            debugger
             if(!$('#variationDiv').hasClass("disabled")){
                 $('#variationDiv').addClass("disabled");
             }

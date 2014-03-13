@@ -355,8 +355,13 @@
     border-bottom:1px solid dimgrey;
 }
 .ocb-gv-w{
-    width:765px;
+    width:820px;
 }
+
+.ocb-gv-minw{
+    min-width:830px;
+}
+
 .ocb-nv-h-w{
     width:765px;
     height:515px;
@@ -375,5 +380,8 @@
 }
 .ocb-h-50{
     height: 50px;
+}
+.ocb-marg-5{
+    margin: 5px;
 }
 

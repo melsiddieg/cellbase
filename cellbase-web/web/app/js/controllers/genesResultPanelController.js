@@ -432,6 +432,42 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
             $scope.toggleTree[i] = false;
         }
     };
+
+
+
+
+    $scope.downloadGeneAsJSON = function () {
+
+        var info = $scope.selectedGene;
+        delete info.transcripts;
+
+        $scope.download(info, "gene-"+info.id);
+
+    };
+    $scope.downloadTranscriptAsJSON = function () {
+
+        var info = $scope.selectedTranscript;
+        delete info.exons;
+        delete info.xrefs;
+        delete info.tfbs;
+
+        $scope.download(info, "gene-"+$scope.selectedGene.id+"transc-"+info.id);
+
+    };
+
+    $scope.download=function(info, title){
+
+        var str = JSON.stringify(info);
+        var a = $('<a></a>')[0];
+        $(a).attr('href','data:application/json,'+encodeURIComponent(str));
+        $(a).attr('download',title+'json');
+        a.click();
+    };
+
+
+
+
+
     //tabs
     $scope.goToTab = function () {
         $(function () {
