@@ -182,12 +182,12 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
 
         $rootScope.$broadcast('genesRegionToGV');
     };
-    sharedService.broadcastGeneProteinsToNV = function(geneProteinId,proteinsIdLinks){
-        this.geneProteinId = geneProteinId;
-        this.proteinsIdLinks = proteinsIdLinks;
-
-        $rootScope.$broadcast('geneProteins');
-    };
+//    sharedService.broadcastGeneProteinsToNV = function(geneProteinId,proteinsIdLinks){
+//        this.geneProteinId = geneProteinId;
+//        this.proteinsIdLinks = proteinsIdLinks;
+//
+//        $rootScope.$broadcast('geneProteins');
+//    };
     sharedService.broadcastGenesClear = function(){
         $rootScope.$broadcast('genesClear');
     };

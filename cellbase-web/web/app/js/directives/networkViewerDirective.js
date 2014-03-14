@@ -8,31 +8,32 @@ genesModule.directive('genesNetworkViewer', function () {
         },
         controller: function ($scope, $rootScope) {
 
-            $scope.$on($scope.targetId + ':geneProteins', function (event, geneProteinId, proteinsIdLinks) {
+            $scope.$on($scope.targetId + ':createStarGraph', function (event, centerVertex, verticesLinked) {
 
+//                debugger
                 $scope.networkViewer.clean();
 
                 var graph = new Graph();
 
-                var geneProteinV = new Vertex({
-                    id: geneProteinId
+                var center = new Vertex({
+                    id: centerVertex
                 });
-                graph.addVertex(geneProteinV);
+                graph.addVertex(center);
 
 
-                for (var i in proteinsIdLinks) {
-                    var proteinV = new Vertex({
-                        id: proteinsIdLinks[i]
+                for (var i in verticesLinked) {
+                    var other = new Vertex({
+                        id: verticesLinked[i]
                     });
-                    graph.addVertex(proteinV);
+                    graph.addVertex(other);
 
                     /** create edge **/
-                    var edgeId = geneProteinId + '_' + 'pp' + '_' + proteinsIdLinks[i];
+                    var edgeId = centerVertex + '_' + 'pp' + '_' + verticesLinked[i];
                     var edge = new Edge({
                         id: edgeId,
                         relation: 'pp',
-                        source: geneProteinV,
-                        target: proteinV,
+                        source: center,
+                        target: other,
                         weight: 1,
                         directed: true
                     });
@@ -45,18 +46,23 @@ genesModule.directive('genesNetworkViewer', function () {
 
             });
 
-            $scope.networkViewer = new NetworkViewer({
+
+
+            $scope.$on($scope.targetId + ':clear', function () {
+                $scope.networkViewer.clean();
+            });
+
+                $scope.networkViewer = new NetworkViewer({
                 targetId: $scope.targetId,
                 autoRender: true,
                 sidePanel: false,
                 overviewPanel: false
             });
             $scope.networkViewer.draw();
-//            $scope.networkViewer.clean();
+            $scope.networkViewer.clean();
 
             //TEST resference
             nvtest = $scope.networkViewer;
-//            $scope.networkViewer.networkSvgLayout.createVertex(200,300);
         }
     }
 });

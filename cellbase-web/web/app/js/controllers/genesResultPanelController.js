@@ -359,7 +359,7 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
 //            mySharedService.broadcastGenesRegionToGV($scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end);
             $rootScope.$broadcast("genesGV:regionToGV", $scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end,mySharedService.genesSpecie.shortName);
         }
-
+        debugger
         if ($('#genesNVtab').hasClass("active")) {
             $scope.proteinsAllData = CellbaseService.getProteinsLinks($scope.selectedSpecie.shortName, $scope.selectedGene.name);
 
@@ -383,7 +383,10 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
                         $scope.proteinsIdLinks.push($scope.proteinsAllData[i].interactorB.id);
                     }
                 }
-                $rootScope.$broadcast("genesNV:geneProteins", $scope.geneProteinId, $scope.proteinsIdLinks);
+                $rootScope.$broadcast("genesNV:createStarGraph", $scope.geneProteinId, $scope.proteinsIdLinks);
+            }
+            else{
+                $rootScope.$broadcast("genesNV:clear");
             }
         }
 
