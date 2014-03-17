@@ -359,7 +359,6 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
 //            mySharedService.broadcastGenesRegionToGV($scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end);
             $rootScope.$broadcast("genesGV:regionToGV", $scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end,mySharedService.genesSpecie.shortName);
         }
-        debugger
         if ($('#genesNVtab').hasClass("active")) {
             $scope.proteinsAllData = CellbaseService.getProteinsLinks($scope.selectedSpecie.shortName, $scope.selectedGene.name);
 
@@ -438,34 +437,107 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
 
 
 
-
+//  --------------download functions-------------------
     $scope.downloadGeneAsJSON = function () {
-
         var info = $scope.selectedGene;
         delete info.transcripts;
-
-        $scope.download(info, "gene-"+info.id);
-
+        $scope.downloadAsJSON(info, "gene-"+info.id);
     };
     $scope.downloadTranscriptAsJSON = function () {
-
         var info = $scope.selectedTranscript;
         delete info.exons;
         delete info.xrefs;
         delete info.tfbs;
-
-        $scope.download(info, "gene-"+$scope.selectedGene.id+"transc-"+info.id);
-
+        $scope.downloadAsJSON(info, "gene-"+$scope.selectedGene.id+"transc-"+info.id);
     };
 
-    $scope.download=function(info, title){
-
+    $scope.downloadAsJSON=function(info, title){
         var str = JSON.stringify(info);
         var a = $('<a></a>')[0];
+
         $(a).attr('href','data:application/json,'+encodeURIComponent(str));
         $(a).attr('download',title+'json');
         a.click();
     };
+
+
+
+    $scope.downloadGeneTabulated = function () {
+        var info = $scope.selectedGene;
+        delete info.transcripts;
+        $scope.downloadTabulated(info, "gene-"+info.id);
+    };
+    $scope.downloadTranscriptTabulated = function () {
+        var info = $scope.selectedTranscript;
+        delete info.exons;
+        delete info.xrefs;
+        delete info.tfbs;
+        $scope.downloadTabulated(info, "gene-"+$scope.selectedGene.id+"transc-"+info.id);
+    };
+
+
+
+
+    $scope.convertToTabulate=function(info){
+        var max_sep = 0;
+        var j= 0;
+        var max = Object.keys(info).length;
+        var attrValueLength = 0;
+        var str = "";
+
+        for(var attr in info){
+            if(j!=Object.keys(info).length-1){
+                str = str + attr + "   ";
+                if(isNaN(info[attr])){
+                    attrValueLength = info[attr].length;
+                }
+                else{
+                    attrValueLength = info[attr].toString().length;
+                }
+                if(attrValueLength > attr.length){
+                    max_sep = attrValueLength - attr.length;
+                    for(var i=0;i< max_sep;i++){
+                        str = str + " ";
+                    }
+                }
+            }else{
+                str = str + attr;
+            }
+
+            j++;
+        }
+        str = str + "\n";
+
+        for(var attr in info){
+            str = str + info[attr] + "   ";
+
+            if(isNaN(info[attr])){
+                attrValueLength = info[attr].length;
+            }
+            else{
+                attrValueLength = info[attr].toString().length;
+            }
+            if(attr.length > attrValueLength){
+                max_sep = attr.length - attrValueLength;
+
+                for(var i=0;i< max_sep;i++){
+                    str = str + " ";
+                }
+            }
+        }
+    return str
+    };
+    $scope.downloadTabulated=function(info, title){
+        var str = "";
+        var a = $('<a></a>')[0];
+        str = $scope.convertToTabulate(info);
+
+        $(a).attr('href','data:text/plain,'+encodeURIComponent(str));
+        $(a).attr('download',title+'json');
+        a.click();
+    };
+
+
 
 
 

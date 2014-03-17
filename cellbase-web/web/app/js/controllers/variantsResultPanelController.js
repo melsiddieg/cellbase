@@ -437,7 +437,8 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
 
         if($('#variants_GV').hasClass("active")&& !fromGV){
 //            mySharedService.broadcastVariantsRegionToGV($scope.selectedVariant.chromosome+":"+$scope.selectedVariant.start+"-"+$scope.selectedVariant.end);
-            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.genesSpecie.shortName);
+            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.variantsSpecie.shortName);
+//            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.genesSpecie.shortName);
 
         }
     };
@@ -459,7 +460,8 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
         }
         if($('#variants_GV').hasClass("active")&& !fromGV) {
 //            mySharedService.broadcastVariantsRegionToGV($scope.selectedVariant.chromosome+":"+$scope.selectedVariant.start+"-"+$scope.selectedVariant.end);
-            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.genesSpecie.shortName);
+            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.variantsSpecie.shortName);
+//            $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,mySharedService.genesSpecie.shortName);
 
         }
     };
@@ -521,6 +523,107 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
     $scope.obtainConsequenceTypes();
 
 
+    //  --------------download functions-------------------
+    $scope.downloadVariantAsJSON = function () {
+        var info = $scope.selectedVariant;
+        delete info.transcriptVariations;
+        $scope.downloadAsJSON(info, "SNP-"+info.id);
+    };
+    $scope.downloadTranscriptAsJSON = function () {
+        var info = $scope.selectedTranscriptVar;
+        delete info.consequenceTypes;
+        debugger
+//        delete info.xrefs;
+//        delete info.tfbs;
+        $scope.downloadAsJSON(info, "SNP-"+$scope.selectedVariant.id+"transc-"+info.id);
+    };
+
+    $scope.downloadAsJSON=function(info, title){
+        var str = JSON.stringify(info);
+        var a = $('<a></a>')[0];
+
+        $(a).attr('href','data:application/json,'+encodeURIComponent(str));
+        $(a).attr('download',title+'json');
+        a.click();
+    };
+
+
+
+    $scope.downloadVariantTabulated = function () {
+        var info = $scope.selectedVariant;
+        delete info.transcriptVariations;
+        $scope.downloadTabulated(info, "SNP-"+info.id);
+    };
+    $scope.downloadTranscriptTabulated = function () {
+        var info = $scope.selectedTranscriptVar;
+        delete info.consequenceTypes;
+//        delete info.xrefs;
+//        delete info.tfbs;
+        $scope.downloadTabulated(info, "SNP-"+$scope.selectedVariant.id+"transc-"+info.id);
+    };
+
+
+
+
+    $scope.convertToTabulate=function(info){
+        var max_sep = 0;
+        var j= 0;
+        var max = Object.keys(info).length;
+        var attrValueLength = 0;
+        var str = "";
+
+        for(var attr in info){
+            if(j!=Object.keys(info).length-1){
+                str = str + attr + "   ";
+                if(isNaN(info[attr])){
+                    attrValueLength = info[attr].length;
+                }
+                else{
+                    attrValueLength = info[attr].toString().length;
+                }
+                if(attrValueLength > attr.length){
+                    max_sep = attrValueLength - attr.length;
+                    for(var i=0;i< max_sep;i++){
+                        str = str + " ";
+                    }
+                }
+            }else{
+                str = str + attr;
+            }
+
+            j++;
+        }
+        str = str + "\n";
+
+        for(var attr in info){
+            str = str + info[attr] + "   ";
+
+            if(isNaN(info[attr])){
+                attrValueLength = info[attr].length;
+            }
+            else{
+                attrValueLength = info[attr].toString().length;
+            }
+            if(attr.length > attrValueLength){
+                max_sep = attr.length - attrValueLength;
+
+                for(var i=0;i< max_sep;i++){
+                    str = str + " ";
+                }
+            }
+        }
+        return str
+    };
+    $scope.downloadTabulated=function(info, title){
+        var str = "";
+        var a = $('<a></a>')[0];
+        str = $scope.convertToTabulate(info);
+
+        $(a).attr('href','data:text/plain,'+encodeURIComponent(str));
+        $(a).attr('download',title+'json');
+        a.click();
+    };
+
 
 
     //--------------EVENTS-------------------
@@ -528,7 +631,9 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
     $scope.$on('newSpecie', function () {
         $scope.obtainConsequenceTypes();
 
-        if(mySharedService.genesSpecie.shortName == "hsapiens" || mySharedService.genesSpecie.shortName == "mmusculus"){
+
+//        if(mySharedService.genesSpecie.shortName == "hsapiens" || mySharedService.genesSpecie.shortName == "mmusculus"){
+        if(mySharedService.variantsSpecie.shortName == "hsapiens" || mySharedService.variantsSpecie.shortName == "mmusculus"){
             $('#variantsGV').removeClass("disabled");
         }
         else{

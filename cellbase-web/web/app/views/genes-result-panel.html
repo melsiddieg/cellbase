@@ -67,7 +67,15 @@
                     <a class="list-group-item active ocb-text-center">
                         Gene information
                     </a>
-                        <button type="button" class="btn btn-info btn-xs pull-right ocb-marg-5" ng-click="downloadGeneAsJSON()"> Download Gene </button>
+                    <div class="btn-group pull-right ocb-marg-5">
+                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Download Gene as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" ng-click="downloadGeneAsJSON()">JSON</a></li>
+                            <li><a href="#" ng-click="downloadGeneTabulated()">tabulated text</a></li>
+                        </ul>
+                    </div>
 
                     <div class="ocb-panels-data-border" ng-show="!geneInfo">
                         <gene-and-transc gene="selectedGene" specie="selectedSpecie"
@@ -79,7 +87,16 @@
                     <a class="list-group-item active ocb-text-center">
                         Transcript information
                     </a>
-                    <button type="button" class="btn btn-info btn-xs pull-right ocb-marg-5" ng-click="downloadTranscriptAsJSON()"> Download Transcript </button>
+                    <div class="btn-group pull-right ocb-marg-5">
+                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Download Transcript as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" ng-click="downloadTranscriptAsJSON()">JSON</a></li>
+                            <li><a href="#" ng-click="downloadTranscriptTabulated()">tabulated text</a></li>
+                        </ul>
+                    </div>
+
 
                     <div ng-show="!transcriptInfo" class="ocb-panels-data-border">
                         <transcripts transcript="selectedTranscript" specie="selectedSpecie"
