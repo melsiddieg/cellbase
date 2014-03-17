@@ -476,8 +476,6 @@ var genesResult = genesModule.controller('genesResult', ['$scope', '$rootScope',
     };
 
 
-
-
     $scope.convertToTabulate=function(info){
         var max_sep = 0;
         var j= 0;

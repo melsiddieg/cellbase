@@ -1,4 +1,248 @@
-var variantsResult = variantsModule.controller('variantsResult', ['$scope','$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+
+    $scope.specie = mySharedService.variantsSpecie;
+    $scope.chromSelected = [];
+    $scope.regions = "20:32850000-32860000";
+    $scope.listOfConseqTypes = [];
+    $scope.snpIdFilter = "";
+    $scope.conseqTypesFilter = [];
+
+    $scope.typeOfData = "variants";
+
+    $scope.chromNames = mySharedService.chromNames;
+
+    $scope.init = function(){
+        $scope.deselectAllChrom();
+        $scope.deselectAllConseqTypeFilter();
+        $scope.chromSelected = [];
+        $scope.regions = "";
+        $scope.listOfConseqTypes = [];
+        $scope.snpIdFilter ="";
+        $scope.conseqTypesFilter = [];
+    };
+    //comunicate that a is a new result
+//    $scope.setResult = function (fromGV) {
+//        mySharedService.broadcastVariantsNewResult($scope.chromSelected, $scope.regions, $scope.snpIdFilter, $scope.conseqTypesFilter, fromGV);
+//    };
+    $scope.newResult = function (fromGV) {
+//        mySharedService.broadcastVariantsNewResult($scope.chromSelected, $scope.regions, $scope.snpIdFilter, $scope.conseqTypesFilter, fromGV);
+
+        if($scope.snpIdFilter != ""){
+            $scope.snpIdFilter = mySharedService.removeSpaces($scope.snpIdFilter);
+        }
+        else if($scope.regions!= ""){
+            $scope.regions =  mySharedService.removeSpaces($scope.regions);
+        }
+
+        if ($scope.snpIdFilter == "" && $scope.conseqTypesFilter.length == 0 && $scope.chromSelected.length == 0 && $scope.regions == "") {
+            alert("No data selected");
+        }
+        else {
+            mySharedService.regionsAndChromosomesVariants = mySharedService.mergeChromosomesAndRegions($scope.chromSelected, $scope.regions, mySharedService.chromAllData);
+//            $rootScope.$broadcast('variantsNewResult', fromGV);
+            $scope.setResult(false);
+        }
+
+
+
+    };
+
+    $scope.setSpecie = function(){
+        $scope.specie = mySharedService.variantsSpecie;
+        $scope.chromSelected = [];
+        $scope.chromNames = mySharedService.chromNames;
+    };
+    $scope.addChrom = function (chrom) {
+        var pos = $scope.chromSelected.indexOf(chrom);
+
+        if (pos == -1) {
+            $scope.chromSelected.push(chrom);
+        }
+        else {
+            $scope.chromSelected.splice(pos, 1);
+        }
+
+        if($('#variants'+chrom).hasClass("btn-primary")){
+            $('#variants'+chrom).removeClass("btn-primary");
+        }
+        else{
+            $('#variants'+chrom).addClass("btn-primary");
+        }
+    };
+
+    $scope.addConseqTypeFilter = function (conseqType) {
+        var pos = $scope.conseqTypesFilter.indexOf(conseqType);
+
+        if (pos == -1) {
+            $scope.conseqTypesFilter.push(conseqType);
+        }
+        else {
+            $scope.conseqTypesFilter.splice(pos, 1);
+        }
+
+        if($('#'+conseqType).hasClass("btn-primary")){
+            $('#'+conseqType).removeClass("btn-primary");
+        }
+        else{
+            $('#'+conseqType).addClass("btn-primary");
+        }
+    };
+
+    $scope.selectAllChrom = function () {
+
+        $('#variantsChromMultiSelect').children().addClass("btn-primary");
+
+        for (var i in $scope.chromNames) {
+            $scope.chromSelected.push($scope.chromNames[i]);
+        }
+
+//        $('#variantsChromMultiSelect').children().children().prop('checked', true);
+//        for (var i in $scope.chromNames) {
+//            $scope.chromSelected.push($scope.chromNames[i])
+//        }
+    };
+    $scope.deselectAllChrom = function () {
+
+        $('#variantsChromMultiSelect').children().removeClass("btn-primary");
+        $scope.chromSelected = [];
+
+//        $scope.chromSelected = [];
+//        $('#variantsChromMultiSelect').children().children().prop('checked', false);
+    };
+    $scope.selectAllConseqTypeFilter = function () {
+
+        $('#conseqTypeMultiSelect').children().addClass("btn-primary");
+        for (var i in $scope.listOfConseqTypes) {
+            $scope.conseqTypesFilter.push($scope.listOfConseqTypes[i]);
+        }
+
+//        $('#conseqTypeMultiSelect').children().children().prop('checked', true);
+//        for (var i in $scope.listOfConseqTypes) {
+//            $scope.conseqTypesFilter.push($scope.listOfConseqTypes[i]);
+//        }
+    };
+    $scope.deselectAllConseqTypeFilter = function () {
+
+        $('#conseqTypeMultiSelect').children().removeClass("btn-primary");
+        $scope.conseqTypesFilter = [];
+
+//        $scope.conseqTypesFilter = [];
+//        $('#conseqTypeMultiSelect').children().children().prop('checked', false);
+    };
+
+    //-----------EVENTS---------------
+
+    $scope.reload = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.regions = "20:32850000-32860000";
+        $scope.newResult();
+        $scope.regions = "20:32850000-32860000";
+    };
+
+    $scope.clear = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.clearAll();
+    };
+
+
+    $scope.$on('newSpecie', function () {
+
+        if(mySharedService.variantsSpecie.shortName == "hsapiens" || mySharedService.variantsSpecie.shortName == "dmelanogaster"){
+
+            $scope.init();
+            $scope.setSpecie();
+
+            if($scope.specie.shortName == "hsapiens"){
+                $scope.regions = "20:32850000-32860000";
+            }
+            if($scope.specie.shortName == "dmelanogaster"){
+                $scope.regions = "2L:12850000-12855000";
+            }
+            if($scope.specie.shortName == "cfamiliaris"){
+                $scope.regions = "5:11850000-32950000";
+            }
+
+            $scope.setResult(false);
+
+            if(mySharedService.variantsSpecie.shortName == "dmelanogaster"){
+                //disable variation tab
+                if(!$('#variantsGV').hasClass("disabled")){
+                    $('#variantsGV').addClass("disabled");
+                }
+            }
+            else{
+                //enable variation tab
+                if($('#variantsGV').hasClass("disabled")){
+                    $('#variantsGV').removeClass("disabled");
+                }
+            }
+
+        }
+
+    });
+
+    $scope.$on('variantsNewSpecieGV', function () {
+        $scope.init();
+        $scope.specie = mySharedService.variantsSpecieGV;
+        $scope.chromNames = mySharedService.variantsChromNames;
+
+        if($scope.specie.shortName == "hsapiens"){
+            $scope.regions = "13:32889575-32889647";
+        }
+        if($scope.specie.shortName == "mmusculus"){
+            $scope.regions = "1:18421973-18422045";
+        }
+
+        $scope.setResult(true);
+
+
+
+        $scope.$apply();
+//        $scope.setSpecie();
+    });
+    $scope.$on('variantsConseqTypes', function () {
+        $scope.listOfConseqTypes = mySharedService.conseqTypes;
+    });
+
+    $scope.$on('variationsGV:regionFromGV', function (ev, event) {
+
+        if(event.sender.species.text == mySharedService.variantsSpecie.longName){
+            $scope.specie.longName = event.sender.species.text;
+            $scope.regions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
+            $scope.setResult(true);
+
+            if(!$scope.$$phase) {
+                //$digest or $apply
+                $scope.$apply();
+            }
+        }
+    });
+//    $scope.$on('variantsRegionGV', function () {
+//        $scope.specie = mySharedService.variantsSpecieGV;
+//        $scope.regions = mySharedService.regionFromGV;
+//        $scope.setResult();
+//        $scope.$apply();
+//    });
+
+    //tabs
+    $scope.goToTab = function () {
+        $(function () {
+            $('#variantsTabs a:first').tab('show')
+        })
+        $('#variantsTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    };
+
+
+    //--------------------------------------------------
+    //--------------------------------------------------
+    //--------------------------------------------------
+
+
     $scope.toggleTree = [];
     $scope.snpData = {};
     $scope.paginationData = [];
@@ -271,15 +515,17 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
     $scope.clearAll = function(){
         $scope.showAll = false;
     };
-    $scope.clear = function () {
-        $scope.showVariantPanel = false;
-        $scope.showTranscriptVarPanel = false;
-    };
+//    $scope.clear = function () {
+//        $scope.showVariantPanel = false;
+//        $scope.showTranscriptVarPanel = false;
+//        mySharedService.broadcastVariationsClear();
+//    };
 
 
     $scope.setResult = function(fromGV){
-        $scope.snpFilters = mySharedService.snpIdFilter;
-        $scope.conseqTypesFilters = mySharedService.conseqTypesFilter;
+
+        $scope.snpFilters = $scope.snpIdFilter;
+        $scope.conseqTypesFilters = $scope.conseqTypesFilter;
         $scope.selectedSpecie = mySharedService.variantsSpecie;
 
         $scope.paginationData = [];
@@ -302,8 +548,10 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
 
         if($scope.paginationData.length != 0){
 
+            console.log($scope.regions);
+
             $scope.initPagination();
-            $scope.clear();
+//            $scope.clear();
 
             $scope.toggleTree = [];
 
@@ -532,7 +780,6 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
     $scope.downloadTranscriptAsJSON = function () {
         var info = $scope.selectedTranscriptVar;
         delete info.consequenceTypes;
-        debugger
 //        delete info.xrefs;
 //        delete info.tfbs;
         $scope.downloadAsJSON(info, "SNP-"+$scope.selectedVariant.id+"transc-"+info.id);
@@ -644,16 +891,18 @@ var variantsResult = variantsModule.controller('variantsResult', ['$scope','$roo
 //    $scope.$on('variantsNewSpecieGV', function () {
 //        $scope.clearAll();
 //    });
-    $scope.$on('variantsNewResult', function (event, fromGV) {
-        $scope.setResult(fromGV);
-    });
+//    $scope.$on('variantsNewResult', function (event, fromGV) {
+//        $scope.setResult(fromGV);
+//    });
 
-    $scope.$on('variationsClear', function () {
-        $scope.clearAll();
-    });
+//    $scope.$on('variationsClear', function () {
+//        $scope.clearAll();
+//    });
+
+
 
 
 }]);
 
-variantsResult.$inject = ['$scope', 'mySharedService'];
+variantsContr.$inject = ['$scope', 'mySharedService'];
 
