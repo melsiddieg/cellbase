@@ -1,6 +1,4 @@
 var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$rootScope','mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
-
-    //this will be obtained from cellbase
     $scope.species = [
         {longName: "Homo sapiens", shortName: "hsapiens", ensemblName: "Homo_sapiens", data: "gene,variation,regulation"},
         {longName: "Mus musculus", shortName: "mmusculus", ensemblName: "Mus_musculus", data: "gene"},
@@ -22,25 +20,6 @@ var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$ro
         $scope.selectedSpecie = specie.longName;
         mySharedService.broadcastSpecie(specie);
     };
-
-    //------------------EVENTS-------------------
-    //obtain the specie of genome viewer and take the complete information of the specie
-    $scope.$on('genesSpecieGV', function () {
-
-        for(var i in $scope.species){
-            if($scope.species[i].longName == mySharedService.genesSpecieGV){
-                mySharedService.broadcastGenesNew($scope.species[i]);
-            }
-        }
-    });
-    $scope.$on('variantsSpecieGV', function () {
-
-        for(var i in $scope.species){
-            if($scope.species[i].longName == mySharedService.variantsSpecieGV){
-                mySharedService.broadcastVariantsNew($scope.species[i]);
-            }
-        }
-    });
 }]);
 
 optionsBarControl.$inject = ['$scope', 'mySharedService'];

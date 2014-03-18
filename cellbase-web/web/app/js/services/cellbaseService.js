@@ -283,26 +283,19 @@ myApp.service('CellbaseService', function () {
             error: function (jqXHR, textStatus, errorThrown) {
             }
         });
-
-
         return dataGet;
     };
 
-
     //------------- R E G U L A T I O N S -----------------
     this.getAllRegulationsData = function (specie, regions, featureClassFilter) {
-
-
         var dataGet = [];
         var url;
-
         if (featureClassFilter.length == 0) {
             url = host + specie + '/genomic/region/' + regions + '/regulatory?&of=json';
         }
        else {
              url = host + specie + '/genomic/region/' + regions + '/feature?featureType='+ $featureClass.join() +'&of=json';
          }
-
         $.ajax({
             url: url,
             async: false,

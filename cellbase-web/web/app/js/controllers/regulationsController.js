@@ -1,223 +1,17 @@
 var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
 
-    $scope.specie = mySharedService.regulationsSpecie;
+    $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "3:555-622666";
-    $scope.listOfFeatureTypeFilters = [];
+    $scope.completeRegions = "3:555-622666";
     $scope.featureClassFilter = [];
-    $scope.chromNames = mySharedService.chromNames;
 
+    $scope.listOfFeatureTypeFilters = [];
+    $scope.chromNames = mySharedService.getChromNames();
     $scope.typeOfData = "regulation";
-
     $scope.featureClassTypes = ["Histone", "Open Chromatin",  "Transcription Factor", "Polymerase", "microRNA" ];
 
-
-    $scope.init = function(){
-        $scope.deselectAllChrom();
-        $scope.deselectAllFeatureClassFilter();
-        $scope.chromSelected = [];
-        $scope.regions = "";
-        $scope.listOfFeatureTypeFilters = [];
-        $scope.featureClassFilter = [];
-    };
-    //comunicate that a is a new result
-//    $scope.setResult = function () {
-//        mySharedService.broadcastRegulationsNewResult( $scope.chromSelected, $scope.regions,$scope.featureClassFilter);
-//    };
-
-    $scope.newResult = function () {
-        debugger
-//        mySharedService.broadcastRegulationsNewResult( $scope.chromSelected, $scope.regions,$scope.featureClassFilter);
-
-        if($scope.regions!= ""){
-            $scope.regions =  mySharedService.removeSpaces($scope.regions);
-        }
-        //---------
-
-
-        if ($scope.featureClassFilter == "" && $scope.chromSelected.length == 0 && $scope.regions == "") {
-            alert("No data selected");
-        }
-        else {
-
-            mySharedService.regionsAndChromosomesRegulations = $scope.regions;  //por ahora
-            //this.regionsAndChromosomesRegulations = this.mergeChromosomesAndRegions(this.chromSelected, this.regions, this.chromAllData);
-//            $rootScope.$broadcast('regulationsNewResult');
-            debugger
-            $scope.setResult();
-        }
-
-
-    };
-
-
-
-    $scope.setSpecie = function(){
-        $scope.specie = mySharedService.regulationsSpecie;
-        $scope.chromSelected = [];
-        $scope.chromNames = mySharedService.chromNames;
-    };
-    $scope.addChrom = function (chrom) {
-        var pos = $scope.chromSelected.indexOf(chrom);
-
-        if (pos == -1) {
-            $scope.chromSelected.push(chrom);
-        }
-        else {
-            $scope.chromSelected.splice(pos, 1);
-        }
-
-        if($('#regulation'+chrom).hasClass("btn-primary")){
-            $('#regulation'+chrom).removeClass("btn-primary");
-        }
-        else{
-            $('#regulation'+chrom).addClass("btn-primary");
-        }
-
-    };
-    $scope.addFeatureClassFilter = function (featureClass) {
-        var pos = $scope.featureClassFilter.indexOf(featureClass);
-
-        if (pos == -1) {
-            $scope.featureClassFilter.push(featureClass);
-        }
-        else {
-            $scope.featureClassFilter.splice(pos, 1);
-        }
-
-
-        if($("[id='"+featureClass+"']").hasClass("btn-primary")){
-            $("[id='"+featureClass+"']").removeClass("btn-primary");
-        }
-        else{
-            $("[id='"+featureClass+"']").addClass("btn-primary");
-        }
-    };
-
-
-    $scope.selectAllChrom = function () {
-
-        $('#regulationsChromMultiSelect').children().addClass("btn-primary");
-
-        for (var i in $scope.chromNames) {
-            $scope.chromSelected.push($scope.chromNames[i]);
-        }
-
-
-//        $('#regulationsChromMultiSelect').children().children().prop('checked', true);
-//        for (var i in $scope.chromNames) {
-//            $scope.chromSelected.push($scope.chromNames[i])
-//        }
-    };
-    $scope.deselectAllChrom = function () {
-
-        $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
-        $scope.chromSelected = [];
-
-//        $scope.chromSelected = [];
-//        $('#regulationsChromMultiSelect').children().children().prop('checked', false);
-    };
-    $scope.selectAllFeatureClassFilter = function () {
-
-        $('#featureClassMultiSelect').children().addClass("btn-primary");
-
-        for (var i in $scope.listOfFeatureTypeFilters) {
-            $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
-        }
-
-//        $('#featureTypeMultiSelect').children().children().prop('checked', true);
-//        for (var i in $scope.listOfFeatureTypeFilters) {
-//            $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
-//        }
-    };
-    $scope.deselectAllFeatureClassFilter = function () {
-
-        $('#featureClassMultiSelect').children().removeClass("btn-primary");
-
-        $scope.featureClassFilter = [];
-
-//        $scope.featureClassFilter = [];
-//        $('#featureTypeMultiSelect').children().children().prop('checked', false);
-    };
-
-    //-----------EVENTS---------------
-    $scope.reload = function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.regions = "3:555-622666";
-        $scope.chromSelected = [];
-        $scope.setResult();
-    };
-
-    $scope.clear = function () {
-        $scope.init();
-        $scope.setSpecie();
-//        mySharedService.broadcastRegulationsClear();
-        $scope.clearAll();
-    };
-
-
-    $scope.$on('newSpecie', function () {
-
-
-        if(mySharedService.regulationsSpecie.shortName == "hsapiens"){
-            $scope.init();
-            $scope.setSpecie();
-
-            if($scope.specie.shortName == "hsapiens"){
-                $scope.regions = "3:555-622666";
-            }
-
-            $scope.setResult();
-        }
-    });
-
-//    $scope.$on('regulationsNewSpecieGV', function () {
-//        $scope.init();
-//        $scope.specie = mySharedService.regulationsSpecieGV;
-//        $scope.chromNames = mySharedService.regulationsChromNames;
-//
-//        if(!$scope.$$phase) {
-//            //$digest or $apply
-//            $scope.$apply();
-//        }
-//
-////        $scope.setSpecie();
-//    });
-    $scope.$on('regulationsFeatureTypes', function () {
-        $scope.listOfFeatureTypeFilters = mySharedService.featureClassFilter;
-    });
-//    $scope.$on('regulationsRegionGV', function () {
-//        $scope.specie = mySharedService.regulationsSpecieGV;
-//        $scope.regions = mySharedService.regionFromGV;
-//        $scope.setResult();
-//
-//        if(!$scope.$$phase) {
-//            //$digest or $apply
-//        $scope.$apply();
-//        }
-//    });
-//
-    //tabs
-    $scope.goToTab = function () {
-        $(function () {
-            $('#regulationsTabs a:first').tab('show')
-        })
-        $('#regulationsTabs a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    };
-
-
-    //----------------------------------------------------------
-    //----------------------------------------------------------
-    //----------------------------------------------------------
-
-
-
     $scope.toggleTree = []; //array of booleans that will show of hide the elements of the tree
-
     $scope.regulationsData = []; //$scope.regulationsData = {};
 
     $scope.showPagination = false;
@@ -234,8 +28,106 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
 
-
-    $scope.featureClassTypes = ["Histone", "Open Chromatin",  "Transcription Factor", "Polymerase", "microRNA" ];
+    $scope.init = function(){
+        $scope.deselectAllChrom();
+        $scope.deselectAllFeatureClassFilter();
+        $scope.chromSelected = [];
+        $scope.regions = "";
+        $scope.listOfFeatureTypeFilters = [];
+        $scope.featureClassFilter = [];
+    };
+    $scope.newResult = function () {
+        if($scope.regions!= ""){
+            $scope.regions =  mySharedService.removeSpaces($scope.regions);
+        }
+        if ($scope.featureClassFilter == "" && $scope.chromSelected.length == 0 && $scope.regions == "") {
+            alert("No data selected");
+        }
+        else {
+            $scope.completeRegions = $scope.regions;  //por ahora
+            $scope.setResult();
+        }
+    };
+    $scope.setSpecie = function(){
+        $scope.specie = mySharedService.getCurrentSpecie();
+        $scope.chromSelected = [];
+        $scope.chromNames = mySharedService.getChromNames();
+    };
+    $scope.addChrom = function (chrom) {
+        var pos = $scope.chromSelected.indexOf(chrom);
+        if (pos == -1) {
+            $scope.chromSelected.push(chrom);
+        }
+        else {
+            $scope.chromSelected.splice(pos, 1);
+        }
+        if($('#regulation'+chrom).hasClass("btn-primary")){
+            $('#regulation'+chrom).removeClass("btn-primary");
+        }
+        else{
+            $('#regulation'+chrom).addClass("btn-primary");
+        }
+    };
+    $scope.addFeatureClassFilter = function (featureClass) {
+        var pos = $scope.featureClassFilter.indexOf(featureClass);
+        if (pos == -1) {
+            $scope.featureClassFilter.push(featureClass);
+        }
+        else {
+            $scope.featureClassFilter.splice(pos, 1);
+        }
+        if($("[id='"+featureClass+"']").hasClass("btn-primary")){
+            $("[id='"+featureClass+"']").removeClass("btn-primary");
+        }
+        else{
+            $("[id='"+featureClass+"']").addClass("btn-primary");
+        }
+    };
+    $scope.selectAllChrom = function () {
+        $('#regulationsChromMultiSelect').children().addClass("btn-primary");
+        for (var i in $scope.chromNames) {
+            $scope.chromSelected.push($scope.chromNames[i]);
+        }
+    };
+    $scope.deselectAllChrom = function () {
+        $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
+        $scope.chromSelected = [];
+    };
+    $scope.selectAllFeatureClassFilter = function () {
+        $('#featureClassMultiSelect').children().addClass("btn-primary");
+        for (var i in $scope.listOfFeatureTypeFilters) {
+            $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
+        }
+    };
+    $scope.deselectAllFeatureClassFilter = function () {
+        $('#featureClassMultiSelect').children().removeClass("btn-primary");
+        $scope.featureClassFilter = [];
+    };
+    $scope.reload = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.regions = "3:555-622666";
+        $scope.chromSelected = [];
+        $scope.setResult();
+    };
+    $scope.clear = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.clearAll();
+    };
+    $scope.$on('newSpecie', function () {
+        if(mySharedService.getCurrentSpecie().shortName == "hsapiens"){
+            $scope.init();
+            $scope.setSpecie();
+            if($scope.specie.shortName == "hsapiens"){
+                $scope.regions = "3:555-622666";
+            }
+            $scope.setResult();
+        }
+    });
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
 
     //========================Pagination==================================
     $scope.goToFirstPage = function () {
@@ -333,7 +225,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
                 $scope.lastPages = true;
             }
         }
-//        $scope.collapseAllGenesTree();
         $scope.disableAndEnablePaginationButtons(selectedPage);
         $scope.obtainPaginationLimits(selectedPage);
     };
@@ -365,7 +256,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
                 $scope.paginationData.push($scope.regulationsData[i]);
             }
         }
-
     };
     $scope.initPagination = function () {
         $scope.paginationData = [];
@@ -415,7 +305,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
                     $scope.paginationData.push($scope.regulationsData[i]);
                 }
             }
-
             $scope.firstPages = false;
             $scope.previousPage = false;
             $scope.nextPage = true;
@@ -431,30 +320,27 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.disableThirdNumber = false;
         }
     };
-
     $scope.clearAll = function(){
         $scope.showAll = false;
     };
-
     $scope.setResult = function(){
-        $scope.featureClassFilters = $scope.featureClassFilter;
-        $scope.selectedSpecie = mySharedService.regulationsSpecie;
-
-        $scope.regulationsData = []; //$scope.regulationsData = {};
-
+        $scope.regulationsData = [];
         var featureClassFilter = [];
         var arrayOfRegulations = [];
 
-        if ($scope.featureClassFilters.length == 0) {
-            $scope.regulationsData= CellbaseService.getAllRegulationsData($scope.selectedSpecie.shortName, mySharedService.regionsAndChromosomesRegulations, []);
+        if ($scope.featureClassFilter.length == 0) {
+            $scope.regulationsData= CellbaseService.getAllRegulationsData($scope.specie.shortName, $scope.completeRegions, []);
             $scope.separateFeatureClassTypes();
         }
+        //not implemented yet in CellBase
+//        else{
+//            $scope.regulationsData= CellbaseService.getAllRegulationsData($scope.specie.shortName, $scope.completeRegions, $scope.featureClassFilter);
+//        }
         $scope.numResults = $scope.regulationsData.length; //$scope.numResults = arrayOfRegulations.length;
         $scope.initPagination();
 
         if($scope.numResults != 0){
             $scope.toggleTree = [];
-
             $scope.toggleTree.push(true);
 
             for(var i=1;i< 5; i++){
@@ -466,17 +352,12 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             alert("No results with this data");
         }
     };
-
-
-
     $scope.separateFeatureClassTypes = function () {
-
         $scope.histone = [];
         $scope.openChromatin = [];
         $scope.transcriptionFactor = [];
         $scope.polymerase = [];
         $scope.microRNA = [];
-
         $scope.dataNames={};
 
         $scope.dataNames.histone=[];
@@ -486,63 +367,46 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.dataNames.microRNA=[];
 
         $scope.showHistoneNames = true;
-
         var pos;
-
         for(var i in $scope.regulationsData){
-            if($scope.regulationsData[i].featureClass == "Histone")
-            {
+            if($scope.regulationsData[i].featureClass == "Histone"){
                 $scope.histone.push($scope.regulationsData[i]);
-
                 pos = $scope.dataNames.histone.indexOf($scope.regulationsData[i].name);
                 if (pos == -1) {
                     $scope.dataNames.histone.push($scope.regulationsData[i].name);
                 }
-
             }
-            if($scope.regulationsData[i].featureClass == "Open Chromatin")
-            {
+            if($scope.regulationsData[i].featureClass == "Open Chromatin"){
                 $scope.openChromatin.push($scope.regulationsData[i]);
-
                 pos = $scope.dataNames.openChromatin.indexOf($scope.regulationsData[i].name);
                 if (pos == -1) {
                     $scope.dataNames.openChromatin.push($scope.regulationsData[i].name);
                 }
             }
-            if($scope.regulationsData[i].featureClass == "Transcription Factor")
-            {
+            if($scope.regulationsData[i].featureClass == "Transcription Factor"){
                 $scope.transcriptionFactor.push($scope.regulationsData[i]);
-
                 pos = $scope.dataNames.transcriptionFactor.indexOf($scope.regulationsData[i].name);
                 if (pos == -1) {
                     $scope.dataNames.transcriptionFactor.push($scope.regulationsData[i].name);
                 }
             }
-            if($scope.regulationsData[i].featureClass == "Polymerase")
-            {
+            if($scope.regulationsData[i].featureClass == "Polymerase"){
                 $scope.polymerase.push($scope.regulationsData[i]);
-
                 pos = $scope.dataNames.polymerase.indexOf($scope.regulationsData[i].name);
                 if (pos == -1) {
                     $scope.dataNames.polymerase.push($scope.regulationsData[i].name);
                 }
-
             }
-            if($scope.regulationsData[i].featureClass == "microRNA")
-            {
+            if($scope.regulationsData[i].featureClass == "microRNA"){
                 $scope.microRNA.push($scope.regulationsData[i]);
-
                 pos = $scope.dataNames.microRNA.indexOf($scope.regulationsData[i].name);
                 if (pos == -1) {
                     $scope.dataNames.microRNA.push($scope.regulationsData[i].name);
                 }
             }
         }
-
     };
-
     //===================== tree events ========================
-
     //-------------Show Type Info-----------------
     $scope.showHistoneInfo = function () {
         $scope.showTypeData(0,$scope.histone);
@@ -560,7 +424,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.showTypeData(4,$scope.microRNA);
     };
     $scope.showTypeData = function (index, data) {
-
         if($scope.toggleTree[index]){
             $scope.toggleTree[index] = false;
         }
@@ -570,8 +433,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.regulationsData = data;
         $scope.initPagination();
     };
-
-
     //--------------Show Name Info--------------
     $scope.showHistoneNameInfo = function (name) {
         $scope.showTypeNameData($scope.histone, name);
@@ -588,10 +449,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.showMicroRNANamesInfo = function (name) {
         $scope.showTypeNameData($scope.microRNA, name);
     };
-
     $scope.showTypeNameData = function (data, name) {
         $scope.regulationsData = [];
-
         for (var i in data){
             if(data[i].name == name){
                 $scope.regulationsData.push(data[i]);
@@ -599,12 +458,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         }
         $scope.initPagination();
     };
-
     $scope.showSelectedRegulation = function (geneId, transcriptName) {
-
     };
-
-    console.log($scope.regions);
     //--------the initial result----------
     $scope.setResult();
 
@@ -612,14 +467,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.$on('regulationsClear', function () {
         $scope.clearAll();
     });
-
-//    $scope.$on('regulationsNewResult', function () {
-//        $scope.setResult();
-//    });
-
-
-
-
 }]);
 
 regulationsContr.$inject = ['$scope', 'mySharedService'];
