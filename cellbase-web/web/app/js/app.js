@@ -64,9 +64,7 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
     //------------------events----------------------
     sharedService.broadcastSpecie = function(specie){
         this.currentSpecie = specie;
-
         this.chromNames = this.getChromNamesSpecie(specie);
-
         if(specie.data.search("variation") == -1){
             if(!$('#variationDiv').hasClass("disabled")){
                 $('#variationDiv').addClass("disabled");
@@ -90,7 +88,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
         $('#myTab a:first').tab('show');
         $rootScope.$broadcast('newSpecie');
     };
-
 
     //-------------- Cheks functions ------------------
     sharedService.removeSpaces = function (data) {
