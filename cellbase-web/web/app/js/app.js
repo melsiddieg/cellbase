@@ -10,7 +10,6 @@ var myApp = angular.module('cellbaseWeb',
     ]);
 
 myApp.factory('mySharedService', function($rootScope, CellbaseService){
-
     var sharedService = {};
     sharedService.currentSpecie =  {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
 
@@ -28,7 +27,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
         }
         return chromNames;
     };
-
     //sort the chromosomes, to use the function sort, it has to put a zero in the left if the number have one digit
     sharedService.sortChromosomes = function (chromNames) {
         for (var i in chromNames) {
@@ -50,7 +48,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
     //the initial chromosomes
     sharedService.chromNames = sharedService.getChromNamesSpecie(sharedService.currentSpecie);
 
-
     sharedService.getChromNames = function(){
         return this.chromNames;
     };
@@ -60,8 +57,7 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
     sharedService.getCurrentSpecie = function(){
         return this.currentSpecie;
     };
-
-    //------------------events----------------------
+    //-----------------Events--------------------
     sharedService.broadcastSpecie = function(specie){
         this.currentSpecie = specie;
         this.chromNames = this.getChromNamesSpecie(specie);
@@ -88,7 +84,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
         $('#myTab a:first').tab('show');
         $rootScope.$broadcast('newSpecie');
     };
-
     //-------------- Cheks functions ------------------
     sharedService.removeSpaces = function (data) {
         var espacio = data.search(" ");
@@ -136,7 +131,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
         }
         return completeRegion;
     };
-
     sharedService.checkCorrectRegions = function (regions, chromAllData) {
         var regions = regions.split(",");
         var correctRegions = [];
@@ -209,7 +203,6 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
         }
         return correctRegions.join();
     };
-
     sharedService.checkRegionInRange = function (chrom, start, end, chromAllData) {
         for (var i in chromAllData) {
             if (chromAllData[i].name == chrom) {

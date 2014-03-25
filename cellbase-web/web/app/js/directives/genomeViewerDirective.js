@@ -7,7 +7,6 @@ genesModule.directive('genomeViewer', function () {
             targetId: '@id'
         },
         controller: function($scope,$rootScope,mySharedService) {
-
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";
 
@@ -16,7 +15,6 @@ genesModule.directive('genomeViewer', function () {
                     $scope.genomeViewer.setRegion(new Region(region));
                 }
             });
-
             /* region and species configuration */
             var region = new Region({
                 chromosome: "13",
@@ -95,9 +93,7 @@ genesModule.directive('genomeViewer', function () {
 //                            drawChromosomePanel: false,
                 //            drawRegionOverviewPanel: false
             }); //the div must exist
-
             $scope.genomeViewer.draw();
-
             tracks = [];
             $scope.sequence = new SequenceTrack({
                 targetId: null,
@@ -105,9 +101,7 @@ genesModule.directive('genomeViewer', function () {
                 //        title: 'Sequence',
                 height: 30,
                 visibleRegionSize: 200,
-
                 renderer: new SequenceRenderer(),
-
                 dataAdapter: new SequenceAdapter({
                     category: "genomic",
                     subCategory: "region",
@@ -115,7 +109,6 @@ genesModule.directive('genomeViewer', function () {
                     species:  $scope.genomeViewer.species
                 })
             });
-
             tracks.push($scope.sequence);
 
             $scope.gene = new GeneTrack({

@@ -1,22 +1,6 @@
 myApp.service('CellbaseService', function () {
-
     var host = 'http://ws-beta.bioinfo.cipf.es/cellbase/rest/v3/';
 
-    ////Not implemeneted yet
-    this.getSpecies = function () {
-        var dataGet;
-        $.ajax({
-            url: 'http://ws-beta.bioinfo.cipf.es/cellbase/rest/v3/?of=json',
-            async: false,
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                dataGet = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            }
-        });
-        return dataGet;
-    };
     //obtain the chromosomes of a specie
     this.getSpecieChromosomes = function (specie) {
         var dataGet;
@@ -187,18 +171,27 @@ myApp.service('CellbaseService', function () {
         });
         return dataGet;
     };
-    this.getCountSNPData = function (specie, regions) {
-        var numResults;
+    this.getCountSNPData = function (specie, regions, conseqTypesFilter, snpIdFilter) {
+        var numResults = 0;
         var url;
+
+        if (conseqTypesFilter.length == 0 && snpIdFilter.length == 0) {
             url = host + specie + '/genomic/region/' + regions + '/snp?count=true';
+        }
+        else if(snpIdFilter.length != 0){
+            url = host + specie + '/feature/snp/' + snpIdFilter + '/info?count=true';
+        }
+        else{
+            url = host + specie + '/genomic/region/' + regions + '/snp?&consequence_type=' + conseqTypesFilter.join()+'&count=true';
+        }
         $.ajax({
             url: url,
             async: false,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
 
-                if(data != null){
-                    numResults = data.response[0].result[0].count;
+                for(var i in data.response){
+                        numResults = numResults + data.response[i].result[0].count;
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

@@ -12,9 +12,7 @@ var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$ro
         {longName: "Anopheles gambiae", shortName: "agambiae", data: "gene"},
         {longName: "Plasmodium falciparum", shortName: "pfalciparum", data: "gene"}
     ];
-
     $scope.selectedSpecie = "Homo sapiens";
-
     //comunicate the new specie selected
     $scope.setSelectedSpecie = function (specie) {
         $scope.selectedSpecie = specie.longName;

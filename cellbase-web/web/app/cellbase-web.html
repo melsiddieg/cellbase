@@ -5,23 +5,12 @@
     <title>Cellbase web</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
-    <!--<link href="../vendor/bootstrap-custom.css" rel="stylesheet">-->
-    <!--<link href="../vendor/bootstrap-custom6.css" rel="stylesheet">-->
-    <!--<link href="../vendor/bootstrap-custom3.css" rel="stylesheet">-->
-    <!--<link href="../vendor/bootstrap-custom2.css" rel="stylesheet">-->
     <link href="../vendor/bootstrap-3.0.2/css/bootstrap.css" rel="stylesheet">
 
     <!--========================genome-viewer==============================-->
-    <!--===================================================================-->
     <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/vendor/jquery.qtip.min.css"/>
     <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/vendor/jquery.qtip.min.css"/>
     <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/vendor/ChemDoodleWeb.css"/>
-    <!--<link type="text/css" rel="stylesheet" href="../../../../jsorolla/vendor/bootstrap-scoped-dist/css/bootstrap.min.css"/>-->
-    <!--<link type="text/css" rel="stylesheet" href="../../../../jsorolla/vendor/typeahead.js-bootstrap.css"/>-->
-
-
-
-
 
     <!-- CSS from Genome Viewer -->
     <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/styles/css/style.css"/>
@@ -47,11 +36,9 @@
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/data-adapter/cellbase-adapter.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/data-adapter/sequence-adapter.js"></script>
 
-
     <!-- js-common-libs ensemble manager -->
     <script type="text/javascript" src="../../lib/jsorolla/src/lib/ensembl/ensembl-manager.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/data-adapter/ensembl-adapter.js"></script>
-
 
     <!-- GENOME VIEWER SCRIPS   -->
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/gv-config.js"></script>
@@ -61,7 +48,6 @@
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/cache/feature-cache.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/cache/feature-chunk-cache.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/cache/memory-store.js"></script>
-
 
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/navigation-bar.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/karyotype-panel.js"></script>
@@ -79,24 +65,19 @@
 
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/renderer.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/feature-renderer.js"></script>
-    <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/feature-cluster-renderer.js"></script>
+    <script type="text/javascript"
+            src="../../lib/jsorolla/src/genome-viewer/renderers/feature-cluster-renderer.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/sequence-renderer.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/histogram-renderer.js"></script>
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/renderers/gene-renderer.js"></script>
 
-
-
     <script type="text/javascript" src="../../lib/jsorolla/src/genome-viewer/genome-viewer.js"></script>
 
     <!--========================network-viewer==============================-->
-    <!--===================================================================-->
-
     <script type="text/javascript" src="http://cdn.sencha.io/ext/gpl/4.2.1/ext-all.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/vendor/jquery.simplecolorpicker.css" />
+    <link type="text/css" rel="stylesheet" href="../../lib/jsorolla/vendor/jquery.simplecolorpicker.css"/>
     <script type="text/javascript" src="../../lib/jsorolla/vendor/jquery.simplecolorpicker.js"></script>
-
-    <!--<link type="text/css" rel="stylesheet" href="../../lib/jsorolla/styles/css/style.css" />-->
 
     <script type="text/javascript" src="../../lib/jsorolla/src/network-viewer/nv-config.js"></script>
 
@@ -122,19 +103,18 @@
 
     <script type="text/javascript" src="../../lib/jsorolla/src/network-viewer/network-viewer.js"></script>
 
-
     <!--========================cellbase-web==============================-->
-    <!--===================================================================-->
+
     <link href="css/cellbase-web.css" rel="stylesheet">
     <script src="js/app.js"></script>
     <script src="js/services/cellbaseService.js"></script>
 
     <!--======================DIRECTIVES======================-->
-    <!--<script src="js/directives/optionsBarDirective.js"></script>-->
     <script src="js/directives/chromosomesDirective.js"></script>
     <script src="js/directives/genesDirectives/genesListDirective.js"></script>
     <script src="js/directives/variantsDirectives/variantsListDirective.js"></script>
     <script src="js/directives/regulationsDirectives/regulationsListDirective.js"></script>
+    <script src="js/directives/paginationDirective.js"></script>
 
     <script src="js/directives/genomeViewerDirective.js"></script>
     <script src="js/directives/networkViewerDirective.js"></script>
@@ -161,33 +141,20 @@
 
     <!--======================CONTROLLERS======================-->
     <script src="js/controllers/optionsBarController.js"></script>
-    <!----------------genes controllers--------------->
     <script src="js/controllers/genesController.js"></script>
-
-    <!----------------variants controllers--------------->
     <script src="js/controllers/variantsController.js"></script>
-
-    <!----------------regulation controllers--------------->
     <script src="js/controllers/regulationsController.js"></script>
 
-
-
     <style type="text/css">
-        .bootstrap{
+        .bootstrap {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
         }
-        body{
+        body {
             font-size: 13px;
             background-color: #cdd1d9;
-            /*background-color: #C4E4EE;*/
 
         }
     </style>
-
-    <link href='http://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
-
 </head>
 <body>
 <div id="cellbase-web" class="bootstrap">
@@ -195,82 +162,54 @@
     <div class="page-header ocb-h-50">
         <h1>
             <img src="title.png" alt="title" class="ocb-title">
-            Web Application <small> A data mining tool for biologists</small>
+            Web Application
+            <small> A data mining tool for biologists</small>
         </h1>
-
     </div>
-    <!--
-        The following code creates the Navigation Bar. It uses plain HTML with Bootstrap
-    -->
     <div ng-controller="optionsBarController">
         <nav class="navbar navbar-inverse ocb-margin-b-10" role="navigation">
             <div class="container-fluid">
-
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#" ng-click="new()">Home</a>
                 </div>
-
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a class="dropdown-toggle ocb-cursor-pointer" data-toggle="dropdown">
                                 {{selectedSpecie}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a ng-repeat="specie in species" ng-click="setSelectedSpecie(specie)">{{specie.longName}}</a></li>
+                                <li><a ng-repeat="specie in species" ng-click="setSelectedSpecie(specie)">{{specie.longName}}</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                    <!--<ul class="nav nav-pills ocb-border-b-darkgrey ocb-margin-l-r-five ocb-content-width" id="myTab">-->
                     <ul class="nav navbar-nav" id="myTab">
-                        <li class="active"><a href="#genes" >Gene</a></li>
-                        <li id="variationDiv"><a href="#variation" >Variation</a></li>
+                        <li class="active"><a href="#genes">Gene</a></li>
+                        <li id="variationDiv"><a href="#variation">Variation</a></li>
                         <li id="regulationDiv"><a href="#regulation">Regulation</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-
-
-    <!--<div class="tab-content ocb-margin-five ocb-inline-block ocb-content-width">-->
     <div class="tab-content">
-
         <div class="tab-pane active" id="genes" ng-controller="genesController">
             <div id="genesSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
-                <div genes-select ></div>
+                <div genes-select></div>
             </div>
             <div id="genesResultDiv" class="col-sm-9 col-md-10 col-lg-10">
-                <div genes-result ></div>
+                <div genes-result></div>
             </div>
         </div>
-        <!--<div class="tab-pane active" id="genes">-->
-            <!--<div id="genesSelectDiv" class="col-sm-3 col-md-2 col-lg-2" ng-controller="genesSelect">-->
-                <!--<div genes-select ></div>-->
-            <!--</div>-->
-            <!--<div id="genesResultDiv" class="col-sm-9 col-md-10 col-lg-10" ng-controller="genesResult">-->
-                <!--<div genes-result ></div>-->
-            <!--</div>-->
-
-        <!--</div>-->
-
         <div class="tab-pane" id="variation" ng-controller="variantsController">
-            <div id="variatoinsSelectDiv" class="col-sm-3 col-md-2 col-lg-2" >
+            <div id="variatoinsSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
                 <div variants-select></div>
             </div>
             <div id="variationsResultDiv" class="col-sm-9 col-md-10 col-lg-10">
                 <div variants-result></div>
             </div>
         </div>
-        <!--<div class="tab-pane" id="variation">-->
-            <!--<div id="variatoinsSelectDiv" class="col-sm-3 col-md-2 col-lg-2" ng-controller="variantsSelect">-->
-                <!--<div variants-select></div>-->
-            <!--</div>-->
-            <!--<div id="variationsResultDiv" class="col-sm-9 col-md-10 col-lg-10"  ng-controller="variantsResult">-->
-                <!--<div variants-result></div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="tab-pane" id="regulation"  ng-controller="regulationsController">
+        <div class="tab-pane" id="regulation" ng-controller="regulationsController">
             <div id="regulationsSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
                 <div regulations-select></div>
             </div>
@@ -278,32 +217,19 @@
                 <div regulations-result></div>
             </div>
         </div>
-        <!--<div class="tab-pane" id="regulation">-->
-            <!--<div id="regulationsSelectDiv" class="col-sm-3 col-md-2 col-lg-2" ng-controller="regulationsSelect">-->
-                <!--<div regulations-select></div>-->
-            <!--</div>-->
-            <!--<div id="regulationsResultDiv" class="col-sm-9 col-md-10 col-lg-10" ng-controller="regulationsResult">-->
-                <!--<div regulations-result></div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-
     </div>
 </div>
 <script>
-
     $(function () {
         $('#myTab a:first').tab('show')
     })
     $('#myTab a').click(function (e) {
         e.preventDefault()
-
-//        console.log($(this).parent().hasClass("disabled"));
-
-        if(!$(this).parent().hasClass("disabled")){
+        if (!$(this).parent().hasClass("disabled")) {
             $(this).tab('show')
         }
     })
 </script>
+
 </body>
 </html>

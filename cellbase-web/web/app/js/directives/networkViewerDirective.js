@@ -7,26 +7,18 @@ genesModule.directive('genesNetworkViewer', function () {
             targetId: '@id'
         },
         controller: function ($scope, $rootScope) {
-
             $scope.$on($scope.targetId + ':createStarGraph', function (event, centerVertex, verticesLinked) {
-
-//                debugger
                 $scope.networkViewer.clean();
-
                 var graph = new Graph();
-
                 var center = new Vertex({
                     id: centerVertex
                 });
                 graph.addVertex(center);
-
-
                 for (var i in verticesLinked) {
                     var other = new Vertex({
                         id: verticesLinked[i]
                     });
                     graph.addVertex(other);
-
                     /** create edge **/
                     var edgeId = centerVertex + '_' + 'pp' + '_' + verticesLinked[i];
                     var edge = new Edge({
@@ -39,19 +31,12 @@ genesModule.directive('genesNetworkViewer', function () {
                     });
                     graph.addEdge(edge);
                 }
-
                 $scope.networkViewer.setGraph(graph);
                 $scope.networkViewer.setLayout('Force directed');
-
-
             });
-
-
-
             $scope.$on($scope.targetId + ':clear', function () {
                 $scope.networkViewer.clean();
             });
-
                 $scope.networkViewer = new NetworkViewer({
                 targetId: $scope.targetId,
                 autoRender: true,
@@ -60,9 +45,6 @@ genesModule.directive('genesNetworkViewer', function () {
             });
             $scope.networkViewer.draw();
             $scope.networkViewer.clean();
-
-            //TEST resference
-            nvtest = $scope.networkViewer;
         }
     }
 });

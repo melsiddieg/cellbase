@@ -1,65 +1,67 @@
 <div ng-show="showAll">
-
     <div id="genesResultTree" class="col-sm-4 col-md-3 col-lg-3">
-
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <!--<span class="ocb-margin-r-5">Results</span>-->
-                <span><strong>Results </strong></span>
+                <span><strong>Results</strong></span>
                 <span class="badge"> {{numResults}}</span>
                 <button type="button" class="btn btn-info btn-xs pull-right" ng-click="expandAllGenesTree()">
-                    <span class="glyphicon glyphicon-resize-full"></span>  </button>
+                    <span class="glyphicon glyphicon-resize-full"></span></button>
                 <button type="button" class="btn btn-info btn-xs pull-right" ng-click="collapseAllGenesTree()">
-                    <span class="glyphicon glyphicon-resize-small"></span> </button>
+                    <span class="glyphicon glyphicon-resize-small"></span></button>
             </div>
-
-            <div class="panel-body">
+            <div class="panel-body" ng-show="showList">
                 <!-------------- genes tree --------------->
                 <div class="ocb-scroll-tree">
-                    <witched-genes-list page-data="paginationData" toggle="toggleTree" show-first-level-data="showGene" show-second-level-data="showTranscript"></witched-genes-list>
+                    <witched-genes-list page-data="paginationData" toggle="toggleTree" show-first-level-data="showGene"
+                                        show-second-level-data="showTranscript"></witched-genes-list>
+                </div>
 
-                </div>
-                <!----------------pagination----------------->
-                <div class="ocb-text-center">
-                    <div ng-show="showPagination"
-                         class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">
-                        <button ng-show="firstPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-click="goToFirstPage()"><<
-                        </button>
-                        <button ng-show="previousPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-click="goPreviousPage()"><
-                        </button>
-                        <button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-class="{'disabled': disableFirstNumber}"
-                                ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}
-                        </button>
-                        <button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-class="{'disabled': disableSecondNumber}"
-                                ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}
-                        </button>
-                        <button ng-show="thirdNumber" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-class="{'disabled': disableThirdNumber}" ng-click="goToNumberPage(paginationNumbers[2])"
-                                >{{paginationNumbers[2]}}
-                        </button>
-                        <button ng-show="nextPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-click="goNextPage()">>
-                        </button>
-                        <button ng-show="lastPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                                ng-click="goToLastPage()">>>
-                        </button>
-                    </div>
-                </div>
+
+                <!---------------pagination--------------- -->
+                <!--<div class="ocb-text-center">-->
+                    <!--<div ng-show="showPagination"-->
+                         <!--class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">-->
+                        <!--<button ng-show="firstPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-click="goToFirstPage()"><<-->
+                        <!--</button>-->
+                        <!--<button ng-show="previousPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-click="goPreviousPage()"><-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-class="{'disabled': disableFirstNumber}"-->
+                                <!--ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-class="{'disabled': disableSecondNumber}"-->
+                                <!--ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}-->
+                        <!--</button>-->
+                        <!--<button ng-show="thirdNumber" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-class="{'disabled': disableThirdNumber}" ng-click="goToNumberPage(paginationNumbers[2])"-->
+                                <!-->{{paginationNumbers[2]}}-->
+                        <!--</button>-->
+                        <!--<button ng-show="nextPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-click="goNextPage()">>-->
+                        <!--</button>-->
+                        <!--<button ng-show="lastPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
+                                <!--ng-click="goToLastPage()">>>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--pagination test-->
+                <pagination ident="genesPagination" info="genesAndTranscriptsData"> </pagination>
+
             </div>
         </div>
     </div>
     <div id="genesResultPanels" class="col-sm-8 col-md-9 col-lg-9">
-
         <ul class="nav nav-tabs" id="genesResultTab">
             <li class="active"><a href="#genesOverviewInfo" data-toggle="tab">Overview Info</a></li>
-            <li id="genesGVtab"><a href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a></li>
+            <li id="genesGVtab"><a href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
+            </li>
             <li id=""><a href="#genesNVtab" ng-click="changeResultTab()" data-toggle="tab">Network Viewer</a></li>
         </ul>
-
         <div class="tab-content">
             <div class="panel tab-pane active ocb-width_765" id="genesOverviewInfo">
                 <!-----------------------gene and transcripts panel--------------------------->
@@ -72,11 +74,10 @@
                             Download Gene as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="downloadGeneAsJSON()">JSON</a></li>
-                            <li><a href="#" ng-click="downloadGeneTabulated()">tabulated text</a></li>
+                            <li><a ng-click="downloadGeneTabulated()">tab file</a></li>
+                            <li><a ng-click="downloadGeneAsJSON()">JSON file</a></li>
                         </ul>
                     </div>
-
                     <div class="ocb-panels-data-border" ng-show="!geneInfo">
                         <gene-and-transc gene="selectedGene" specie="selectedSpecie"
                                          on-click="showTanscriptFromTable"></gene-and-transc>
@@ -92,12 +93,10 @@
                             Download Transcript as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="downloadTranscriptAsJSON()">JSON</a></li>
-                            <li><a href="#" ng-click="downloadTranscriptTabulated()">tabulated text</a></li>
+                            <li><a ng-click="downloadTranscriptTabulated()">tab file</a></li>
+                            <li><a ng-click="downloadTranscriptAsJSON()">JSON file</a></li>
                         </ul>
                     </div>
-
-
                     <div ng-show="!transcriptInfo" class="ocb-panels-data-border">
                         <transcripts transcript="selectedTranscript" specie="selectedSpecie"
                                      tab-function="goToTab"></transcripts>
@@ -107,13 +106,9 @@
             <div class="tab-pane ocb-bgc-white ocb-gv-minw" id="genes_GV">
                 <genome-viewer id="genesGV" class="ocb-gv-w"></genome-viewer>
             </div>
-
             <div class="panel tab-pane" id="genesNVtab">
                 <genes-network-viewer id="genesNV" class="ocb-nv-h-w"></genes-network-viewer>
             </div>
-
         </div>
     </div>
 </div>
-
-

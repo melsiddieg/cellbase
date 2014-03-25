@@ -1,5 +1,4 @@
 var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
-
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "3:555-622666";
@@ -27,6 +26,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableFirstNumber = true;
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
+
+    $scope.showList = true;
 
     $scope.init = function(){
         $scope.deselectAllChrom();
@@ -108,7 +109,7 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.setSpecie();
         $scope.regions = "3:555-622666";
         $scope.chromSelected = [];
-        $scope.setResult();
+        $scope.newResult();
     };
     $scope.clear = function () {
         $scope.init();
@@ -125,10 +126,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.setResult();
         }
     });
-    //----------------------------------------------------------
-    //----------------------------------------------------------
-    //----------------------------------------------------------
-
     //========================Pagination==================================
     $scope.goToFirstPage = function () {
         $scope.paginationNumbers[0] = 1;
@@ -324,6 +321,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.showAll = false;
     };
     $scope.setResult = function(){
+
+        $scope.showList = true;
         $scope.regulationsData = [];
         var featureClassFilter = [];
         var arrayOfRegulations = [];
@@ -349,7 +348,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.showAll = true;
         }
         else{
-            alert("No results with this data");
+//            alert("No results with this data");
+            $scope.showList = false;
         }
     };
     $scope.separateFeatureClassTypes = function () {
@@ -458,8 +458,22 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         }
         $scope.initPagination();
     };
-    $scope.showSelectedRegulation = function (geneId, transcriptName) {
+
+
+
+    $scope.expandAllRegulationsTree = function () {
+        for (var i in $scope.toggleTree) {
+            $scope.toggleTree[i] = true;
+        }
+
     };
+    $scope.collapseAllRegulationsTree = function () {
+        for (var i in $scope.toggleTree) {
+            $scope.toggleTree[i] = false;
+        }
+    };
+
+
     //--------the initial result----------
     $scope.setResult();
 

@@ -1,119 +1,117 @@
 <div ng-show="showAll" class="ocb-inline-block">
-
-<div id="variantsResultTree" class="col-sm-4 col-md-3 col-lg-3">
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <!--<span class="ocb-margin-r-5">Results</span>-->
-            <span><strong>Results </strong></span>
-            <span class="badge"> {{snpDataSize}}</span>
-            <button type="button" class="btn btn-info btn-xs pull-right" ng-click="expandAllVariantsTree()">
-                <span class="glyphicon glyphicon-resize-full"></span>  </button>
-            <button type="button" class="btn btn-info btn-xs pull-right" ng-click="collapseAllVariantsTree()">
-                <span class="glyphicon glyphicon-resize-small"></span> </button>
-        </div>
-
-        <div class="panel-body">
-            <!-------------- genes tree --------------->
-            <div class="ocb-scroll-tree">
-
-                <witched-variants-list page-data="paginationData" toggle="toggleTree" show-first-level-data="showVariant" show-second-level-data="showTranscriptVar"></witched-variants-list>
-
+    <div id="variantsResultTree" class="col-sm-4 col-md-3 col-lg-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><strong>Results </strong></span>
+                <span class="badge"> {{snpDataSize}}</span>
+                <button type="button" class="btn btn-info btn-xs pull-right" ng-click="expandAllVariantsTree()">
+                    <span class="glyphicon glyphicon-resize-full"></span></button>
+                <button type="button" class="btn btn-info btn-xs pull-right" ng-click="collapseAllVariantsTree()">
+                    <span class="glyphicon glyphicon-resize-small"></span></button>
             </div>
-            <!----------------pagination----------------->
-            <div class="ocb-text-center" >
-                <div ng-show="showPagination"
-                     class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">
-                    <button ng-show="firstPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-click="goToFirstPage()"><<
-                    </button>
-                    <button ng-show="previousPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-click="goPreviousPage()"><
-                    </button>
-                    <button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-class="{'disabled': disableFirstNumber}"
-                            ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}
-                    </button>
-                    <button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-class="{'disabled': disableSecondNumber}"
-                            ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}
-                    </button>
-                    <button ng-show="thirdNumber" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-class="{'disabled': disableThirdNumber}" ng-click="goToNumberPage(paginationNumbers[2])"
-                            >{{paginationNumbers[2]}}
-                    </button>
-                    <button ng-show="nextPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-click="goNextPage()">>
-                    </button>
-                    <button ng-show="lastPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
-                            ng-click="goToLastPage()">>>
-                    </button>
+            <div class="panel-body">
+                <!-------------- genes tree --------------->
+                <div class="ocb-scroll-tree">
+                    <witched-variants-list page-data="paginationData" toggle="toggleTree"
+                                           show-first-level-data="showVariant"
+                                           show-second-level-data="showTranscriptVar"></witched-variants-list>
+
+                </div>
+                <!----------------pagination----------------->
+                <div class="ocb-text-center">
+                    <div ng-show="showPagination"
+                         class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">
+                        <button ng-show="firstPages" type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-click="goToFirstPage()"><<
+                        </button>
+                        <button ng-show="previousPage" type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-click="goPreviousPage()"><
+                        </button>
+                        <button type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-class="{'disabled': disableFirstNumber}"
+                                ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}
+                        </button>
+                        <button type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-class="{'disabled': disableSecondNumber}"
+                                ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}
+                        </button>
+                        <button ng-show="thirdNumber" type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-class="{'disabled': disableThirdNumber}"
+                                ng-click="goToNumberPage(paginationNumbers[2])"
+                                >{{paginationNumbers[2]}}
+                        </button>
+                        <button ng-show="nextPage" type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-click="goNextPage()">>
+                        </button>
+                        <button ng-show="lastPages" type="button"
+                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                ng-click="goToLastPage()">>>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div id="variantsResultPanels" class="col-sm-8 col-md-9 col-lg-9">
-
-    <ul class="nav nav-tabs" id="variantsResultTab">
-        <li class="active"><a href="#variantsOverviewInfo" data-toggle="tab">Overview Info</a></li>
-        <li id="variantsGV"><a href="#variants_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="panel tab-pane active ocb-width_765" id="variantsOverviewInfo">
-            <!-----------------------variant and transcriptsVar panel--------------------------->
-            <div class="list-group" ng-show="showVariantPanel">
-                <a class="list-group-item active ocb-text-center">
-                    Variation information
-                </a>
-                <div class="btn-group pull-right ocb-marg-5">
-                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
-                        Download Variant as <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" ng-click="downloadVariantAsJSON()">JSON</a></li>
-                        <li><a href="#" ng-click="downloadVariantTabulated()">tabulated text</a></li>
-                    </ul>
+    <div id="variantsResultPanels" class="col-sm-8 col-md-9 col-lg-9">
+        <ul class="nav nav-tabs" id="variantsResultTab">
+            <li class="active"><a href="#variantsOverviewInfo" data-toggle="tab">Overview Info</a></li>
+            <li id="variantsGV"><a href="#variants_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="panel tab-pane active ocb-width_765" id="variantsOverviewInfo">
+                <!-----------------------variant and transcriptsVar panel--------------------------->
+                <div class="list-group" ng-show="showVariantPanel">
+                    <a class="list-group-item active ocb-text-center">
+                        Variation information
+                    </a>
+                    <div class="btn-group pull-right ocb-marg-5">
+                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Download Variant as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ng-click="downloadVariantTabulated()">tab file</a></li>
+                            <li><a ng-click="downloadVariantAsJSON()">JSON file</a></li>
+                        </ul>
+                    </div>
+                    <div class="ocb-panels-data-border" ng-show="!geneInfo">
+                        <variants-and-transc-var variant="selectedVariant"
+                                                 specie="selectedSpecie"
+                                                 on-click="showTanscriptVarFromTable"
+                                                 tab-function="goToTab"></variants-and-transc-var>
+                    </div>
                 </div>
+                <!-------------------------transcriptVar panel---------------------------->
+                <div class="list-group" ng-show="showTranscriptVarPanel">
+                    <a class="list-group-item active ocb-text-center">
+                        Transcript Variations information
+                    </a>
 
-                <div class="ocb-panels-data-border" ng-show="!geneInfo">
-                    <variants-and-transc-var variant="selectedVariant"
-                                             specie="selectedSpecie"
-                                             on-click="showTanscriptVarFromTable"
-                                             tab-function="goToTab"></variants-and-transc-var>
-                </div>
-            </div>
-            <!-------------------------transcriptVar panel---------------------------->
-            <div class="list-group" ng-show="showTranscriptVarPanel">
-                <a class="list-group-item active ocb-text-center">
-                    Transcript Variations information
-                </a>
-                <div class="btn-group pull-right ocb-marg-5">
-                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
-                        Download Transcript as <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" ng-click="downloadTranscriptAsJSON()">JSON</a></li>
-                        <li><a href="#" ng-click="downloadTranscriptTabulated()">tabulated text</a></li>
-                    </ul>
-                </div>
-
-                <div ng-show="!transcriptVarInfo" class="ocb-panels-data-border">
-                    <transcripts-var info="selectedTranscriptVar"
-                                     specie="selectedSpecie"
-                                     tab-function="goToTab"></transcripts-var>
+                    <div class="btn-group pull-right ocb-marg-5">
+                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Download Transcript as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ng-click="downloadTranscriptTabulated()">tab file</a></li>
+                            <li><a ng-click="downloadTranscriptAsJSON()">JSON file</a></li>
+                        </ul>
+                    </div>
+                    <div ng-show="!transcriptVarInfo" class="ocb-panels-data-border">
+                        <transcripts-var info="selectedTranscriptVar"
+                                         specie="selectedSpecie"
+                                         tab-function="goToTab"></transcripts-var>
+                    </div>
                 </div>
             </div>
+            <div class="tab-pane ocb-gv-w ocb-bgc-white  ocb-gv-minw" id="variants_GV">
+                <genome-viewer id="variationsGV" class="ocb-gv-w"></genome-viewer>
+            </div>
         </div>
-
-        <div class="tab-pane ocb-gv-w ocb-bgc-white  ocb-gv-minw" id="variants_GV" >
-            <genome-viewer id="variationsGV" class="ocb-gv-w"></genome-viewer>
-        </div>
-
     </div>
 </div>
-
-</div>
-
-

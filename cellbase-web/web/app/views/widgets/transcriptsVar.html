@@ -8,14 +8,12 @@
         <p class="ocb-line-height-5">
             <span class="text-primary  ocb-text-width-220">alleleString:</span>
             <span class="ocb-text-width-220"> {{data.alleleString}}</span>
-
             <span class="text-primary ocb-text-width-180">distanceToTranscript:</span>
             <span> {{data.distanceToTranscript}}</span>
         </p>
         <p class="ocb-line-height-5">
             <span class="text-primary ocb-text-width-220">somatic:</span>
             <span class="ocb-text-width-220"> {{data.somatic}}</span>
-
             <span class="text-primary ocb-text-width-180">codon-peptide AlleleString:</span>
             <span> {{data.codonAlleleString}}-{{data.peptideAlleleString}}</span>
         </p>
@@ -24,22 +22,18 @@
             <span class="ocb-text-width-220">
                 <span ng-repeat="ct in data.consequenceTypes"> {{ct}}  </span>
             </span>
-
             <span class="text-primary ocb-text-width-180">translation (start-end):</span>
             <span> {{data.translationStart}}-{{data.translationEnd}}</span>
-
         </p>
         <p class="ocb-line-height-5">
             <span class="text-primary ocb-text-width-220">cdsStart-cdsEnd:</span>
             <span class="ocb-text-width-220"> {{data.cdsStart}}-{{data.cdsEnd}}</span>
-
             <span class="text-primary ocb-text-width-180">polyphen Prediction-Score:</span>
             <span> {{data.polyphenPrediction}}-{{data.polyphenScore}}</span>
         </p>
         <p class="ocb-line-height-5">
             <span class="text-primary ocb-text-width-220">cdnaStart-cdnEnd:</span>
             <span class="ocb-text-width-220"> {{data.cdnaStart}}-{{data.cdnEnd}}</span>
-
             <span class="text-primary ocb-text-width-180">SIFT Prediction-Score:</span>
             <span> {{data.siftPrediction}}-{{data.siftScore}}</span>
         </p>
@@ -48,7 +42,6 @@
             <span> {{data.hgvsGenomic}}-{{data.hgvsTranscript}}-{{data.hgvsProtein}} </span>
         </p>
     </h5>
-
 </div>
 
 

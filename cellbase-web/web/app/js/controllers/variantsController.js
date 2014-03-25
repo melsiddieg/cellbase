@@ -1,5 +1,4 @@
 var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
-
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "20:32850000-32860000";
@@ -10,7 +9,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.listOfConseqTypes = [];
     $scope.typeOfData = "variants";
     $scope.chromNames = mySharedService.getChromNames();
-
 
     $scope.toggleTree = [];
     $scope.snpData = {};
@@ -36,12 +34,13 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
 
+    $scope.showList = true;
+
     $scope.init = function(){
         $scope.deselectAllChrom();
         $scope.deselectAllConseqTypeFilter();
         $scope.chromSelected = [];
         $scope.regions = "";
-//        $scope.listOfConseqTypes = [];
         $scope.snpIdFilter ="";
         $scope.conseqTypesFilter = [];
     };
@@ -116,7 +115,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $('#conseqTypeMultiSelect').children().removeClass("btn-primary");
         $scope.conseqTypesFilter = [];
     };
-
     //-----------EVENTS---------------
     $scope.reload = function () {
         $scope.init();
@@ -171,22 +169,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             }
         }
     });
-    //tabs
-    $scope.goToTab = function () {
-        $(function () {
-            $('#variantsTabs a:first').tab('show')
-        })
-        $('#variantsTabs a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    };
-
-    //--------------------------------------------------
-    //--------------------------------------------------
-    //--------------------------------------------------
-
-
     //========================Pagination==================================
     $scope.obtainPaginationData = function (page){
         $scope.lastPage = page;
@@ -332,7 +314,8 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         }
     };
     $scope.initPagination = function () {
-        $scope.snpDataSize = CellbaseService.getCountSNPData($scope.specie.shortName, $scope.completeRegions);
+        $scope.snpDataSize = CellbaseService.getCountSNPData($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter, $scope.snpIdFilter);
+
         $scope.maxNumberPagination = Math.ceil( $scope.snpDataSize / $scope.numDataPerPage);
         //  0 --> 10
         if ( $scope.snpDataSize <= $scope.numDataPerPage) {
@@ -382,6 +365,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.showAll = false;
     };
     $scope.setResult = function(fromGV){
+        $scope.showList = true;
         $scope.paginationData = [];
         $scope.snpDataCache = {};
 
@@ -408,9 +392,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         }
         else{
             $scope.paginationData = [];
+            $scope.showList = false;
             $scope.snpDataSize=0;
         }
-
     };
     //save thee correct results and alert the incorrect
     $scope.checkSNPFilter = function(snpFilter){
@@ -439,7 +423,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             alert(messageError);
         }
     };
-    //===================== tree events ========================
+    //===================== Tree events ========================
     $scope.showVariant = function (variantId, index, fromGV){
         if($scope.toggleTree[index]){
             $scope.toggleTree[index] = false;
@@ -456,7 +440,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.showSelectedVariant(variantId);
         $scope.showSelectedTranscriptVar(variantId, transcriptId);
     };
-    //show variant panel
     $scope.showSelectedVariant = function (variantId, fromGV) {
         if ($scope.lastDataShow != variantId) {
             $scope.lastDataShow = variantId;
@@ -474,7 +457,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end,$scope.specie.shortName);
         }
     };
-    //show transcripts panel
     $scope.showSelectedTranscriptVar = function (variantId, transcriptId, fromGV) {
         var transcripts;
         if ($scope.lastDataShow != variantId) {
@@ -515,28 +497,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.obtainConsequenceTypes = function () {
         $scope.listOfConseqTypes = CellbaseService.getConsequenceTypes($scope.specie.shortName);
     };
-    //tabs
-    $scope.goToTab = function () {
-        $(function () {
-            $('#transcriptsVarTab a:first').tab('show')
-        })
-        $('#transcriptsVarTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    };
-    $scope.changeResultTab = function () {
-        $(function () {
-            $('#variantsResultTab a:first').tab('show')
-        })
-        $('#variantsResultTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    };
-
-    $scope.setResult(false);
-    $scope.obtainConsequenceTypes();
     //  --------------download functions-------------------
     $scope.downloadVariantAsJSON = function () {
         var info = $scope.selectedVariant;
@@ -634,7 +594,10 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $('#variantsGV').addClass("disabled");
         }
     });
+
+    $scope.setResult(false);
+    $scope.obtainConsequenceTypes();
+
 }]);
 
 variantsContr.$inject = ['$scope', 'mySharedService'];
-

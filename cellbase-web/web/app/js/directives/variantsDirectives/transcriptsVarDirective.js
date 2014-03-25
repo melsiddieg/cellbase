@@ -6,7 +6,6 @@ variantsModule.directive('transcriptsVar', function () {
         scope: {
             data: '=info',
             specieName: '=specie'
-//            changeTab: '=tabFunction'
         },
         templateUrl: './views/widgets/transcriptsVar.html'
     };
