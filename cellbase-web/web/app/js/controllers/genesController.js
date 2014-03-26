@@ -328,7 +328,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.setResult(false);
     });
     $scope.$on('genesGV:regionFromGV', function (ev, event) {
-        if (event.sender.species.text == $scope.specie.longName) {
+        if (typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName) {
             $scope.specie.longName = event.sender.species.text;
             $scope.completeRegions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
             $scope.setResult(true);
