@@ -354,9 +354,19 @@
 .ocb-border-b{
     border-bottom:1px solid dimgrey;
 }
+
+
+
 .ocb-gv-w{
     width:820px;
 }
+.ocb-gv-w2{
+    width:920px;
+}
+
+
+
+
 
 .ocb-gv-minw{
     min-width:830px;

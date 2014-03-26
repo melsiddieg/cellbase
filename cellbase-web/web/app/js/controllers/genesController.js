@@ -677,9 +677,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.newResult();
 
 
-//    $('#genesGV').attr('width','860px'); //no existe aun
-//    $('#ocb-gv-w').css('width', '=870px');
-
 }]);
 
 genesContr.$inject = ['$scope', 'mySharedService'];

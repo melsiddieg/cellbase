@@ -6,6 +6,36 @@ genesModule.directive('genomeViewer', function () {
         scope: {
             targetId: '@id'
         },
+        link: function(scope, element, attrs) {
+
+//            element.css({
+//                width: '880px'
+//            });
+//
+//            element.css({
+//                width: element.parent()[0].offsetWidth + 'px'
+//            });
+//
+//                element.css('width', '=880px');
+//                element.css('width', '880px');
+
+
+//                element.css({'width': '880px'});
+//            $scope.$apply();
+
+//            element.width("280px");
+
+
+//           ------------- change the css class-----------
+//            element.className = "ocb-gv-w2";
+//            element.className.replace("ocb-gv-w", "ocb-gv-w2");
+
+
+            element.removeClass('ocb-gv-w');
+            element.addClass('ocb-gv-w2');
+
+
+        },
         controller: function($scope,$rootScope,mySharedService) {
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";
