@@ -314,7 +314,7 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $timeout(function () {
 
         $scope.showList = true;
-        $scope.regulationsData = [];
+//        $scope.regulationsData = [];
         var featureClassFilter = [];
         var arrayOfRegulations = [];
 
@@ -446,6 +446,7 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     };
     $scope.showTypeNameData = function (data, name) {
         $scope.regulationsData = [];
+
         for (var i in data){
             if(data[i].name == name){
                 $scope.regulationsData.push(data[i]);

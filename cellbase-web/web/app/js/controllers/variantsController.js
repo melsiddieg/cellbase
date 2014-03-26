@@ -137,7 +137,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         }
     });
     $scope.$on('variationsGV:regionFromGV', function (ev, event) {
-        if(event.sender.species.text == $scope.specie.longName){
+        if(typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName){
             $scope.specie.longName = event.sender.species.text;
             $scope.regions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
             $scope.setResult(true);
