@@ -1,4 +1,4 @@
-var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService','$timeout', function ($scope, $rootScope, mySharedService, CellbaseService,$timeout) {
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "20:32850000-32860000";
@@ -35,6 +35,10 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.disableThirdNumber = false;
 
     $scope.showList = true;
+
+    $scope.setLoading = function (loading) {
+        $scope.isLoading = loading;
+    }
 
     $scope.init = function(){
         $scope.deselectAllChrom();
@@ -73,12 +77,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         else {
             $scope.chromSelected.splice(pos, 1);
         }
-        if($('#variants'+chrom).hasClass("btn-primary")){
-            $('#variants'+chrom).removeClass("btn-primary");
-        }
-        else{
-            $('#variants'+chrom).addClass("btn-primary");
-        }
     };
     $scope.addConseqTypeFilter = function (conseqType) {
         var pos = $scope.conseqTypesFilter.indexOf(conseqType);
@@ -88,31 +86,21 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         else {
             $scope.conseqTypesFilter.splice(pos, 1);
         }
-        if($('#'+conseqType).hasClass("btn-primary")){
-            $('#'+conseqType).removeClass("btn-primary");
-        }
-        else{
-            $('#'+conseqType).addClass("btn-primary");
-        }
     };
     $scope.selectAllChrom = function () {
-        $('#variantsChromMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.chromNames) {
             $scope.chromSelected.push($scope.chromNames[i]);
         }
     };
     $scope.deselectAllChrom = function () {
-        $('#variantsChromMultiSelect').children().removeClass("btn-primary");
         $scope.chromSelected = [];
     };
     $scope.selectAllConseqTypeFilter = function () {
-        $('#conseqTypeMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.listOfConseqTypes) {
             $scope.conseqTypesFilter.push($scope.listOfConseqTypes[i]);
         }
     };
     $scope.deselectAllConseqTypeFilter = function () {
-        $('#conseqTypeMultiSelect').children().removeClass("btn-primary");
         $scope.conseqTypesFilter = [];
     };
     //-----------EVENTS---------------
@@ -128,7 +116,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.setSpecie();
         $scope.clearAll();
     };
+
     $scope.$on('newSpecie', function () {
+
         if(mySharedService.getCurrentSpecie().shortName == "hsapiens" || mySharedService.getCurrentSpecie().shortName == "dmelanogaster"){
             $scope.init();
             $scope.setSpecie();
@@ -139,22 +129,11 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             if($scope.specie.shortName == "dmelanogaster"){
                 $scope.regions = "2L:12850000-12855000";
             }
-            if($scope.specie.shortName == "cfamiliaris"){
-                $scope.regions = "5:11850000-32950000";
-            }
+//            if($scope.specie.shortName == "cfamiliaris"){
+//                $scope.regions = "5:11850000-32950000";
+//            }
+
             $scope.setResult(false);
-            if(mySharedService.getCurrentSpecie().shortName == "dmelanogaster"){
-                //disable variation tab
-                if(!$('#variantsGV').hasClass("disabled")){
-                    $('#variantsGV').addClass("disabled");
-                }
-            }
-            else{
-                //enable variation tab
-                if($('#variantsGV').hasClass("disabled")){
-                    $('#variantsGV').removeClass("disabled");
-                }
-            }
         }
     });
     $scope.$on('variationsGV:regionFromGV', function (ev, event) {
@@ -365,6 +344,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.showAll = false;
     };
     $scope.setResult = function(fromGV){
+
+        $scope.setLoading(true);
+        $timeout(function () {
         $scope.showList = true;
         $scope.paginationData = [];
         $scope.snpDataCache = {};
@@ -395,6 +377,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.showList = false;
             $scope.snpDataSize=0;
         }
+            $scope.setLoading(false);
+
+        }, 300);
     };
     //save thee correct results and alert the incorrect
     $scope.checkSNPFilter = function(snpFilter){
@@ -498,102 +483,11 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.listOfConseqTypes = CellbaseService.getConsequenceTypes($scope.specie.shortName);
     };
     //  --------------download functions-------------------
-    $scope.downloadVariantAsJSON = function () {
-        var info = $scope.selectedVariant;
-        delete info.transcriptVariations;
-        $scope.downloadAsJSON(info, "SNP-"+info.id);
-    };
-    $scope.downloadTranscriptAsJSON = function () {
-        var info = $scope.selectedTranscriptVar;
-        delete info.consequenceTypes;
-        $scope.downloadAsJSON(info, "SNP-"+$scope.selectedVariant.id+"transc-"+info.id);
-    };
-    $scope.downloadAsJSON=function(info, title){
-        var str = JSON.stringify(info);
-        var a = $('<a></a>')[0];
-
-        $(a).attr('href','data:application/json,'+encodeURIComponent(str));
-        $(a).attr('download',title+'json');
-        a.click();
-    };
-    $scope.downloadVariantTabulated = function () {
-        var info = $scope.selectedVariant;
-        delete info.transcriptVariations;
-        $scope.downloadTabulated(info, "SNP-"+info.id);
-    };
-    $scope.downloadTranscriptTabulated = function () {
-        var info = $scope.selectedTranscriptVar;
-        delete info.consequenceTypes;
-        $scope.downloadTabulated(info, "SNP-"+$scope.selectedVariant.id+"transc-"+info.id);
-    };
     $scope.convertToTabulate=function(info){
-        var max_sep = 0;
-        var j= 0;
-        var max = Object.keys(info).length;
-        var attrValueLength = 0;
-        var str = "";
-
-        for(var attr in info){
-            if(j!=Object.keys(info).length-1){
-                str = str + attr + "   ";
-                if(isNaN(info[attr])){
-                    attrValueLength = info[attr].length;
-                }
-                else{
-                    attrValueLength = info[attr].toString().length;
-                }
-                if(attrValueLength > attr.length){
-                    max_sep = attrValueLength - attr.length;
-                    for(var i=0;i< max_sep;i++){
-                        str = str + " ";
-                    }
-                }
-            }else{
-                str = str + attr;
-            }
-
-            j++;
-        }
-        str = str + "\n";
-
-        for(var attr in info){
-            str = str + info[attr] + "   ";
-
-            if(isNaN(info[attr])){
-                attrValueLength = info[attr].length;
-            }
-            else{
-                attrValueLength = info[attr].toString().length;
-            }
-            if(attr.length > attrValueLength){
-                max_sep = attr.length - attrValueLength;
-
-                for(var i=0;i< max_sep;i++){
-                    str = str + " ";
-                }
-            }
-        }
-        return str
+        return mySharedService.convertToTabulate(info);
     };
-    $scope.downloadTabulated=function(info, title){
-        var str = "";
-        var a = $('<a></a>')[0];
-        str = $scope.convertToTabulate(info);
 
-        $(a).attr('href','data:text/plain,'+encodeURIComponent(str));
-        $(a).attr('download',title+'json');
-        a.click();
-    };
     //--------------EVENTS-------------------
-    $scope.$on('newSpecie', function () {
-        $scope.obtainConsequenceTypes();
-        if(mySharedService.getCurrentSpecie().shortName == "hsapiens" || mySharedService.getCurrentSpecie().shortName == "mmusculus"){
-            $('#variantsGV').removeClass("disabled");
-        }
-        else{
-            $('#variantsGV').addClass("disabled");
-        }
-    });
 
     $scope.setResult(false);
     $scope.obtainConsequenceTypes();

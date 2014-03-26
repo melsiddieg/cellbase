@@ -4,8 +4,18 @@ genesModule.directive('genomeViewer', function () {
         replace: false,
         transclude: true,
         scope: {
-            targetId: '@id'
+            targetId: '@id',
+            species: '=species',
+            r: '=region'
         },
+//        link: function(scope, element, attrs) {
+
+//            $('#genes_GV > div').css('width', 900);
+
+//            element.removeClass('ocb-gv-w');
+//            element.addClass('ocb-gv-w2');
+//        },
+
         controller: function($scope,$rootScope,mySharedService) {
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";

@@ -1,4 +1,4 @@
-var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService','$timeout', function ($scope, $rootScope, mySharedService, CellbaseService,$timeout) {
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "3:555-622666";
@@ -28,6 +28,10 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableThirdNumber = false;
 
     $scope.showList = true;
+
+    $scope.setLoading = function (loading) {
+        $scope.isLoading = loading;
+    }
 
     $scope.init = function(){
         $scope.deselectAllChrom();
@@ -62,12 +66,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         else {
             $scope.chromSelected.splice(pos, 1);
         }
-        if($('#regulation'+chrom).hasClass("btn-primary")){
-            $('#regulation'+chrom).removeClass("btn-primary");
-        }
-        else{
-            $('#regulation'+chrom).addClass("btn-primary");
-        }
     };
     $scope.addFeatureClassFilter = function (featureClass) {
         var pos = $scope.featureClassFilter.indexOf(featureClass);
@@ -77,31 +75,21 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         else {
             $scope.featureClassFilter.splice(pos, 1);
         }
-        if($("[id='"+featureClass+"']").hasClass("btn-primary")){
-            $("[id='"+featureClass+"']").removeClass("btn-primary");
-        }
-        else{
-            $("[id='"+featureClass+"']").addClass("btn-primary");
-        }
     };
     $scope.selectAllChrom = function () {
-        $('#regulationsChromMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.chromNames) {
             $scope.chromSelected.push($scope.chromNames[i]);
         }
     };
     $scope.deselectAllChrom = function () {
-        $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
         $scope.chromSelected = [];
     };
     $scope.selectAllFeatureClassFilter = function () {
-        $('#featureClassMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.listOfFeatureTypeFilters) {
             $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
         }
     };
     $scope.deselectAllFeatureClassFilter = function () {
-        $('#featureClassMultiSelect').children().removeClass("btn-primary");
         $scope.featureClassFilter = [];
     };
     $scope.reload = function () {
@@ -322,6 +310,9 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     };
     $scope.setResult = function(){
 
+        $scope.setLoading(true);
+        $timeout(function () {
+
         $scope.showList = true;
         $scope.regulationsData = [];
         var featureClassFilter = [];
@@ -351,6 +342,10 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
 //            alert("No results with this data");
             $scope.showList = false;
         }
+
+        $scope.setLoading(false);
+    }, 300);
+
     };
     $scope.separateFeatureClassTypes = function () {
         $scope.histone = [];
@@ -458,9 +453,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         }
         $scope.initPagination();
     };
-
-
-
     $scope.expandAllRegulationsTree = function () {
         for (var i in $scope.toggleTree) {
             $scope.toggleTree[i] = true;
@@ -472,8 +464,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.toggleTree[i] = false;
         }
     };
-
-
     //--------the initial result----------
     $scope.setResult();
 
