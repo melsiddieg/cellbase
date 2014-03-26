@@ -76,8 +76,8 @@
                             Download Variant as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ng-click="downloadVariantTabulated()">tab file</a></li>
-                            <li><a ng-click="downloadVariantAsJSON()">JSON file</a></li>
+                            <li><a id="variantTabFile">tab file</a></li>
+                            <li><a id="variantJSONFile" >JSON file</a></li>
                         </ul>
                     </div>
                     <div class="ocb-panels-data-border" ng-show="!geneInfo">
@@ -98,8 +98,8 @@
                             Download Transcript as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ng-click="downloadTranscriptTabulated()">tab file</a></li>
-                            <li><a ng-click="downloadTranscriptAsJSON()">JSON file</a></li>
+                            <li><a id="transcriptVarTabFile">tab file</a></li>
+                            <li><a id="transcriptVarJSONFile">JSON file</a></li>
                         </ul>
                     </div>
                     <div ng-show="!transcriptVarInfo" class="ocb-panels-data-border">

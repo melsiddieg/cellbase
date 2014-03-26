@@ -6,50 +6,21 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.completeRegions = "20:32850000-33500000,2:12850000-13120000";
     $scope.genesIdFilter = "";
     $scope.biotypesFilter = [];
-
     $scope.chromNames = mySharedService.getChromNames();
     $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
     $scope.typeOfData = "genes";
-
     $scope.toggleTree = [];
     $scope.genesAndTranscriptsData = {};
     $scope.paginationData = [];
-
     $scope.firstGeneId = "";
     $scope.showAll = true;
     $scope.showGenePanel = false;
     $scope.showTranscriptPanel = false;
-
     $scope.showList = true;
 
-
-//    ------------------------------------------
     $scope.setLoading = function (loading) {
         $scope.isLoading = loading;
     }
-//    $scope.loadFeed = function() {
-//        $scope.setLoading(true);
-//    }
-//
-//    $scope.loadFeed();
-//    $scope.setLoading(true);
-//    ------------------------------------------
-
-
-//    $scope.showPagination = false;
-//    $scope.firstPages = false;
-//    $scope.previousPage = false;
-//    $scope.nextPage = true;
-//    $scope.lastPages = true;
-//    $scope.paginationNumbers = [1, 2, 3];
-//    $scope.maxNumberPagination;
-//    $scope.numDataPerPage = 10;
-//    $scope.showPagination = false;
-//    $scope.lastPage = 1;
-//    $scope.disableFirstNumber = true;
-//    $scope.disableSecondNumber = false;
-//    $scope.disableThirdNumber = false;
-
     $scope.init = function () {
         $scope.deselectAllChrom();
         $scope.deselectAllBiotypeFilter();
@@ -58,12 +29,10 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.genesIdFilter = "";
         $scope.biotypesFilter = [];
     };
-
     $scope.clearResults = function () {
         $scope.init();
         $scope.clearAll();
     };
-
     $scope.setSpecie = function () {
         $scope.specie = mySharedService.getCurrentSpecie();
         $scope.chromSelected = [];
@@ -78,12 +47,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         else {
             $scope.chromSelected.splice(pos, 1);
         }
-        if ($('#genes' + chrom).hasClass("btn-primary")) {
-            $('#genes' + chrom).removeClass("btn-primary");
-        }
-        else {
-            $('#genes' + chrom).addClass("btn-primary");
-        }
     };
     $scope.addBiotypeFilter = function (biotype) {
         var pos = $scope.biotypesFilter.indexOf(biotype);
@@ -93,31 +56,21 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         else {
             $scope.biotypesFilter.splice(pos, 1);
         }
-        if ($('#' + biotype).hasClass("btn-primary")) {
-            $('#' + biotype).removeClass("btn-primary");
-        }
-        else {
-            $('#' + biotype).addClass("btn-primary");
-        }
     };
     $scope.selectAllChrom = function () {
-        $('#genesChromMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.chromNames) {
             $scope.chromSelected.push($scope.chromNames[i]);
         }
     };
     $scope.deselectAllChrom = function () {
-        $('#genesChromMultiSelect').children().removeClass("btn-primary");
         $scope.chromSelected = [];
     };
     $scope.selectAllBiotypeFilter = function () {
-        $('#BiotypesMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.listOfbiotypeFilters) {
             $scope.biotypesFilter.push($scope.listOfbiotypeFilters[i]);
         }
     };
     $scope.deselectAllBiotypeFilter = function () {
-        $('#BiotypesMultiSelect').children().removeClass("btn-primary");
         $scope.biotypesFilter = [];
     };
     $scope.reload = function () {
@@ -126,249 +79,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.regions = "20:32850000-33500000,2:12850000-13120000";
         $scope.newResult();
     };
-    //---------------events-------------------
-    $scope.$on('newSpecie', function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
-        if ($scope.specie.shortName == "hsapiens") {
-            $scope.regions = "20:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "mmusculus") {
-            $scope.regions = "2:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "rnorvegicus") {
-            $scope.regions = "6:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "drerio") {
-            $scope.regions = "1:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "dmelanogaster") {
-            $scope.regions = "2L:12850000-13500000";
-        }
-        if ($scope.specie.shortName == "celegans") {
-            $scope.regions = "V:12850000-13500000";
-        }
-        if ($scope.specie.shortName == "scerevisiae") {
-            $scope.regions = "III:286620-316620";
-        }
-        if ($scope.specie.shortName == "cfamiliaris") {
-            $scope.regions = "5:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "sscrofa") {
-            $scope.regions = "3:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "agambiae") {
-            $scope.regions = "2L:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "pfalciparum") {
-            $scope.regions = "11:1938337-2038337";
-        }
-        $scope.setResult(false);
-    });
-    $scope.$on('genesGV:regionFromGV', function (ev, event) {
-        if (event.sender.species.text == $scope.specie.longName) {
-            $scope.specie.longName = event.sender.species.text;
-            $scope.completeRegions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
-            $scope.setResult(true);
-            if (!$scope.$$phase) {
-                //$digest or $apply
-                $scope.$apply();
-            }
-        }
-    });
-    $scope.$on('genesPagination:updatePaginationData', function (ev, data) {
-        $scope.paginationData = data;
-    });
-    $scope.$on('genesPagination:collapseTreeElements', function (ev, data) {
-        $scope.collapseAllGenesTree();
-    });
-    //========================Pagination==================================
-//    $scope.goToFirstPage = function () {
-//        $scope.paginationNumbers[0] = 1;
-//        $scope.paginationNumbers[1] = 2;
-//        $scope.paginationNumbers[2] = 3;
-//        $scope.firstPages = false;
-//        $scope.previousPage = false;
-//        $scope.nextPage = true;
-//        $scope.lastPages = true;
-//        $scope.collapseAllGenesTree();
-//        $scope.disableAndEnablePaginationButtons(1);
-//        $scope.obtainPaginationLimits(1);
-//    };
-//    $scope.goToLastPage = function () {
-//        $scope.paginationNumbers[0] = $scope.maxNumberPagination - 2;
-//        $scope.paginationNumbers[1] = $scope.maxNumberPagination - 1;
-//        $scope.paginationNumbers[2] = $scope.maxNumberPagination;
-//        $scope.firstPages = true;
-//        $scope.previousPage = true;
-//        $scope.nextPage = false;
-//        $scope.lastPages = false;
-//        $scope.collapseAllGenesTree();
-//        $scope.disableAndEnablePaginationButtons($scope.maxNumberPagination);
-//        $scope.obtainPaginationLimits($scope.maxNumberPagination);
-//    };
-//    $scope.goPreviousPage = function () {
-//        var page = $scope.lastPage - 1;
-//        $scope.firstPages = true;
-//        $scope.previousPage = true;
-//        $scope.nextPage = true;
-//        $scope.lastPages = true;
-//
-//        if (page == 1) {
-//            $scope.firstPages = false;
-//            $scope.previousPage = false;
-//            $scope.paginationNumbers[0] = 1;
-//            $scope.paginationNumbers[1] = 2;
-//            $scope.paginationNumbers[2] = 3;
-//        }
-//        else if ($scope.paginationNumbers[0] != page && $scope.paginationNumbers[1] != page && $scope.paginationNumbers[2] != page) {
-//            $scope.paginationNumbers[0] = page - 2;
-//            $scope.paginationNumbers[1] = page - 1;
-//            $scope.paginationNumbers[2] = page;
-//        }
-//        $scope.collapseAllGenesTree();
-//        $scope.disableAndEnablePaginationButtons(page);
-//        $scope.obtainPaginationLimits(page);
-//    };
-//    $scope.goNextPage = function () {
-//        var page = $scope.lastPage + 1;
-//        $scope.firstPages = true;
-//        $scope.previousPage = true;
-//        $scope.nextPage = true;
-//        $scope.lastPages = true;
-//
-//        if (page == $scope.maxNumberPagination) {
-//            $scope.nextPage = false;
-//            $scope.lastPages = false;
-//            $scope.paginationNumbers[0] = page - 2;
-//            $scope.paginationNumbers[1] = page - 1;
-//            $scope.paginationNumbers[2] = page;
-//        }
-//        else if ($scope.paginationNumbers[0] != page && $scope.paginationNumbers[1] != page && $scope.paginationNumbers[2] != page) {
-//            $scope.paginationNumbers[0] = page;
-//            $scope.paginationNumbers[1] = page + 1;
-//            $scope.paginationNumbers[2] = page + 2;
-//        }
-//        $scope.collapseAllGenesTree();
-//        $scope.disableAndEnablePaginationButtons(page);
-//        $scope.obtainPaginationLimits(page);
-//    };
-//    $scope.goToNumberPage = function (selectedPage) {
-//        if (!$scope.simplePagination) {
-//            if (selectedPage == $scope.maxNumberPagination) {
-//                $scope.nextPage = false;
-//                $scope.lastPages = false;
-//                $scope.firstPages = true;
-//                $scope.previousPage = true;
-//            }
-//            else if (selectedPage == 1) {
-//                $scope.firstPages = false;
-//                $scope.previousPage = false;
-//                $scope.nextPage = true;
-//                $scope.lastPages = true;
-//            }
-//            else {
-//                $scope.firstPages = true;
-//                $scope.previousPage = true;
-//                $scope.nextPage = true;
-//                $scope.lastPages = true;
-//            }
-//        }
-//        $scope.collapseAllGenesTree();
-//        $scope.disableAndEnablePaginationButtons(selectedPage);
-//        $scope.obtainPaginationLimits(selectedPage);
-//    };
-//    $scope.disableAndEnablePaginationButtons = function (page) {
-//        if ($scope.paginationNumbers[0] == page) {
-//            $scope.disableFirstNumber = true;
-//            $scope.disableSecondNumber = false;
-//            $scope.disableThirdNumber = false;
-//        }
-//        else if ($scope.paginationNumbers[1] == page) {
-//            $scope.disableSecondNumber = true;
-//            $scope.disableFirstNumber = false;
-//            $scope.disableThirdNumber = false;
-//        }
-//        else {
-//            $scope.disableThirdNumber = true;
-//            $scope.disableSecondNumber = false;
-//            $scope.disableFirstNumber = false;
-//        }
-//    };
-//    $scope.obtainPaginationLimits = function (page) {
-//        $scope.lastPage = page;
-//        var ini = (page - 1) * $scope.numDataPerPage;
-//        $scope.paginationData = [];
-//        var geneId;
-//        for (var i = ini; i < ini + $scope.numDataPerPage; i++) {
-//            geneId = Object.keys($scope.genesAndTranscriptsData)[i];
-//            if (Object.keys($scope.genesAndTranscriptsData)[i] != null) {
-//                $scope.paginationData.push($scope.genesAndTranscriptsData[geneId]);
-//            }
-//        }
-//    };
-//    $scope.initPagination = function () {
-//        $scope.paginationData = [];
-//        $scope.maxNumberPagination = Math.ceil(Object.keys($scope.genesAndTranscriptsData).length / $scope.numDataPerPage);
-//
-//        //  0 --> 10
-//        if (Object.keys($scope.genesAndTranscriptsData).length <= $scope.numDataPerPage) {
-//            for (var i in $scope.genesAndTranscriptsData) {
-//                $scope.paginationData.push($scope.genesAndTranscriptsData[i]);
-//            }
-//            $scope.showPagination = false;
-//        }
-//        // 11 --> 20
-//        else if (Object.keys($scope.genesAndTranscriptsData).length <= ($scope.numDataPerPage * 2)) {
-//            $scope.simplePagination = true;
-//            for (var i = 0; i < $scope.numDataPerPage; i++) {
-//                geneId = Object.keys($scope.genesAndTranscriptsData)[i];
-//                if (Object.keys($scope.genesAndTranscriptsData)[i] != null) {
-//                    $scope.paginationData.push($scope.genesAndTranscriptsData[geneId]);
-//                }
-//            }
-//            $scope.showPagination = true;
-//            $scope.lastPage = 1;
-//
-//            $scope.disableFirstNumber = true;
-//            $scope.disableSecondNumber = false;
-//            $scope.disableThirdNumber = false;
-//
-//            $scope.firstPages = false;
-//            $scope.previousPage = false;
-//            $scope.nextPage = false;
-//            $scope.lastPages = false;
-//
-//            $scope.thirdNumber = false;
-//            $scope.paginationNumbers = [1, 2];
-//        }
-//        // 21 --> ...
-//        else {
-//            $scope.simplePagination = false;
-//            var geneId;
-//
-//            for (var i = 0; i < $scope.numDataPerPage; i++) {
-//                geneId = Object.keys($scope.genesAndTranscriptsData)[i];
-//                if (Object.keys($scope.genesAndTranscriptsData)[i] != null) {
-//                    $scope.paginationData.push($scope.genesAndTranscriptsData[geneId]);
-//                }
-//            }
-//            $scope.firstPages = false;
-//            $scope.previousPage = false;
-//            $scope.nextPage = true;
-//            $scope.lastPages = true;
-//
-//            $scope.thirdNumber = true;
-//            $scope.paginationNumbers = [1, 2, 3];
-//            $scope.showPagination = true;
-//            $scope.lastPage = 1;
-//
-//            $scope.disableFirstNumber = true;
-//            $scope.disableSecondNumber = false;
-//            $scope.disableThirdNumber = false;
-//        }
-//    };
     $scope.clearAll = function () {
         $scope.showAll = false;
     };
@@ -376,11 +86,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.showGenePanel = false;
         $scope.showTranscriptPanel = false;
     };
-    $scope.loader = false;
-
-
     $scope.newResult = function () {
-
         if ($scope.genesIdFilter != "") {
             $scope.genesIdFilter = mySharedService.removeSpaces($scope.genesIdFilter);
         }
@@ -423,7 +129,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             }
             $scope.numResults = Object.keys($scope.genesAndTranscriptsData).length;
             $rootScope.$broadcast('genesPagination:initPagination', $scope.genesAndTranscriptsData);
-//         $scope.initPagination();
             $scope.clear();
             if ($scope.numResults != 0) {
                 $scope.toggleTree = [];
@@ -444,11 +149,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             else {
                 $rootScope.$broadcast("genesPagination:initData");
                 $scope.showList = false;
-//             $scope.paginationData = [];
-
-
             }
-
             $scope.setLoading(false);
         }, 300);
 
@@ -513,7 +214,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             $rootScope.$broadcast("genesGV:regionToGV", $scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end, $scope.specie.shortName);
         }
         if ($('#genesNVtab').hasClass("active")) {
-
             $scope.setLoading(true);
             $timeout(function () {
                 $scope.proteinsAllData = CellbaseService.getProteinsLinks($scope.specie.shortName, $scope.selectedGene.name);
@@ -542,8 +242,6 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
 
                 $scope.setLoading(false);
             }, 900);
-
-
         }
     };
     //show transcripts panel
@@ -586,97 +284,67 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             $scope.toggleTree[i] = false;
         }
     };
-    //--------------Download functions-------------------
-    $scope.downloadGeneAsJSON = function () {
-        var info = $scope.selectedGene;
-        delete info.transcripts;
-        $scope.downloadAsJSON(info, "gene-" + info.id);
-    };
-    $scope.downloadTranscriptAsJSON = function () {
-        var info = $scope.selectedTranscript;
-        delete info.exons;
-        delete info.xrefs;
-        delete info.tfbs;
-        $scope.downloadAsJSON(info, "gene-" + $scope.selectedGene.id + "transc-" + info.id);
-    };
-    $scope.downloadAsJSON = function (info, title) {
-        var str = JSON.stringify(info);
-        var a = $('<a></a>')[0];
-        $(a).attr('href', 'data:application/json,' + encodeURIComponent(str));
-        $(a).attr('download', title + 'json');
-        a.click();
-    };
-    $scope.downloadGeneTabulated = function () {
-        var info = $scope.selectedGene;
-        delete info.transcripts;
-        $scope.downloadTabulated(info, "gene-" + info.id);
-    };
-    $scope.downloadTranscriptTabulated = function () {
-        var info = $scope.selectedTranscript;
-        delete info.exons;
-        delete info.xrefs;
-        delete info.tfbs;
-        $scope.downloadTabulated(info, "gene-" + $scope.selectedGene.id + "transc-" + info.id);
-    };
     $scope.convertToTabulate = function (info) {
-        var max_sep = 0;
-        var j = 0;
-        var max = Object.keys(info).length;
-        var attrValueLength = 0;
-        var str = "";
-
-        for (var attr in info) {
-            if (j != Object.keys(info).length - 1) {
-                str = str + attr + "   ";
-                if (isNaN(info[attr])) {
-                    attrValueLength = info[attr].length;
-                }
-                else {
-                    attrValueLength = info[attr].toString().length;
-                }
-                if (attrValueLength > attr.length) {
-                    max_sep = attrValueLength - attr.length;
-                    for (var i = 0; i < max_sep; i++) {
-                        str = str + " ";
-                    }
-                }
-            } else {
-                str = str + attr;
-            }
-            j++;
-        }
-        str = str + "\n";
-        for (var attr in info) {
-            str = str + info[attr] + "   ";
-            if (isNaN(info[attr])) {
-                attrValueLength = info[attr].length;
-            }
-            else {
-                attrValueLength = info[attr].toString().length;
-            }
-            if (attr.length > attrValueLength) {
-                max_sep = attr.length - attrValueLength;
-                for (var i = 0; i < max_sep; i++) {
-                    str = str + " ";
-                }
-            }
-        }
-        return str
+        return mySharedService.convertToTabulate(info);
     };
-    $scope.downloadTabulated = function (info, title) {
-        var str = "";
-        var a = $('<a></a>')[0];
-        str = $scope.convertToTabulate(info);
-
-        $(a).attr('href', 'data:text/plain,' + encodeURIComponent(str));
-        $(a).attr('download', title + 'json');
-        a.click();
-    };
-    //--------the initial result----------
-//    $scope.setResult(false);
-    $scope.newResult();
-
-
+    //---------------Events-------------------
+    $scope.$on('newSpecie', function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
+        if ($scope.specie.shortName == "hsapiens") {
+            $scope.regions = "20:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "mmusculus") {
+            $scope.regions = "2:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "rnorvegicus") {
+            $scope.regions = "6:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "drerio") {
+            $scope.regions = "1:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "dmelanogaster") {
+            $scope.regions = "2L:12850000-13500000";
+        }
+        if ($scope.specie.shortName == "celegans") {
+            $scope.regions = "V:12850000-13500000";
+        }
+        if ($scope.specie.shortName == "scerevisiae") {
+            $scope.regions = "III:286620-316620";
+        }
+        if ($scope.specie.shortName == "cfamiliaris") {
+            $scope.regions = "5:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "sscrofa") {
+            $scope.regions = "3:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "agambiae") {
+            $scope.regions = "2L:32850000-33500000";
+        }
+        if ($scope.specie.shortName == "pfalciparum") {
+            $scope.regions = "11:1938337-2038337";
+        }
+        $scope.setResult(false);
+    });
+    $scope.$on('genesGV:regionFromGV', function (ev, event) {
+        if (event.sender.species.text == $scope.specie.longName) {
+            $scope.specie.longName = event.sender.species.text;
+            $scope.completeRegions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
+            $scope.setResult(true);
+            if (!$scope.$$phase) {
+                //$digest or $apply
+                $scope.$apply();
+            }
+        }
+    });
+    $scope.$on('genesPagination:updatePaginationData', function (ev, data) {
+        $scope.paginationData = data;
+    });
+    $scope.$on('genesPagination:collapseTreeElements', function (ev, data) {
+        $scope.collapseAllGenesTree();
+    });
+    $scope.setResult(false);
 }]);
 
 genesContr.$inject = ['$scope', 'mySharedService'];

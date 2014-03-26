@@ -66,12 +66,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         else {
             $scope.chromSelected.splice(pos, 1);
         }
-        if($('#regulation'+chrom).hasClass("btn-primary")){
-            $('#regulation'+chrom).removeClass("btn-primary");
-        }
-        else{
-            $('#regulation'+chrom).addClass("btn-primary");
-        }
     };
     $scope.addFeatureClassFilter = function (featureClass) {
         var pos = $scope.featureClassFilter.indexOf(featureClass);
@@ -81,31 +75,21 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         else {
             $scope.featureClassFilter.splice(pos, 1);
         }
-        if($("[id='"+featureClass+"']").hasClass("btn-primary")){
-            $("[id='"+featureClass+"']").removeClass("btn-primary");
-        }
-        else{
-            $("[id='"+featureClass+"']").addClass("btn-primary");
-        }
     };
     $scope.selectAllChrom = function () {
-        $('#regulationsChromMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.chromNames) {
             $scope.chromSelected.push($scope.chromNames[i]);
         }
     };
     $scope.deselectAllChrom = function () {
-        $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
         $scope.chromSelected = [];
     };
     $scope.selectAllFeatureClassFilter = function () {
-        $('#featureClassMultiSelect').children().addClass("btn-primary");
         for (var i in $scope.listOfFeatureTypeFilters) {
             $scope.featureClassFilter.push($scope.listOfFeatureTypeFilters[i]);
         }
     };
     $scope.deselectAllFeatureClassFilter = function () {
-        $('#featureClassMultiSelect').children().removeClass("btn-primary");
         $scope.featureClassFilter = [];
     };
     $scope.reload = function () {
@@ -469,9 +453,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         }
         $scope.initPagination();
     };
-
-
-
     $scope.expandAllRegulationsTree = function () {
         for (var i in $scope.toggleTree) {
             $scope.toggleTree[i] = true;
@@ -483,8 +464,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.toggleTree[i] = false;
         }
     };
-
-
     //--------the initial result----------
     $scope.setResult();
 

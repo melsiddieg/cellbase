@@ -6,7 +6,7 @@ var myApp = angular.module('cellbaseWeb',
     [
         'cellbaseWeb.genes',
         'cellbaseWeb.variants',
-        'cellbaseWeb.regulations',
+        'cellbaseWeb.regulations'
     ]);
 
 myApp.factory('mySharedService', function($rootScope, CellbaseService){
@@ -214,6 +214,53 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
                 }
             }
         }
+    };
+    sharedService.convertToTabulate = function (info) {
+        var max_sep = 0;
+        var j = 0;
+        var max = Object.keys(info).length;
+        var attrValueLength = 0;
+        var str = "";
+
+        for (var attr in info) {
+            if (j != Object.keys(info).length - 1) {
+                str = str + attr + "   ";
+                if (isNaN(info[attr])) {
+                    attrValueLength = info[attr].length;
+                }
+                else {
+                    attrValueLength = info[attr].toString().length;
+                }
+                if (attrValueLength > attr.length) {
+                    max_sep = attrValueLength - attr.length;
+                    for (var i = 0; i < max_sep; i++) {
+                        str = str + " ";
+                    }
+                }
+            } else {
+                str = str + attr;
+            }
+            j++;
+        }
+        str = str + "\n";
+        for (var attr in info) {
+            str = str + info[attr] + "   ";
+            if (isNaN(info[attr])) {
+                attrValueLength = info[attr].length;
+            }
+            else {
+                attrValueLength = info[attr].toString().length;
+            }
+            if (attr.length > attrValueLength) {
+                max_sep = attr.length - attrValueLength;
+                for (var i = 0; i < max_sep; i++) {
+                    str = str + " ";
+                }
+            }
+        }
+        return str
+
+
     };
     return sharedService;
 })

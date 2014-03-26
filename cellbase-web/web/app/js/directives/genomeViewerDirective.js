@@ -4,38 +4,18 @@ genesModule.directive('genomeViewer', function () {
         replace: false,
         transclude: true,
         scope: {
-            targetId: '@id'
+            targetId: '@id',
+            species: '=species',
+            r: '=region'
         },
-        link: function(scope, element, attrs) {
+//        link: function(scope, element, attrs) {
 
-//            element.css({
-//                width: '880px'
-//            });
-//
-//            element.css({
-//                width: element.parent()[0].offsetWidth + 'px'
-//            });
-//
-//                element.css('width', '=880px');
-//                element.css('width', '880px');
+//            $('#genes_GV > div').css('width', 900);
 
+//            element.removeClass('ocb-gv-w');
+//            element.addClass('ocb-gv-w2');
+//        },
 
-//                element.css({'width': '880px'});
-//            $scope.$apply();
-
-//            element.width("280px");
-
-
-//           ------------- change the css class-----------
-//            element.className = "ocb-gv-w2";
-//            element.className.replace("ocb-gv-w", "ocb-gv-w2");
-
-
-            element.removeClass('ocb-gv-w');
-            element.addClass('ocb-gv-w2');
-
-
-        },
         controller: function($scope,$rootScope,mySharedService) {
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";

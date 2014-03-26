@@ -15,43 +15,8 @@
                     <witched-genes-list page-data="paginationData" toggle="toggleTree" show-first-level-data="showGene"
                                         show-second-level-data="showTranscript"></witched-genes-list>
                 </div>
-
-
                 <!---------------pagination--------------- -->
-                <!--<div class="ocb-text-center">-->
-                    <!--<div ng-show="showPagination"-->
-                         <!--class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">-->
-                        <!--<button ng-show="firstPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-click="goToFirstPage()"><<-->
-                        <!--</button>-->
-                        <!--<button ng-show="previousPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-click="goPreviousPage()"><-->
-                        <!--</button>-->
-                        <!--<button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-class="{'disabled': disableFirstNumber}"-->
-                                <!--ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}-->
-                        <!--</button>-->
-                        <!--<button type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-class="{'disabled': disableSecondNumber}"-->
-                                <!--ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}-->
-                        <!--</button>-->
-                        <!--<button ng-show="thirdNumber" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-class="{'disabled': disableThirdNumber}" ng-click="goToNumberPage(paginationNumbers[2])"-->
-                                <!-->{{paginationNumbers[2]}}-->
-                        <!--</button>-->
-                        <!--<button ng-show="nextPage" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-click="goNextPage()">>-->
-                        <!--</button>-->
-                        <!--<button ng-show="lastPages" type="button" class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"-->
-                                <!--ng-click="goToLastPage()">>>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-
-                <!--pagination test-->
                 <pagination ident="genesPagination" info="genesAndTranscriptsData"> </pagination>
-
             </div>
         </div>
     </div>
@@ -74,8 +39,8 @@
                             Download Gene as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ng-click="downloadGeneTabulated()">tab file</a></li>
-                            <li><a ng-click="downloadGeneAsJSON()">JSON file</a></li>
+                            <li><a id="geneTabFile">tab file</a></li>
+                            <li><a id="geneJSONFile">JSON file</a></li>
                         </ul>
                     </div>
                     <div class="ocb-panels-data-border" ng-show="!geneInfo">
@@ -93,8 +58,8 @@
                             Download Transcript as <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ng-click="downloadTranscriptTabulated()">tab file</a></li>
-                            <li><a ng-click="downloadTranscriptAsJSON()">JSON file</a></li>
+                            <li><a id="transcriptTabFile">tab file</a></li>
+                            <li><a id="transcriptJSONFile">JSON file</a></li>
                         </ul>
                     </div>
                     <div ng-show="!transcriptInfo" class="ocb-panels-data-border">
