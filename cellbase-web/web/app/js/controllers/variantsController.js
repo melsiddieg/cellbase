@@ -1,4 +1,4 @@
-var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var variantsContr = variantsModule.controller('variantsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService','$timeout', function ($scope, $rootScope, mySharedService, CellbaseService,$timeout) {
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "20:32850000-32860000";
@@ -35,6 +35,10 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.disableThirdNumber = false;
 
     $scope.showList = true;
+
+    $scope.setLoading = function (loading) {
+        $scope.isLoading = loading;
+    }
 
     $scope.init = function(){
         $scope.deselectAllChrom();
@@ -365,6 +369,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.showAll = false;
     };
     $scope.setResult = function(fromGV){
+
+        $scope.setLoading(true);
+        $timeout(function () {
         $scope.showList = true;
         $scope.paginationData = [];
         $scope.snpDataCache = {};
@@ -395,6 +402,9 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.showList = false;
             $scope.snpDataSize=0;
         }
+            $scope.setLoading(false);
+
+        }, 300);
     };
     //save thee correct results and alert the incorrect
     $scope.checkSNPFilter = function(snpFilter){

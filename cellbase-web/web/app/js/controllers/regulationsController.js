@@ -1,4 +1,4 @@
-var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService', function ($scope, $rootScope, mySharedService, CellbaseService) {
+var regulationsContr = regulationsModule.controller('regulationsController', ['$scope', '$rootScope', 'mySharedService', 'CellbaseService','$timeout', function ($scope, $rootScope, mySharedService, CellbaseService,$timeout) {
     $scope.specie = {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};
     $scope.chromSelected = [];
     $scope.regions = "3:555-622666";
@@ -28,6 +28,10 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableThirdNumber = false;
 
     $scope.showList = true;
+
+    $scope.setLoading = function (loading) {
+        $scope.isLoading = loading;
+    }
 
     $scope.init = function(){
         $scope.deselectAllChrom();
@@ -322,6 +326,9 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     };
     $scope.setResult = function(){
 
+        $scope.setLoading(true);
+        $timeout(function () {
+
         $scope.showList = true;
         $scope.regulationsData = [];
         var featureClassFilter = [];
@@ -351,6 +358,10 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
 //            alert("No results with this data");
             $scope.showList = false;
         }
+
+        $scope.setLoading(false);
+    }, 300);
+
     };
     $scope.separateFeatureClassTypes = function () {
         $scope.histone = [];

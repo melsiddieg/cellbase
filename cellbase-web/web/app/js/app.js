@@ -6,7 +6,7 @@ var myApp = angular.module('cellbaseWeb',
     [
         'cellbaseWeb.genes',
         'cellbaseWeb.variants',
-        'cellbaseWeb.regulations'
+        'cellbaseWeb.regulations',
     ]);
 
 myApp.factory('mySharedService', function($rootScope, CellbaseService){

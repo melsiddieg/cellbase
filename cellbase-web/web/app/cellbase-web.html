@@ -109,6 +109,8 @@
     <script src="js/app.js"></script>
     <script src="js/services/cellbaseService.js"></script>
 
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
+
     <!--======================DIRECTIVES======================-->
     <script src="js/directives/chromosomesDirective.js"></script>
     <script src="js/directives/genesDirectives/genesListDirective.js"></script>
@@ -194,6 +196,10 @@
     </div>
     <div class="tab-content">
         <div class="tab-pane active" id="genes" ng-controller="genesController">
+
+            <div class="veil" ng-show="isLoading"></div>
+            <div class="feedLoading" ng-show="isLoading">Loading genes...</div>
+
             <div id="genesSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
                 <div genes-select></div>
             </div>
@@ -202,6 +208,10 @@
             </div>
         </div>
         <div class="tab-pane" id="variation" ng-controller="variantsController">
+
+            <div class="veil" ng-show="isLoading"></div>
+            <div class="feedLoading" ng-show="isLoading">Loading variants...</div>
+
             <div id="variatoinsSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
                 <div variants-select></div>
             </div>
@@ -210,6 +220,10 @@
             </div>
         </div>
         <div class="tab-pane" id="regulation" ng-controller="regulationsController">
+
+            <div class="veil" ng-show="isLoading"></div>
+            <div class="feedLoading" ng-show="isLoading">Loading regulations...</div>
+
             <div id="regulationsSelectDiv" class="col-sm-3 col-md-2 col-lg-2">
                 <div regulations-select></div>
             </div>
@@ -218,6 +232,7 @@
             </div>
         </div>
     </div>
+
 </div>
 <script>
     $(function () {
