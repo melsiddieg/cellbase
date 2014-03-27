@@ -3,7 +3,6 @@ myApp.service('CellbaseService', function () {
 
     //obtain the chromosomes of a specie
     this.getSpecieChromosomes = function (specie) {
-
         var dataGet;
         $.ajax({
             url: host + specie + '/genomic/chromosome/all?of=json',
@@ -15,7 +14,6 @@ myApp.service('CellbaseService', function () {
             error: function (jqXHR, textStatus, errorThrown) {
             }
         });
-
         return dataGet;
     };
     //------------------ G E N E S ------------------
@@ -23,7 +21,6 @@ myApp.service('CellbaseService', function () {
     this.getGenesAndTranscripts = function (specie, regions, biotypesFilter) {
         var dataGet = [];
         var url;
-
 
         if (biotypesFilter.length == 0) {
             url = host + specie + '/genomic/region/' + regions + '/gene?exclude=transcripts.xrefs,transcripts.exons,transcripts.tfbs&of=json';
@@ -47,7 +44,6 @@ myApp.service('CellbaseService', function () {
             error: function (jqXHR, textStatus, errorThrown) {
             }
         });
-
         return dataGet;
     };
     //obtain genes and transcripts from a specie and filter by geneId or name

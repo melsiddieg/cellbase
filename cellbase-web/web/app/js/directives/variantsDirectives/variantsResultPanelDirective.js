@@ -5,7 +5,6 @@ variantsModule.directive('variantsResult', function () {
         transclude: true,
         templateUrl: './views/variants-result-panel.html',
         link: function(scope, element, attrs) {
-
             $("#variantTabFile").click(function(event){
                 var info = scope.selectedVariant;
                 delete info.transcriptVariations;

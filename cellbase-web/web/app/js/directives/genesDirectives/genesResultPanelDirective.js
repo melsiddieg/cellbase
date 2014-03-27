@@ -4,16 +4,13 @@ genesModule.directive('genesResult', function () {
         replace: true,
         transclude: true,
         templateUrl: './views/genes-result-panel.html',
-
         link: function(scope, element, attrs) {
-
             $("#geneTabFile").click(function(event){
                 var info = scope.selectedGene;
                 delete info.transcripts;
                 scope.downloadTabFile(info, "gene-" + info.id);
             })
             $("#geneJSONFile").click(function(event){
-
                 var info = scope.selectedGene;
                 delete info.transcripts;
                 scope.downloadJSONFile(info, "gene-" + info.id);
@@ -32,7 +29,6 @@ genesModule.directive('genesResult', function () {
                 delete info.tfbs;
                 scope.downloadJSONFile(info, "gene-" + scope.selectedGene.id + "transc-" + info.id);
             })
-
             scope.downloadTabFile = function(info, title){
                 var str = "";
                 var a = $('<a></a>')[0];
@@ -49,7 +45,6 @@ genesModule.directive('genesResult', function () {
                 $(a).attr('download', title + 'json');
                 a.click();
             }
-
         }
     };
 });

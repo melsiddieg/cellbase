@@ -37,7 +37,6 @@ variantsModule.directive('variantsSelect', function () {
                     $('#'+conseqType).addClass("btn-primary");
                 }
             })
-
             scope.$watch("specie", function(){
                 if($('#variantsGV').hasClass("disabled")){
                     $('#variantsGV').removeClass("disabled");

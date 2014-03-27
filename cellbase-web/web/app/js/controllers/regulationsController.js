@@ -4,15 +4,12 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.regions = "3:555-622666";
     $scope.completeRegions = "3:555-622666";
     $scope.featureClassFilter = [];
-
     $scope.listOfFeatureTypeFilters = [];
     $scope.chromNames = mySharedService.getChromNames();
     $scope.typeOfData = "regulation";
     $scope.featureClassTypes = ["Histone", "Open Chromatin",  "Transcription Factor", "Polymerase", "microRNA" ];
-
-    $scope.toggleTree = []; //array of booleans that will show of hide the elements of the tree
-    $scope.regulationsData = []; //$scope.regulationsData = {};
-
+    $scope.toggleTree = [];
+    $scope.regulationsData = [];
     $scope.showPagination = false;
     $scope.firstPages = false;
     $scope.previousPage = false;
@@ -26,13 +23,11 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableFirstNumber = true;
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
-
     $scope.showList = true;
 
     $scope.setLoading = function (loading) {
         $scope.isLoading = loading;
     }
-
     $scope.init = function(){
         $scope.deselectAllChrom();
         $scope.deselectAllFeatureClassFilter();
@@ -41,21 +36,16 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.listOfFeatureTypeFilters = [];
         $scope.featureClassFilter = [];
     };
-    $scope.newResult = function () {
-        if($scope.regions!= ""){
-            $scope.regions =  mySharedService.removeSpaces($scope.regions);
-        }
-        if ($scope.featureClassFilter == "" && $scope.chromSelected.length == 0 && $scope.regions == "") {
-            alert("No data selected");
-        }
-        else {
-            $scope.completeRegions = $scope.regions;  //por ahora
-            $scope.setResult();
-        }
+    $scope.clearAll = function(){
+        $scope.showAll = false;
+    };
+    $scope.clear = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.clearAll();
     };
     $scope.setSpecie = function(){
         $scope.specie = mySharedService.getCurrentSpecie();
-        $scope.chromSelected = [];
         $scope.chromNames = mySharedService.getChromNames();
     };
     $scope.addChrom = function (chrom) {
@@ -97,23 +87,20 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.setSpecie();
         $scope.regions = "3:555-622666";
         $scope.chromSelected = [];
-        $scope.newResult();
+        $scope.checkAndSetResult();
     };
-    $scope.clear = function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.clearAll();
-    };
-    $scope.$on('newSpecie', function () {
-        if(mySharedService.getCurrentSpecie().shortName == "hsapiens"){
-            $scope.init();
-            $scope.setSpecie();
-            if($scope.specie.shortName == "hsapiens"){
-                $scope.regions = "3:555-622666";
-            }
+    $scope.checkAndSetResult = function () {
+        if($scope.regions!= ""){
+            $scope.regions =  mySharedService.removeSpaces($scope.regions);
+        }
+        if ($scope.featureClassFilter == "" && $scope.chromSelected.length == 0 && $scope.regions == "") {
+            alert("No data selected");
+        }
+        else {
+            $scope.completeRegions = $scope.regions;  //provisional
             $scope.setResult();
         }
-    });
+    };
     //========================Pagination==================================
     $scope.goToFirstPage = function () {
         $scope.paginationNumbers[0] = 1;
@@ -132,12 +119,10 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.paginationNumbers[0] = $scope.maxNumberPagination - 2;
         $scope.paginationNumbers[1] = $scope.maxNumberPagination - 1;
         $scope.paginationNumbers[2] = $scope.maxNumberPagination;
-
         $scope.firstPages = true;
         $scope.previousPage = true;
         $scope.nextPage = false;
         $scope.lastPages = false;
-
         $scope.disableAndEnablePaginationButtons($scope.maxNumberPagination);
         $scope.obtainPaginationLimits($scope.maxNumberPagination);
     };
@@ -152,7 +137,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         if (page == 1) {
             $scope.firstPages = false;
             $scope.previousPage = false;
-
             $scope.paginationNumbers[0] = 1;
             $scope.paginationNumbers[1] = 2;
             $scope.paginationNumbers[2] = 3;
@@ -176,7 +160,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         if (page == $scope.maxNumberPagination) {
             $scope.nextPage = false;
             $scope.lastPages = false;
-
             $scope.paginationNumbers[0] = page - 2;
             $scope.paginationNumbers[1] = page - 1;
             $scope.paginationNumbers[2] = page;
@@ -235,7 +218,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         var ini = (page - 1) * $scope.numDataPerPage;
         $scope.paginationData = [];
         var geneId;
-
         for (var i = ini; i < ini + $scope.numDataPerPage; i++) {
             if ($scope.regulationsData[i] != null) {
                 $scope.paginationData.push($scope.regulationsData[i]);
@@ -268,16 +250,13 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             }
             $scope.showPagination = true;
             $scope.lastPage = 1;
-
             $scope.disableFirstNumber = true;
             $scope.disableSecondNumber = false;
             $scope.disableThirdNumber = false;
-
             $scope.firstPages = false;
             $scope.previousPage = false;
             $scope.nextPage = false;
             $scope.lastPages = false;
-
             $scope.thirdNumber = false;
             $scope.paginationNumbers = [1, 2];
         }
@@ -294,19 +273,14 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.previousPage = false;
             $scope.nextPage = true;
             $scope.lastPages = true;
-
             $scope.thirdNumber = true;
             $scope.paginationNumbers = [1, 2, 3];
             $scope.showPagination = true;
             $scope.lastPage = 1;
-
             $scope.disableFirstNumber = true;
             $scope.disableSecondNumber = false;
             $scope.disableThirdNumber = false;
         }
-    };
-    $scope.clearAll = function(){
-        $scope.showAll = false;
     };
     $scope.setResult = function(){
 
@@ -332,7 +306,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         if($scope.numResults != 0){
             $scope.toggleTree = [];
             $scope.toggleTree.push(true);
-
             for(var i=1;i< 5; i++){
                 $scope.toggleTree.push(false);
             }
@@ -354,7 +327,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         $scope.polymerase = [];
         $scope.microRNA = [];
         $scope.dataNames={};
-
         $scope.dataNames.histone=[];
         $scope.dataNames.openChromatin=[];
         $scope.dataNames.transcriptionFactor=[];
@@ -446,7 +418,6 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     };
     $scope.showTypeNameData = function (data, name) {
         $scope.regulationsData = [];
-
         for (var i in data){
             if(data[i].name == name){
                 $scope.regulationsData.push(data[i]);
@@ -458,20 +429,28 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         for (var i in $scope.toggleTree) {
             $scope.toggleTree[i] = true;
         }
-
     };
     $scope.collapseAllRegulationsTree = function () {
         for (var i in $scope.toggleTree) {
             $scope.toggleTree[i] = false;
         }
     };
-    //--------the initial result----------
-    $scope.setResult();
-
-    //--------------EVENTS-------------------
+    //----------------- EVENTS -------------------
+    $scope.$on('newSpecie', function () {
+        if(mySharedService.getCurrentSpecie().shortName == "hsapiens"){
+            $scope.init();
+            $scope.setSpecie();
+            if($scope.specie.shortName == "hsapiens"){
+                $scope.regions = "3:555-622666";
+            }
+            $scope.setResult();
+        }
+    });
     $scope.$on('regulationsClear', function () {
         $scope.clearAll();
     });
+    //--------the initial result----------
+    $scope.setResult();
 }]);
 
 regulationsContr.$inject = ['$scope', 'mySharedService'];

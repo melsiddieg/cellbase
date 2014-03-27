@@ -9,17 +9,11 @@ genesModule.directive('genomeViewer', function () {
             r: '=region'
         },
         link: function(scope, element, attrs) {
-
             $(window).resize(function() {
-                debugger
                 scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
             })
-
-//            debugger
-            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
-
+            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
         },
-
         controller: function($scope,$rootScope,mySharedService) {
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
             CELLBASE_VERSION = "v3";

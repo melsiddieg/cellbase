@@ -5,18 +5,14 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.completeRegions = "20:32850000-32860000";
     $scope.snpIdFilter = "";
     $scope.conseqTypesFilter = [];
-
     $scope.listOfConseqTypes = [];
     $scope.typeOfData = "variants";
     $scope.chromNames = mySharedService.getChromNames();
-
     $scope.toggleTree = [];
     $scope.snpData = {};
     $scope.paginationData = [];
-
     $scope.firstVariantId = "";
     $scope.showAll = false;
-
     $scope.showVariantPanel = false;
     $scope.showTranscriptVarPanel = false;
 
@@ -33,13 +29,11 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.disableFirstNumber = true;
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
-
     $scope.showList = true;
 
     $scope.setLoading = function (loading) {
         $scope.isLoading = loading;
     }
-
     $scope.init = function(){
         $scope.deselectAllChrom();
         $scope.deselectAllConseqTypeFilter();
@@ -48,7 +42,27 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.snpIdFilter ="";
         $scope.conseqTypesFilter = [];
     };
-    $scope.newResult = function (fromGV) {
+    $scope.clearAll = function(){
+        $scope.showAll = false;
+    };
+    $scope.clear = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.clearAll();
+    };
+    $scope.setSpecie = function(){
+        $scope.specie = mySharedService.getCurrentSpecie();
+        $scope.chromSelected = [];
+        $scope.chromNames = mySharedService.getChromNames();
+    };
+    $scope.reload = function () {
+        $scope.init();
+        $scope.setSpecie();
+        $scope.regions = "20:32850000-32860000";
+        $scope.checkAndSetResult();
+        $scope.regions = "20:32850000-32860000";
+    };
+    $scope.checkAndSetResult = function (fromGV) {
         if($scope.snpIdFilter != ""){
             $scope.snpIdFilter = mySharedService.removeSpaces($scope.snpIdFilter);
         }
@@ -63,10 +77,42 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.setResult(false);
         }
     };
-    $scope.setSpecie = function(){
-        $scope.specie = mySharedService.getCurrentSpecie();
-        $scope.chromSelected = [];
-        $scope.chromNames = mySharedService.getChromNames();
+    $scope.setResult = function(fromGV){
+        $scope.setLoading(true);
+        $timeout(function () {
+            $scope.showList = true;
+            $scope.paginationData = [];
+            $scope.snpDataCache = {};
+
+            if ($scope.snpIdFilter.length != 0) {
+                $scope.paginationData = CellbaseService.getVariantsDataById($scope.specie.shortName, $scope.snpIdFilter);  //obtener los datos
+                $scope.checkSNPFilter($scope.snpIdFilter);
+            }
+            else{
+                $scope.paginationData = CellbaseService.getAllSNPDataPaginated($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter,1);
+                $scope.snpDataCache[1] = $scope.paginationData;
+            }
+            if($scope.paginationData.length != 0){
+                $scope.initPagination();
+                $scope.toggleTree = [];
+
+                for(var i=0;i< 10; i++){
+                    $scope.toggleTree.push(false);
+                }
+                $scope.showAll = true;
+                $scope.firstVariantId = $scope.paginationData[0].id;
+                $scope.lastDataShow = $scope.firstVariantId;
+                $scope.selectedVariant = CellbaseService.getVariantsDataById($scope.specie.shortName, $scope.lastDataShow)[0];
+                $scope.showVariant($scope.paginationData[0].id, 0, fromGV);
+            }
+            else{
+                $scope.paginationData = [];
+                $scope.showList = false;
+                $scope.snpDataSize=0;
+            }
+            $scope.setLoading(false);
+
+        }, 300);
     };
     $scope.addChrom = function (chrom) {
         var pos = $scope.chromSelected.indexOf(chrom);
@@ -103,51 +149,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.deselectAllConseqTypeFilter = function () {
         $scope.conseqTypesFilter = [];
     };
-    //-----------EVENTS---------------
-    $scope.reload = function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.regions = "20:32850000-32860000";
-        $scope.newResult();
-        $scope.regions = "20:32850000-32860000";
-    };
-    $scope.clear = function () {
-        $scope.init();
-        $scope.setSpecie();
-        $scope.clearAll();
-    };
-
-    $scope.$on('newSpecie', function () {
-
-        if(mySharedService.getCurrentSpecie().shortName == "hsapiens" || mySharedService.getCurrentSpecie().shortName == "dmelanogaster"){
-            $scope.init();
-            $scope.setSpecie();
-
-            if($scope.specie.shortName == "hsapiens"){
-                $scope.regions = "20:32850000-32860000";
-            }
-            if($scope.specie.shortName == "dmelanogaster"){
-                $scope.regions = "2L:12850000-12855000";
-            }
-//            if($scope.specie.shortName == "cfamiliaris"){
-//                $scope.regions = "5:11850000-32950000";
-//            }
-
-            $scope.setResult(false);
-        }
-    });
-    $scope.$on('variationsGV:regionFromGV', function (ev, event) {
-        if(typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName){
-            $scope.specie.longName = event.sender.species.text;
-            $scope.regions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
-            $scope.setResult(true);
-
-            if(!$scope.$$phase) {
-                //$digest or $apply
-                $scope.$apply();
-            }
-        }
-    });
     //========================Pagination==================================
     $scope.obtainPaginationData = function (page){
         $scope.lastPage = page;
@@ -164,12 +165,10 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.paginationNumbers[0] = 1;
         $scope.paginationNumbers[1] = 2;
         $scope.paginationNumbers[2] = 3;
-
         $scope.firstPages = false;
         $scope.previousPage = false;
         $scope.nextPage = true;
         $scope.lastPages = true;
-
         $scope.collapseAllVariantsTree();
         $scope.disableAndEnablePaginationButtons(1);
         $scope.obtainPaginationData(1);
@@ -178,19 +177,16 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.paginationNumbers[0] = $scope.maxNumberPagination - 2;
         $scope.paginationNumbers[1] = $scope.maxNumberPagination - 1;
         $scope.paginationNumbers[2] = $scope.maxNumberPagination;
-
         $scope.firstPages = true;
         $scope.previousPage = true;
         $scope.nextPage = false;
         $scope.lastPages = false;
-
         $scope.collapseAllVariantsTree();
         $scope.disableAndEnablePaginationButtons($scope.maxNumberPagination);
         $scope.obtainPaginationData($scope.maxNumberPagination);
     };
     $scope.goPreviousPage = function () {
         var page = $scope.lastPage - 1;
-
         $scope.firstPages = true;
         $scope.previousPage = true;
         $scope.nextPage = true;
@@ -199,7 +195,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         if (page == 1) {
             $scope.firstPages = false;
             $scope.previousPage = false;
-
             $scope.paginationNumbers[0] = 1;
             $scope.paginationNumbers[1] = 2;
             $scope.paginationNumbers[2] = 3;
@@ -222,7 +217,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         if (page == $scope.maxNumberPagination) {
             $scope.nextPage = false;
             $scope.lastPages = false;
-
             $scope.paginationNumbers[0] = page - 2;
             $scope.paginationNumbers[1] = page - 1;
             $scope.paginationNumbers[2] = page;
@@ -232,7 +226,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.paginationNumbers[1] = page + 1;
             $scope.paginationNumbers[2] = page + 2;
         }
-
         $scope.collapseAllVariantsTree();
         $scope.disableAndEnablePaginationButtons(page);
         $scope.obtainPaginationData(page);
@@ -294,7 +287,6 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     };
     $scope.initPagination = function () {
         $scope.snpDataSize = CellbaseService.getCountSNPData($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter, $scope.snpIdFilter);
-
         $scope.maxNumberPagination = Math.ceil( $scope.snpDataSize / $scope.numDataPerPage);
         //  0 --> 10
         if ( $scope.snpDataSize <= $scope.numDataPerPage) {
@@ -307,16 +299,13 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
 
             $scope.showPagination = true;
             $scope.lastPage = 1;
-
             $scope.disableFirstNumber = true;
             $scope.disableSecondNumber = false;
             $scope.disableThirdNumber = false;
-
             $scope.firstPages = false;
             $scope.previousPage = false;
             $scope.nextPage = false;
             $scope.lastPages = false;
-
             $scope.thirdNumber = false;
             $scope.paginationNumbers = [1, 2];
         }
@@ -329,57 +318,14 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.previousPage = false;
             $scope.nextPage = true;
             $scope.lastPages = true;
-
             $scope.thirdNumber = true;
             $scope.paginationNumbers = [1, 2, 3];
             $scope.showPagination = true;
             $scope.lastPage = 1;
-
             $scope.disableFirstNumber = true;
             $scope.disableSecondNumber = false;
             $scope.disableThirdNumber = false;
         }
-    };
-    $scope.clearAll = function(){
-        $scope.showAll = false;
-    };
-    $scope.setResult = function(fromGV){
-
-        $scope.setLoading(true);
-        $timeout(function () {
-        $scope.showList = true;
-        $scope.paginationData = [];
-        $scope.snpDataCache = {};
-
-        if ($scope.snpIdFilter.length != 0) {
-            $scope.paginationData = CellbaseService.getVariantsDataById($scope.specie.shortName, $scope.snpIdFilter);  //obtener los datos
-            $scope.checkSNPFilter($scope.snpIdFilter);
-        }
-        else{
-            $scope.paginationData = CellbaseService.getAllSNPDataPaginated($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter,1);
-            $scope.snpDataCache[1] = $scope.paginationData;
-        }
-        if($scope.paginationData.length != 0){
-            $scope.initPagination();
-            $scope.toggleTree = [];
-
-            for(var i=0;i< 10; i++){
-                $scope.toggleTree.push(false);
-            }
-            $scope.showAll = true;
-            $scope.firstVariantId = $scope.paginationData[0].id;
-            $scope.lastDataShow = $scope.firstVariantId;
-            $scope.selectedVariant = CellbaseService.getVariantsDataById($scope.specie.shortName, $scope.lastDataShow)[0];
-            $scope.showVariant($scope.paginationData[0].id, 0, fromGV);
-        }
-        else{
-            $scope.paginationData = [];
-            $scope.showList = false;
-            $scope.snpDataSize=0;
-        }
-            $scope.setLoading(false);
-
-        }, 300);
     };
     //save thee correct results and alert the incorrect
     $scope.checkSNPFilter = function(snpFilter){
@@ -486,12 +432,35 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.convertToTabulate=function(info){
         return mySharedService.convertToTabulate(info);
     };
+    //-----------EVENTS---------------
+    $scope.$on('newSpecie', function () {
+        if(mySharedService.getCurrentSpecie().shortName == "hsapiens" || mySharedService.getCurrentSpecie().shortName == "dmelanogaster"){
+            $scope.init();
+            $scope.setSpecie();
 
-    //--------------EVENTS-------------------
+            if($scope.specie.shortName == "hsapiens"){
+                $scope.regions = "20:32850000-32860000";
+            }
+            if($scope.specie.shortName == "dmelanogaster"){
+                $scope.regions = "2L:12850000-12855000";
+            }
+            $scope.setResult(false);
+        }
+    });
+    $scope.$on('variationsGV:regionFromGV', function (ev, event) {
+        if(typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName){
+            $scope.specie.longName = event.sender.species.text;
+            $scope.completeRegions = event.region.chromosome + ":" + event.region.start + "-" + event.region.end;
+            $scope.regions = $scope.completeRegions;
+            $scope.setResult(true);
 
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
+        }
+    });
     $scope.setResult(false);
     $scope.obtainConsequenceTypes();
-
 }]);
 
 variantsContr.$inject = ['$scope', 'mySharedService'];

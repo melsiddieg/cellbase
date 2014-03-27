@@ -21,4 +21,3 @@ var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$ro
 }]);
 
 optionsBarControl.$inject = ['$scope', 'mySharedService'];
-

@@ -19,7 +19,6 @@ regulationsModule.directive('regulationsSelect', function () {
             })
             $("#regulationsChromMultiSelect").click(function(event){
                 var chrom = event.toElement.innerText;
-
                 if($('#regulation'+chrom).hasClass("btn-primary")){
                     $('#regulation'+chrom).removeClass("btn-primary");
                 }
