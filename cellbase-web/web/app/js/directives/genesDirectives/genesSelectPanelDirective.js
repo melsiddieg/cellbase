@@ -35,6 +35,10 @@ genesModule.directive('genesSelect', function () {
                     $('#' + biotype).addClass("btn-primary");
                 }
             })
+            $("#genesClearButton").click(function(){
+                $('#genesChromMultiSelect').children().removeClass("btn-primary");
+                $('#BiotypesMultiSelect').children().removeClass("btn-primary");
+            })
         }
     };
 });

@@ -96,9 +96,7 @@
 .ocb-scroll-tree{
     overflow-y:scroll;
     overflow-x:hidden;
-    height: 540px;
-    height: 555px;
-    height: 540px;
+    height: 572px;
     margin:10px
 }
 .ocb-line-height-5{
@@ -112,6 +110,16 @@
 .ocb-margin-top-5{
     margin-top: 5px;
 }
+.ocb-margin-top-18{
+    margin-top: 18px;
+}
+.ocb-margin-top-70{
+    margin-top: 70px;
+}
+.ocb-border-blue{
+    border:1px solid #428bca
+}
+
 
 .ocb-info-button{
     background-color: lightblue;
@@ -149,12 +157,12 @@
     width:820px;
 }
 .ocb-gv-minw{
-    min-width:830px;
+    min-width:500px;
 }
 
 .ocb-nv-h-w{
     width:765px;
-    height:515px;
+    height:505px;
 }
 .ocb-bgc-white{
     background-color: white;

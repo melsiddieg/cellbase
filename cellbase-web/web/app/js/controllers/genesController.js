@@ -7,6 +7,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.genesIdFilter = "";
     $scope.biotypesFilter = [];
     $scope.chromNames = mySharedService.getChromNames();
+    $scope.chromAllData = mySharedService.getChromAllData();
     $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
     $scope.typeOfData = "genes";
     $scope.toggleTree = [];
@@ -43,6 +44,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.setSpecie = function () {
         $scope.specie = mySharedService.getCurrentSpecie();
         $scope.chromNames = mySharedService.getChromNames();
+        $scope.chromAllData = mySharedService.getChromAllData();
     };
     $scope.addChrom = function (chrom) {
         var pos = $scope.chromSelected.indexOf(chrom);
@@ -95,7 +97,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             alert("No data selected");
         }
         else {
-            $scope.completeRegions = mySharedService.mergeChromosomesAndRegions($scope.chromSelected, $scope.regions, mySharedService.getChromAllData());
+            $scope.completeRegions = mySharedService.mergeChromosomesAndRegions($scope.chromSelected, $scope.regions, $scope.chromAllData);
             $scope.setResult(false);
         }
     };

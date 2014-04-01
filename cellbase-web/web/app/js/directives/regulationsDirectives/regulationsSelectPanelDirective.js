@@ -35,6 +35,10 @@ regulationsModule.directive('regulationsSelect', function () {
                     $("[id='"+featureClass+"']").addClass("btn-primary");
                 }
             })
+            $("#regulationsClearButton").click(function(){
+                $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
+                $('#featureClassMultiSelect').children().removeClass("btn-primary");
+            })
         }
     };
 });

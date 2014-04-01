@@ -5,14 +5,22 @@ genesModule.directive('genomeViewer', function () {
         transclude: true,
         scope: {
             targetId: '@id',
+            chromNames: '=chrom',
             species: '=species',
             r: '=region'
         },
         link: function(scope, element, attrs) {
             $(window).resize(function() {
+//                    setTimeout(function(){
                 scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
+//                    },1000)
             })
-            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
+//            setTimeout(function(){
+
+                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
+//            },1000)
+
+//            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
         },
         controller: function($scope,$rootScope,mySharedService) {
             CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
@@ -94,7 +102,7 @@ genesModule.directive('genomeViewer', function () {
 //                        $rootScope.$broadcast($scope.targetId+":specieFromGV", event);
                     }
                 }
-                //        chromosomeList:[]
+//                        chromosomeList:$scope.chromNames
                 //            trackListTitle: ''
 //                            drawNavigationBar = true;
                 //            drawKaryotypePanel: false,
@@ -102,6 +110,7 @@ genesModule.directive('genomeViewer', function () {
                 //            drawRegionOverviewPanel: false
             }); //the div must exist
             $scope.genomeViewer.draw();
+
             tracks = [];
             $scope.sequence = new SequenceTrack({
                 targetId: null,

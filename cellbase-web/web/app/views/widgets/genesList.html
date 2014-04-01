@@ -7,7 +7,7 @@
         </div>
         <a ng-show="toggleList[$parent.$index]" ng-click="showSecondData(data.id, transcriptId.name)"
            ng-repeat="transcriptId in data.transcripts" class="list-group-item">
-            <div class="ocb-m-l-20 ocb-cursor-pointer">{{transcriptId.name}}</div>
+            <div class="ocb-m-l-20 ocb-cursor-pointer"><div class="ocb-bold">{{transcriptId.name }}</div> {{transcriptId.id}}</div>
         </a>
     </a>
 </div>

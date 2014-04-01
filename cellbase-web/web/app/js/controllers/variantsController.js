@@ -8,6 +8,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.listOfConseqTypes = [];
     $scope.typeOfData = "variants";
     $scope.chromNames = mySharedService.getChromNames();
+    $scope.chromAllData = mySharedService.getChromAllData();
     $scope.toggleTree = [];
     $scope.snpData = {};
     $scope.paginationData = [];
@@ -54,6 +55,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         $scope.specie = mySharedService.getCurrentSpecie();
         $scope.chromSelected = [];
         $scope.chromNames = mySharedService.getChromNames();
+        $scope.chromAllData = mySharedService.getChromAllData();
     };
     $scope.reload = function () {
         $scope.init();
@@ -73,7 +75,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             alert("No data selected");
         }
         else {
-            $scope.completeRegions = mySharedService.mergeChromosomesAndRegions($scope.chromSelected, $scope.regions, mySharedService.getChromAllData());
+            $scope.completeRegions = mySharedService.mergeChromosomesAndRegions($scope.chromSelected, $scope.regions, $scope.chromAllData);
             $scope.setResult(false);
         }
     };
@@ -96,9 +98,11 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
                 $scope.initPagination();
                 $scope.toggleTree = [];
 
+
                 for(var i=0;i< 10; i++){
                     $scope.toggleTree.push(false);
                 }
+
                 $scope.showAll = true;
                 $scope.firstVariantId = $scope.paginationData[0].id;
                 $scope.lastDataShow = $scope.firstVariantId;
@@ -362,19 +366,21 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         else{
             $scope.toggleTree[index] = true;
         }
-        $scope.showSelectedVariant(variantId, fromGV);
+        $scope.showSelectedVariant(variantId,fromGV);
+
         if($scope.selectedVariant.transcriptVariations.length != 0){
             $scope.showSelectedTranscriptVar(variantId,$scope.selectedVariant.transcriptVariations[0].transcriptId, fromGV);
         }
     };
     $scope.showTranscriptVar = function (variantId, transcriptId) {
-        $scope.showSelectedVariant(variantId);
+        $scope.showSelectedVariant(variantId, false);
         $scope.showSelectedTranscriptVar(variantId, transcriptId);
     };
     $scope.showSelectedVariant = function (variantId, fromGV) {
         if ($scope.lastDataShow != variantId) {
             $scope.lastDataShow = variantId;
             $scope.showVariantPanel = true;
+
             $scope.selectedVariant = CellbaseService.getVariantsDataById($scope.specie.shortName, variantId)[0];
             $scope.showTranscriptVarPanel = false;
         }

@@ -66,7 +66,7 @@
         <div class="tab-content">
             <div class="panel tab-pane active ocb-width_765" id="variantsOverviewInfo">
                 <!-----------------------variant and transcriptsVar panel--------------------------->
-                <div class="list-group ocb-x-scroll" ng-show="showVariantPanel">
+                <div class="list-group ocb-x-scroll ocb-border-blue" ng-show="showVariantPanel">
                     <a class="list-group-item active ocb-text-center">
                         Variation information
                     </a>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <!-------------------------transcriptVar panel---------------------------->
-                <div class="list-group ocb-x-scroll" ng-show="showTranscriptVarPanel">
+                <div class="list-group ocb-x-scroll ocb-margin-top-70  ocb-border-blue" ng-show="showTranscriptVarPanel">
                     <a class="list-group-item active ocb-text-center">
                         Transcript Variations information
                     </a>
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="tab-pane ocb-gv-w ocb-bgc-white  ocb-gv-minw" id="variants_GV">
-                <genome-viewer id="variationsGV" class="ocb-gv-w"></genome-viewer>
+                <genome-viewer id="variationsGV" class="ocb-gv-w"  chrom="chromAllData"></genome-viewer>
             </div>
         </div>
     </div>

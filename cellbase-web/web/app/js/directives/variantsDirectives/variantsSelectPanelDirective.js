@@ -42,6 +42,10 @@ variantsModule.directive('variantsSelect', function () {
                     $('#variantsGV').removeClass("disabled");
                 }
             })
+            $("#variantsClearButton").click(function(){
+                $('#variantsChromMultiSelect').children().removeClass("btn-primary");
+                $('#conseqTypeMultiSelect').children().removeClass("btn-primary");
+            })
         }
     };
 });
