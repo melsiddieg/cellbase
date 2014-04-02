@@ -6,6 +6,14 @@ genesModule.directive('genesNetworkViewer', function () {
         scope: {
             targetId: '@id'
         },
+        link: function(scope, element, attrs) {
+            $(window).resize(function() {
+                scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-10, $("#genesResultContent")[0].offsetHeight-10);
+
+            })
+            scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth, $("#genesResultContent")[0].offsetHeight-10);
+        },
+
         controller: function ($scope, $rootScope) {
             $scope.$on($scope.targetId + ':createStarGraph', function (event, centerVertex, verticesLinked) {
                 $scope.networkViewer.clean();

@@ -17,7 +17,7 @@ genesModule.directive('genomeViewer', function () {
             })
 //            setTimeout(function(){
 
-                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
+                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
 //            },1000)
 
 //            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);

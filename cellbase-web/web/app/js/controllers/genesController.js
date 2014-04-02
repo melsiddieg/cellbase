@@ -293,37 +293,37 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.setSpecie();
         $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
         if ($scope.specie.shortName == "hsapiens") {
-            $scope.regions = "20:32850000-33500000";
+            $scope.completeRegions = "20:32850000-33500000";
         }
         if ($scope.specie.shortName == "mmusculus") {
-            $scope.regions = "2:32850000-33500000";
+            $scope.completeRegions = "2:32850000-33500000";
         }
         if ($scope.specie.shortName == "rnorvegicus") {
-            $scope.regions = "6:32850000-33500000";
+            $scope.completeRegions = "6:32850000-33500000";
         }
         if ($scope.specie.shortName == "drerio") {
-            $scope.regions = "1:32850000-33500000";
+            $scope.completeRegions = "1:32850000-33500000";
         }
         if ($scope.specie.shortName == "dmelanogaster") {
-            $scope.regions = "2L:12850000-13500000";
+            $scope.completeRegions = "2L:12850000-13500000";
         }
         if ($scope.specie.shortName == "celegans") {
-            $scope.regions = "V:12850000-13500000";
+            $scope.completeRegions = "V:12850000-13500000";
         }
         if ($scope.specie.shortName == "scerevisiae") {
-            $scope.regions = "III:286620-316620";
+            $scope.completeRegions = "III:286620-316620";
         }
         if ($scope.specie.shortName == "cfamiliaris") {
-            $scope.regions = "5:32850000-33500000";
+            $scope.completeRegions = "5:32850000-33500000";
         }
         if ($scope.specie.shortName == "sscrofa") {
-            $scope.regions = "3:32850000-33500000";
+            $scope.completeRegions = "3:32850000-33500000";
         }
         if ($scope.specie.shortName == "agambiae") {
-            $scope.regions = "2L:32850000-33500000";
+            $scope.completeRegions = "2L:32850000-33500000";
         }
         if ($scope.specie.shortName == "pfalciparum") {
-            $scope.regions = "11:1938337-2038337";
+            $scope.completeRegions = "11:1938337-2038337";
         }
         $scope.setResult(false);
     });

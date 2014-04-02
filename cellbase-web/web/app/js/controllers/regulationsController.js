@@ -441,7 +441,7 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.init();
             $scope.setSpecie();
             if($scope.specie.shortName == "hsapiens"){
-                $scope.regions = "3:555-622666";
+                $scope.completeRegions = "3:555-622666";
             }
             $scope.setResult();
         }

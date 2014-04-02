@@ -445,10 +445,10 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.setSpecie();
 
             if($scope.specie.shortName == "hsapiens"){
-                $scope.regions = "20:32850000-32860000";
+                $scope.completeRegions = "20:32850000-32860000";
             }
             if($scope.specie.shortName == "dmelanogaster"){
-                $scope.regions = "2L:12850000-12855000";
+                $scope.completeRegions = "2L:12850000-12855000";
             }
             $scope.setResult(false);
         }
