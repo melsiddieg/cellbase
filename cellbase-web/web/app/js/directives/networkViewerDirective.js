@@ -9,9 +9,8 @@ genesModule.directive('genesNetworkViewer', function () {
         link: function(scope, element, attrs) {
             $(window).resize(function() {
                 scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-10, $("#genesResultContent")[0].offsetHeight-10);
-
             })
-            scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth, $("#genesResultContent")[0].offsetHeight-10);
+            scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-4, 475);
         },
 
         controller: function ($scope, $rootScope) {

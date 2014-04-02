@@ -85,9 +85,14 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.reload = function () {
         $scope.init();
         $scope.setSpecie();
-        $scope.regions = "3:555-622666";
         $scope.chromSelected = [];
-        $scope.checkAndSetResult();
+//        $scope.regions = "3:555-622666";
+//        $scope.checkAndSetResult();
+//        $scope.completeRegions = "3:555-622666";
+        $scope.asignDefaultRegion($scope.specie);
+
+        $scope.setResult();
+
     };
     $scope.checkAndSetResult = function () {
         if($scope.regions!= ""){
@@ -435,14 +440,18 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
             $scope.toggleTree[i] = false;
         }
     };
+    $scope.asignDefaultRegion = function (region) {
+        if($scope.specie.shortName == "hsapiens"){
+            $scope.regions = "3:555-622666";
+            $scope.completeRegions = "3:555-622666";
+        }
+    };
     //----------------- EVENTS -------------------
     $scope.$on('newSpecie', function () {
         if(mySharedService.getCurrentSpecie().shortName == "hsapiens"){
             $scope.init();
             $scope.setSpecie();
-            if($scope.specie.shortName == "hsapiens"){
-                $scope.completeRegions = "3:555-622666";
-            }
+            $scope.asignDefaultRegion($scope.specie);
             $scope.setResult();
         }
     });

@@ -83,8 +83,14 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.reload = function () {
         $scope.init();
         $scope.setSpecie();
-        $scope.regions = "20:32850000-33500000,2:12850000-13120000";
-        $scope.checkAndSetResult();
+        $scope.asignDefaultRegion($scope.specie);
+
+//        $scope.regions = "20:32850000-33500000,2:12850000-13120000";
+//        $scope.checkAndSetResult();
+
+//        $scope.completeRegions = "20:32850000-33500000,2:12850000-13120000";
+        $scope.setResult();
+
     };
     $scope.checkAndSetResult = function () {
         if ($scope.genesIdFilter != "") {
@@ -287,44 +293,60 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
     $scope.convertToTabulate = function (info) {
         return mySharedService.convertToTabulate(info);
     };
+    $scope.asignDefaultRegion = function (region) {
+
+        if (region.shortName == "hsapiens") {
+            $scope.regions = "20:32850000-33500000,2:12850000-13120000";
+            $scope.completeRegions = "20:32850000-33500000,2:12850000-13120000";
+        }
+        if (region.shortName == "mmusculus") {
+            $scope.regions = "2:32850000-33500000";
+            $scope.completeRegions = "2:32850000-33500000";
+        }
+        if (region.shortName == "rnorvegicus") {
+            $scope.regions = "6:32850000-33500000";
+            $scope.completeRegions = "6:32850000-33500000";
+        }
+        if (region.shortName == "drerio") {
+            $scope.regions = "1:32850000-33500000";
+            $scope.completeRegions = "1:32850000-33500000";
+        }
+        if (region.shortName == "dmelanogaster") {
+            $scope.regions = "2L:12850000-13500000";
+            $scope.completeRegions = "2L:12850000-13500000";
+        }
+        if (region.shortName == "celegans") {
+            $scope.regions = "V:12850000-13500000";
+            $scope.completeRegions = "V:12850000-13500000";
+        }
+        if (region.shortName == "scerevisiae") {
+            $scope.regions = "III:286620-316620";
+            $scope.completeRegions = "III:286620-316620";
+        }
+        if (region.shortName == "cfamiliaris") {
+            $scope.regions = "5:32850000-33500000";
+            $scope.completeRegions = "5:32850000-33500000";
+        }
+        if (region.shortName == "sscrofa") {
+            $scope.regions = "3:32850000-33500000";
+            $scope.completeRegions = "3:32850000-33500000";
+        }
+        if (region.shortName == "agambiae") {
+            $scope.regions = "2L:32850000-33500000";
+            $scope.completeRegions = "2L:32850000-33500000";
+        }
+        if (region.shortName == "pfalciparum") {
+            $scope.regions = "11:1938337-2038337";
+            $scope.completeRegions = "11:1938337-2038337";
+        }
+
+    };
     //---------------Events-------------------
     $scope.$on('newSpecie', function () {
         $scope.init();
         $scope.setSpecie();
         $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
-        if ($scope.specie.shortName == "hsapiens") {
-            $scope.completeRegions = "20:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "mmusculus") {
-            $scope.completeRegions = "2:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "rnorvegicus") {
-            $scope.completeRegions = "6:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "drerio") {
-            $scope.completeRegions = "1:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "dmelanogaster") {
-            $scope.completeRegions = "2L:12850000-13500000";
-        }
-        if ($scope.specie.shortName == "celegans") {
-            $scope.completeRegions = "V:12850000-13500000";
-        }
-        if ($scope.specie.shortName == "scerevisiae") {
-            $scope.completeRegions = "III:286620-316620";
-        }
-        if ($scope.specie.shortName == "cfamiliaris") {
-            $scope.completeRegions = "5:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "sscrofa") {
-            $scope.completeRegions = "3:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "agambiae") {
-            $scope.completeRegions = "2L:32850000-33500000";
-        }
-        if ($scope.specie.shortName == "pfalciparum") {
-            $scope.completeRegions = "11:1938337-2038337";
-        }
+        $scope.asignDefaultRegion($scope.specie);
         $scope.setResult(false);
     });
     $scope.$on('genesGV:regionFromGV', function (ev, event) {

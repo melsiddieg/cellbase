@@ -60,9 +60,11 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.reload = function () {
         $scope.init();
         $scope.setSpecie();
-        $scope.regions = "20:32850000-32860000";
-        $scope.checkAndSetResult();
-        $scope.regions = "20:32850000-32860000";
+//        $scope.regions = "20:32850000-32860000";
+//        $scope.checkAndSetResult();
+//        $scope.completeRegions = "20:32850000-32860000";
+        $scope.asignDefaultRegion($scope.specie);
+        $scope.setResult();
     };
     $scope.checkAndSetResult = function (fromGV) {
         if($scope.snpIdFilter != ""){
@@ -438,18 +440,26 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
     $scope.convertToTabulate=function(info){
         return mySharedService.convertToTabulate(info);
     };
+
+    $scope.asignDefaultRegion = function (region) {
+
+        if(region.shortName == "hsapiens"){
+            $scope.regions = "20:32850000-32860000";
+            $scope.completeRegions = "20:32850000-32860000";
+        }
+        if(region.shortName == "dmelanogaster"){
+            $scope.regions = "2L:12850000-12855000";
+            $scope.completeRegions = "2L:12850000-12855000";
+        }
+    };
+
+
     //-----------EVENTS---------------
     $scope.$on('newSpecie', function () {
         if(mySharedService.getCurrentSpecie().shortName == "hsapiens" || mySharedService.getCurrentSpecie().shortName == "dmelanogaster"){
             $scope.init();
             $scope.setSpecie();
-
-            if($scope.specie.shortName == "hsapiens"){
-                $scope.completeRegions = "20:32850000-32860000";
-            }
-            if($scope.specie.shortName == "dmelanogaster"){
-                $scope.completeRegions = "2L:12850000-12855000";
-            }
+            $scope.asignDefaultRegion($scope.specie);
             $scope.setResult(false);
         }
     });
