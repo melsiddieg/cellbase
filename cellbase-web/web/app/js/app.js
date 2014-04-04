@@ -81,7 +81,10 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
                 $('#regulationDiv').removeClass("disabled");
             }
         }
-        $('#myTab a:first').tab('show');
+        if(this.currentSpecie.shortName != "hsapiens"){
+            $('#myTab a:first').tab('show');
+        }
+
         $rootScope.$broadcast('newSpecie');
     };
     //-------------- Cheks functions ------------------
