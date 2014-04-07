@@ -206,7 +206,8 @@
     background-color: #3d5892;
 }
 .ocb-fc-blue{
-    color: #f1f4ff !important;
+    color: white !important;
+    /*color: #f1f4ff !important;*/
     /*text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;*/
     text-shadow: -1px 0 #3d5892, 0 1px #3d5892, 1px 0 #3d5892, 0 -1px #3d5892;
 }
