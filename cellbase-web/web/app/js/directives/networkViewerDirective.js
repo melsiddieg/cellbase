@@ -7,10 +7,14 @@ genesModule.directive('genesNetworkViewer', function () {
             targetId: '@id'
         },
         link: function(scope, element, attrs) {
+//            $(window).resize(function() {
+//                scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-10, $("#genesResultContent")[0].offsetHeight-10);
+//            })
+//            scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-4, 475);
             $(window).resize(function() {
-                scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-10, $("#genesResultContent")[0].offsetHeight-10);
+                scope.networkViewer.resize();
             })
-            scope.networkViewer.networkSvgLayout.setSize($("#genesResultContent")[0].offsetWidth-4, 475);
+            scope.networkViewer.resize();
         },
 
         controller: function ($scope, $rootScope) {

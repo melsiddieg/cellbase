@@ -18,38 +18,37 @@
                 </div>
                 <!----------------pagination----------------->
                 <div class="ocb-text-center">
-                    <div ng-show="showPagination"
-                         class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">
+                    <div ng-show="showPagination" class="btn-group btn-group-xs ocb-margin-b-5 ocb-pagnation-tree-position">
                         <button ng-show="firstPages" type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-click="goToFirstPage()"><<
                         </button>
                         <button ng-show="previousPage" type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-click="goPreviousPage()"><
                         </button>
                         <button type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-class="{'disabled': disableFirstNumber}"
                                 ng-click="goToNumberPage(paginationNumbers[0])">{{paginationNumbers[0]}}
                         </button>
                         <button type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-class="{'disabled': disableSecondNumber}"
                                 ng-click="goToNumberPage(paginationNumbers[1])">{{paginationNumbers[1]}}
                         </button>
                         <button ng-show="thirdNumber" type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-class="{'disabled': disableThirdNumber}"
                                 ng-click="goToNumberPage(paginationNumbers[2])"
                                 >{{paginationNumbers[2]}}
                         </button>
                         <button ng-show="nextPage" type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-click="goNextPage()">>
                         </button>
                         <button ng-show="lastPages" type="button"
-                                class="btn btn-default btn-ms ocb-pagnation-text-color ocb-border-darkgray"
+                                class="btn btn-default btn-xs ocb-pagnation-text-color ocb-border-darkgray"
                                 ng-click="goToLastPage()">>>
                         </button>
                     </div>
@@ -58,15 +57,15 @@
         </div>
     </div>
     <div id="variantsResultPanels" class="col-sm-8 col-md-9 col-lg-9">
-        <ul class="nav nav-tabs" id="variantsResultTab">
-            <li class="active"><a href="#variantsOverviewInfo" data-toggle="tab">Overview Info</a></li>
-            <li id="variantsGV"><a href="#variants_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
+        <ul class="nav nav-justified nav-tabs" id="variantsResultTab">
+            <li class="active"><a class="ocb-pad-5" href="#variantsOverviewInfo" data-toggle="tab">Overview Info</a></li>
+            <li id="variantsGV"><a class="ocb-pad-5" href="#variants_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="panel tab-pane active ocb-width_765" id="variantsOverviewInfo">
+            <div class="tab-pane active" id="variantsOverviewInfo">
                 <!-----------------------variant and transcriptsVar panel--------------------------->
-                <div class="list-group ocb-x-scroll ocb-border-blue" ng-show="showVariantPanel">
+                <div class="list-group ocb-x-scroll ocb-border-blue ocb-bgc-white" ng-show="showVariantPanel">
                     <a class="list-group-item active ocb-text-center">
                         Variation information
                     </a>
@@ -79,7 +78,7 @@
                             <li><a id="variantJSONFile" >JSON file</a></li>
                         </ul>
                     </div>
-                    <div class="ocb-panels-data-border" ng-show="!geneInfo">
+                    <div ng-show="!geneInfo">
                         <variants-and-transc-var variant="selectedVariant"
                                                  specie="specie"
                                                  on-click="showTanscriptVarFromTable"
@@ -87,7 +86,7 @@
                     </div>
                 </div>
                 <!-------------------------transcriptVar panel---------------------------->
-                <div class="list-group ocb-x-scroll ocb-margin-top-70  ocb-border-blue" ng-show="showTranscriptVarPanel">
+                <div class="list-group ocb-x-scroll ocb-margin-top-40 ocb-bgc-white ocb-border-blue " ng-show="showTranscriptVarPanel">
                     <a class="list-group-item active ocb-text-center">
                         Transcript Variations information
                     </a>
@@ -101,7 +100,7 @@
                             <li><a id="transcriptVarJSONFile">JSON file</a></li>
                         </ul>
                     </div>
-                    <div ng-show="!transcriptVarInfo" class="ocb-panels-data-border">
+                    <div ng-show="!transcriptVarInfo">
                         <transcripts-var info="selectedTranscriptVar"
                                          specie="specie"
                                          tab-function="goToTab"></transcripts-var>

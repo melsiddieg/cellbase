@@ -21,16 +21,16 @@
         </div>
     </div>
     <div id="genesResultPanels" class="col-sm-8 col-md-9 col-lg-9">
-        <ul class="nav nav-tabs" id="genesResultTab">
-            <li class="active"><a href="#genesOverviewInfo" data-toggle="tab">Overview Info</a></li>
-            <li id="genesGVtab"><a href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
+        <ul class="nav nav-justified nav-tabs" id="genesResultTab">
+            <li class="active"><a class="ocb-pad-5" href="#genesOverviewInfo" data-toggle="tab">Overview Info</a></li>
+            <li id="genesGVtab"><a class="ocb-pad-5" href="#genes_GV" ng-click="changeResultTab()" data-toggle="tab">Genome Browser</a>
             </li>
-            <li id=""><a href="#genesNVtab" ng-click="changeResultTab()" data-toggle="tab">Network Viewer</a></li>
+            <li id=""><a class="ocb-pad-5" href="#genesNVtab" ng-click="changeResultTab()" data-toggle="tab">Network Viewer</a></li>
         </ul>
         <div id="genesResultContent" class="tab-content">
-            <div class="panel tab-pane active ocb-width_765" id="genesOverviewInfo">
+            <div class="tab-pane active" id="genesOverviewInfo">
                 <!-----------------------gene and transcripts panel--------------------------->
-                <div class="list-group ocb-x-scroll ocb-border-blue" ng-show="showGenePanel">
+                <div class="list-group ocb-x-scroll ocb-border-blue ocb-bgc-white" ng-show="showGenePanel">
                     <a class="list-group-item active ocb-text-center">
                         Gene information
                     </a>
@@ -43,13 +43,13 @@
                             <li><a id="geneJSONFile">JSON file</a></li>
                         </ul>
                     </div>
-                    <div class="ocb-panels-data-border" ng-show="!geneInfo">
+                    <div ng-show="!geneInfo">
                         <gene-and-transc gene="selectedGene" specie="specie"
                                          on-click="showTanscriptFromTable"></gene-and-transc>
                     </div>
                 </div>
                 <!-------------------------transcript panel---------------------------->
-                <div class="list-group ocb-x-scroll ocb-margin-top-18  ocb-border-blue" ng-show="showTranscriptPanel">
+                <div class="list-group ocb-x-scroll ocb-border-blue ocb-bgc-white" ng-show="showTranscriptPanel">
                     <a class="list-group-item active ocb-text-center">
                         Transcript information
                     </a>
@@ -62,7 +62,7 @@
                             <li><a id="transcriptJSONFile">JSON file</a></li>
                         </ul>
                     </div>
-                    <div ng-show="!transcriptInfo" class="ocb-panels-data-border">
+                    <div ng-show="!transcriptInfo">
                         <transcripts transcript="selectedTranscript" specie="specie"
                                      tab-function="goToTab"></transcripts>
                     </div>
@@ -71,9 +71,11 @@
             <div class="tab-pane ocb-bgc-white ocb-gv-minw" id="genes_GV">
                 <genome-viewer id="genesGV" class="ocb-gv-w" chrom="chromAllData"></genome-viewer>
             </div>
-            <div class="panel tab-pane" id="genesNVtab">
+            <div class="tab-pane" id="genesNVtab">
                 <genes-network-viewer id="genesNV" class="ocb-nv-h-w"></genes-network-viewer>
             </div>
         </div>
+
+
     </div>
 </div>
