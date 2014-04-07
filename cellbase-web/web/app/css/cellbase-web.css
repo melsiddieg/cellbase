@@ -201,15 +201,23 @@
 
 /*---------------------*/
 .ocb-optBar-bg{
-    /*background-color: #36a1d7;*/
-    background-color: #428bca;
+    /*background-color: #428bca;*/
+    /*background-color: #44a0e1;*/
+    background-color: #3d5892;
 }
 .ocb-fc-blue{
     color: #f1f4ff !important;
-    text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;
-    /*color: #15428B !important;*/
-    /*color: #3c66ad !important;*/
+    /*text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;*/
+    text-shadow: -1px 0 #3d5892, 0 1px #3d5892, 1px 0 #3d5892, 0 -1px #3d5892;
 }
+
+.ocb-fc-lblue{
+    color: #beccff !important;
+    /*text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;*/
+    text-shadow: -1px 0 #3d5892, 0 1px #3d5892, 1px 0 #3d5892, 0 -1px #3d5892;
+}
+
+
 
 .ocb-font-size-16{
     font-size: 18px;
