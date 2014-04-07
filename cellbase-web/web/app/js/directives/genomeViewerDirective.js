@@ -73,16 +73,18 @@ genesModule.directive('genomeViewer', function () {
                 region: region,
                 availableSpecies: availableSpecies,
                 species: species,
+                drawKaryotypePanel: false,
+//                drawNavigationBar: false,
                 sidePanel: false,
                 autoRender: true,
                 border: true,
                 resizable: true,
                 //        quickSearchResultFn:quickSearchResultFn,
                 //        quickSearchDisplayKey:,
-                karyotypePanelConfig: {
-                    collapsed: false,
-                    collapsible: true
-                },
+//                karyotypePanelConfig: {
+//                    collapsed: false,
+//                    collapsible: true
+//                },
                 chromosomePanelConfig: {
                     collapsed: false,
                     collapsible: true
