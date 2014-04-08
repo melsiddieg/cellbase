@@ -81,9 +81,10 @@ myApp.factory('mySharedService', function($rootScope, CellbaseService){
                 $('#regulationDiv').removeClass("disabled");
             }
         }
-        if(this.currentSpecie.shortName != "hsapiens"){
+        if((this.currentSpecie.shortName != "hsapiens" && this.currentSpecie.shortName != "dmelanogaster")  || ($("ul#myTab li.active").attr('id') ==  "regulationDiv" && this.currentSpecie.shortName != "hsapiens")){
             $('#myTab a:first').tab('show');
         }
+
 
         $rootScope.$broadcast('newSpecie');
     };

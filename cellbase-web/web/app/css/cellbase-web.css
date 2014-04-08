@@ -146,7 +146,7 @@
 }
 
 .ocb-nv-h-w{
-    width:850px;
+    width:800px;
     /*width:765px;*/
     height:505px;
     position:relative;
@@ -201,27 +201,12 @@
 
 /*---------------------*/
 .ocb-optBar-bg{
-    /*background-color: #428bca;*/
-    /*background-color: #44a0e1;*/
-    background-color: #3d5892;
-}
-.ocb-fc-blue{
-    color: white !important;
-    /*color: #f1f4ff !important;*/
-    /*text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;*/
-    text-shadow: -1px 0 #3d5892, 0 1px #3d5892, 1px 0 #3d5892, 0 -1px #3d5892;
-}
-
-.ocb-fc-lblue{
-    color: #beccff !important;
-    /*text-shadow: -1px 0 #428bca, 0 1px #428bca, 1px 0 #428bca, 0 -1px #428bca;*/
-    text-shadow: -1px 0 #3d5892, 0 1px #3d5892, 1px 0 #3d5892, 0 -1px #3d5892;
+    /*background-color: #3d5892;*/
 }
 
 
-
-.ocb-font-size-16{
-    font-size: 18px;
+.ocb-font-size-20{
+    font-size: 20px;
 }
 
 .ocb-m-b-5{
