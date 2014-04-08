@@ -24,6 +24,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
     $scope.showList = true;
+    $scope.featureClassSelected = "";
+    $scope.listOfFeatureClassToSelect = ["histone","openChromatin","transcriptionFactor","polymerase","microRNA"];
 
     $scope.setLoading = function (loading) {
         $scope.isLoading = loading;
@@ -381,18 +383,23 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     //===================== tree events ========================
     //-------------Show Type Info-----------------
     $scope.showHistoneInfo = function () {
+        $scope.featureClassSelected = "histone";
         $scope.showTypeData(0,$scope.histone);
     };
     $scope.showOpenChromatinInfo = function () {
+        $scope.featureClassSelected = "openChromatin"
         $scope.showTypeData(1,$scope.openChromatin);
     };
     $scope.showTranscriptionFactorInfo = function () {
+        $scope.featureClassSelected = "transcriptionFactor"
         $scope.showTypeData(2,$scope.transcriptionFactor);
     };
     $scope.showPolymeraseInfo = function () {
+        $scope.featureClassSelected = "polymerase"
         $scope.showTypeData(3,$scope.polymerase);
     };
     $scope.showMicroRNAInfo = function () {
+        $scope.featureClassSelected = "microRNA"
         $scope.showTypeData(4,$scope.microRNA);
     };
     $scope.showTypeData = function (index, data) {
@@ -407,18 +414,23 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     };
     //--------------Show Name Info--------------
     $scope.showHistoneNameInfo = function (name) {
+        $scope.featureClassSelected = "histone"
         $scope.showTypeNameData($scope.histone, name);
     };
     $scope.showOpenChromatinNamesInfo = function (name) {
+        $scope.featureClassSelected = "openChromatin"
         $scope.showTypeNameData($scope.openChromatin, name);
     };
     $scope.showTranscriptionFactorNamesInfo = function (name) {
+        $scope.featureClassSelected = "transcriptionFactor"
         $scope.showTypeNameData($scope.transcriptionFactor, name);
     };
     $scope.showPolymeraseNamesInfo = function (name) {
+        $scope.featureClassSelected = "polymerase"
         $scope.showTypeNameData($scope.polymerase, name);
     };
     $scope.showMicroRNANamesInfo = function (name) {
+        $scope.featureClassSelected = "microRNA"
         $scope.showTypeNameData($scope.microRNA, name);
     };
     $scope.showTypeNameData = function (data, name) {

@@ -247,6 +247,7 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             }
             else {
                 $rootScope.$broadcast("genesNV:clear");
+                alert("No proteins in gene " +$scope.selectedGene.id);
             }
 
             $scope.setLoading(false);

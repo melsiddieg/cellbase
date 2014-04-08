@@ -29,6 +29,12 @@ genesModule.directive('genesResult', function () {
                 delete info.tfbs;
                 scope.downloadJSONFile(info, "gene-" + scope.selectedGene.id + "transc-" + info.id);
             })
+            $("#genesListDiv").click(function(event){
+                $('#genesListDiv').children().children().removeClass("ocb-list-bg-click");
+                $("#genesList-"+scope.selectedGene.id).addClass("ocb-list-bg-click");
+            })
+
+
             scope.downloadTabFile = function(info, title){
                 var str = "";
                 var a = $('<a></a>')[0];

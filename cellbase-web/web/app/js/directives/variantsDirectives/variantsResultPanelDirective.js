@@ -27,6 +27,13 @@ variantsModule.directive('variantsResult', function () {
                 delete info.consequenceTypes;
                 scope.downloadJSONFile(info, "SNP-"+scope.selectedVariant.id+"transc-"+info.transcriptId);
             })
+            $("#variationsListDiv").click(function(event){
+                $('#variationsListDiv').children().children().removeClass("ocb-list-bg-click");
+                $("#variationsList-"+scope.selectedVariant.id).addClass("ocb-list-bg-click");
+            })
+
+
+
             scope.downloadTabFile = function(info, title){
                 var str = "";
                 var a = $('<a></a>')[0];
