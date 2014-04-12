@@ -1,10 +1,19 @@
-genesModule.directive('genesResult', function () {
+genesModule.directive('genesResult',['$timeout', function (timer) {
     return {
         restrict: 'A',
         replace: true,
         transclude: true,
         templateUrl: './views/genes-result-panel.html',
         link: function(scope, element, attrs) {
+
+
+            //timer run when the DOM is compliled after the controller whit a delay of 0
+            timer(
+                function(){
+                $("#genesList-"+scope.selectedGene.id).addClass("ocb-list-bg-click");
+                }
+                ,0);
+
             $("#geneTabFile").click(function(event){
                 var info = scope.selectedGene;
                 delete info.transcripts;
@@ -53,4 +62,4 @@ genesModule.directive('genesResult', function () {
             }
         }
     };
-});
+}]);

@@ -9,6 +9,7 @@ var myApp = angular.module('cellbaseWeb',
         'cellbaseWeb.regulations'
     ]);
 
+
 myApp.factory('mySharedService', function($rootScope, CellbaseService){
     var sharedService = {};
     sharedService.currentSpecie =  {longName: "Homo sapiens", shortName:"hsapiens", ensemblName: "Homo_sapiens"};

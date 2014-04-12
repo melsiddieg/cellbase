@@ -1,4 +1,5 @@
 <div ng-repeat="data in allData" class="ocb-list list-group">
+    <!--<a id="genesList-{{$index}}"  ng-click="showFirstData(data.id, $index);" class="list-group-item active ocb-list-in">-->
     <a id="genesList-{{data.id}}"  ng-click="showFirstData(data.id, $index);" class="list-group-item active ocb-list-in">
         <div class=" ocb-cursor-pointer" style="margin:1px">
             <span class="badge pull-right ocb-list-button">{{data.transcripts.length}}</span>

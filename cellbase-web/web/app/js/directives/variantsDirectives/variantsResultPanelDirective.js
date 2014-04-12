@@ -1,10 +1,16 @@
-variantsModule.directive('variantsResult', function () {
+variantsModule.directive('variantsResult',['$timeout',function (timer) {
     return {
         restrict: 'A',
         replace: true,
         transclude: true,
         templateUrl: './views/variants-result-panel.html',
         link: function(scope, element, attrs) {
+
+            timer(function(){
+                $("#variationsList-"+scope.selectedVariant.id).addClass("ocb-list-bg-click");
+            },0);
+
+
             $("#variantTabFile").click(function(event){
                 var info = scope.selectedVariant;
                 delete info.transcriptVariations;
@@ -52,4 +58,4 @@ variantsModule.directive('variantsResult', function () {
             }
         }
     };
-});
+}]);

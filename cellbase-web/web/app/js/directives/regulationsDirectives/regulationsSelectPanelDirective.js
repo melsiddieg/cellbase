@@ -39,6 +39,15 @@ regulationsModule.directive('regulationsSelect', function () {
                 $('#regulationsChromMultiSelect').children().removeClass("btn-primary");
                 $('#featureClassMultiSelect').children().removeClass("btn-primary");
             })
+
+            $("#regulationsReload, #hsapiens, #regulationsResultButton").click(function(event){
+                for(var i in scope.listOfFeatureClassToSelect){
+                    $("#regultionsList-"+scope.listOfFeatureClassToSelect[i]).removeClass("ocb-list-bg-click");
+                }
+                $("#regultionsList-"+scope.featureClassSelected).addClass("ocb-list-bg-click");
+            })
+
+
         }
     };
 });

@@ -24,7 +24,7 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
     $scope.disableSecondNumber = false;
     $scope.disableThirdNumber = false;
     $scope.showList = true;
-    $scope.featureClassSelected = "";
+    $scope.featureClassSelected = "histone";
     $scope.listOfFeatureClassToSelect = ["histone","openChromatin","transcriptionFactor","polymerase","microRNA"];
 
     $scope.setLoading = function (loading) {
@@ -290,6 +290,8 @@ var regulationsContr = regulationsModule.controller('regulationsController', ['$
         }
     };
     $scope.setResult = function(){
+
+        $scope.featureClassSelected = "histone";
 
         $scope.setLoading(true);
         $timeout(function () {

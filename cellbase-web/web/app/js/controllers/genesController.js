@@ -142,10 +142,12 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
                 for (var i = 0; i < 10; i++) {
                     $scope.toggleTree.push(false);
                 }
+
                 $scope.showAll = true;
                 $scope.firstGeneId = arrayOfGenes;
                 $scope.lastDataShow = Object.keys($scope.genesAndTranscriptsData)[0];
                 $scope.selectedGene = CellbaseService.getGenesAllDataById($scope.specie.shortName, $scope.lastDataShow);
+
                 //show the informtion of the first gen
                 $scope.showGene(Object.keys($scope.genesAndTranscriptsData)[0], 0, fromGV);
                 if ($scope.selectedGene.transcripts.length != 0) {

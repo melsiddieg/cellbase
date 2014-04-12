@@ -11,6 +11,7 @@ regulationsModule.directive('regulationsResult', function () {
                 }
                 $("#regultionsList-"+scope.featureClassSelected).addClass("ocb-list-bg-click");
             })
+
         }
     };
 });
