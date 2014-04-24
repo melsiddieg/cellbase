@@ -53,7 +53,7 @@
 .ocb-scroll{
     overflow-y:scroll;
     overflow-x:hidden;
-    height: 120px;
+    height: 80px;
     margin:10px
 }
 .ocb-scroll-transVar{
@@ -224,4 +224,7 @@
 
 .ocb-pad-b-14{
     padding-bottom: 14 !important;
+}
+.ocb-bc-blue{
+    background-color:#428bca;
 }

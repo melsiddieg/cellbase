@@ -12,12 +12,12 @@ genesModule.directive('genomeViewer', function () {
         link: function(scope, element, attrs) {
             $(window).resize(function() {
 //                    setTimeout(function(){
-                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-10);
+                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
 //                    },1000)
             })
 //            setTimeout(function(){
 
-                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-10);
+                scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth);
 //            },1000)
 
 //            scope.genomeViewer.setWidth($("#genesResultContent")[0].offsetWidth-16);
