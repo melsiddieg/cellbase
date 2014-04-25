@@ -89,6 +89,24 @@ genesModule.directive('genomeViewer', function () {
                     collapsed: false,
                     collapsible: true
                 },
+                navigationBarConfig:{
+                    componentsConfig:{
+//                restoreDefaultRegionButton:false,
+//                regionHistoryButton:false,
+                speciesButton:false,
+//                chromosomesButton:false,
+                karyotypeButton:false,
+                chromosomeButton:false,
+//                regionButton:false,
+//                zoomControl:false
+                windowSizeControl:false,
+//                positionControl:false,
+//                moveControl:false,
+                autoheightButton:false,
+                compactButton:false,
+                searchControl:false
+                    }
+                },
                 handlers:{
                     'region:change':function(event){
                         if(!(event.sender instanceof GenomeViewer)) {

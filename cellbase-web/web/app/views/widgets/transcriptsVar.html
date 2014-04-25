@@ -18,14 +18,6 @@
             <span> {{data.codonAlleleString}}-{{data.peptideAlleleString}}</span>
         </p>
         <p class="ocb-line-height-5">
-            <span class="text-primary ocb-text-width-220">consequenceTypes:</span>
-            <span class="ocb-text-width-220">
-                <span ng-repeat="ct in data.consequenceTypes"> {{ct}}  </span>
-            </span>
-            <span class="text-primary ocb-text-width-180">translation (start-end):</span>
-            <span> {{data.translationStart}}-{{data.translationEnd}}</span>
-        </p>
-        <p class="ocb-line-height-5">
             <span class="text-primary ocb-text-width-220">cdsStart-cdsEnd:</span>
             <span class="ocb-text-width-220"> {{data.cdsStart}}-{{data.cdsEnd}}</span>
             <span class="text-primary ocb-text-width-180">polyphen Prediction-Score:</span>
@@ -38,6 +30,14 @@
             <span> {{data.siftPrediction}}-{{data.siftScore}}</span>
         </p>
         <p class="ocb-line-height-5">
+            <span class="text-primary">translation (start-end):</span>
+            <span> {{data.translationStart}}-{{data.translationEnd}}</span>
+        </p>
+        <p class="ocb-line-height-5">
+            <span class="text-primary ">consequenceTypes:</span>
+            <span ng-repeat="ct in data.consequenceTypes"> {{ct}}  </span>
+        </p>
+        <p>
             <span class="text-primary ocb-text-width-220">hgvs Genomic-Transcript-Protein:</span>
             <span> {{data.hgvsGenomic}}-{{data.hgvsTranscript}}-{{data.hgvsProtein}} </span>
         </p>

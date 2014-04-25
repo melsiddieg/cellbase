@@ -228,3 +228,47 @@
 .ocb-bc-blue{
     background-color:#428bca;
 }
+
+.ocb-m-r-30{
+    margin-right:30px;
+}
+
+.ocb-text-width-80 {
+    display: inline-block;
+    width: 80px;
+}
+
+.ocb-text-width-200{
+    display: inline-block;
+    width: 200px;
+}
+
+.ocb-text-width-150 {
+    display: inline-block;
+    width: 150px;
+}
+
+.ocb-text-width-180 {
+    display: inline-block;
+    width: 180px;
+}
+
+.ocb-text-width-130 {
+    display: inline-block;
+    width: 130px;
+}
+
+.ocb-text-width-300 {
+    display: inline-block;
+    width: 300px;
+}
+
+.ocb-text-width-230 {
+    display: inline-block;
+    width: 230px;
+}
+
+.ocb-text-width-220 {
+    display: inline-block;
+    width: 220px;
+}
