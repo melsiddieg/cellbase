@@ -351,6 +351,20 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
         $scope.listOfbiotypeFilters = CellbaseService.getBiotypes($scope.specie.shortName);
         $scope.asignDefaultRegion($scope.specie);
         $scope.setResult(false);
+		
+		if($scope.specie.shortName == "hsapiens")
+		{
+			$('#genesGVtab').show();
+			$('#genesNVtab').show();
+        }
+		else
+		{
+   			$('#genesResultTab a:first').tab('show');
+			$('#genesGVtab').hide();
+			$('#genesNVtab').hide();
+		}
+
+
     });
     $scope.$on('genesGV:regionFromGV', function (ev, event) {
         if (typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName) {

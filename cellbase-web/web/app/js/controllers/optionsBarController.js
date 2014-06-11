@@ -2,15 +2,15 @@ var optionsBarControl = myApp.controller('optionsBarController', ['$scope', '$ro
     $scope.species = [
         {longName: "Homo sapiens", shortName: "hsapiens", ensemblName: "Homo_sapiens", data: "gene,variation,regulation"},
         {longName: "Mus musculus", shortName: "mmusculus", ensemblName: "Mus_musculus", data: "gene"},
-        {longName: "Rattus norvegicus", shortName: "rnorvegicus", data: "gene"},
-        {longName: "Danio rerio", shortName: "drerio", ensembleName: "Danio_rerio", data: "gene"},
-        {longName: "Drosophila melanogaster", shortName: "dmelanogaster", ensembleName: "Drosophila_melanogaster", data: "gene,variation"},
-        {longName: "Caenorhabditis elegans", shortName: "celegans", ensembleName: "Caenorhabditis_elegans", data: "gene"},
-        {longName: "Saccharomyces cerevisiae", shortName: "scerevisiae", ensembleName: "Saccharomyces_cerevisiae", data: "gene"},
-        {longName: "Canis familiaris", shortName: "cfamiliaris", ensembleName: "Canis_familiaris", data: "gene"},
-        {longName: "Sus scrofa", shortName: "sscrofa", ensembleName: "Sus_scrofa", ensembleName: "Sus_scrofa", data: "gene"},
-        {longName: "Anopheles gambiae", shortName: "agambiae", data: "gene"},
-        {longName: "Plasmodium falciparum", shortName: "pfalciparum", data: "gene"}
+        {longName: "Rattus norvegicus", shortName: "rnorvegicus",ensemblName:"", data: "gene"},
+        {longName: "Danio rerio", shortName: "drerio", ensemblName: "Danio_rerio", data: "gene"},
+        {longName: "Drosophila melanogaster", shortName: "dmelanogaster", ensemblName: "Drosophila_melanogaster", data: "gene,variation"},
+        {longName: "Caenorhabditis elegans", shortName: "celegans", ensemblName: "Caenorhabditis_elegans", data: "gene"},
+        {longName: "Saccharomyces cerevisiae", shortName: "scerevisiae", ensemblName: "Saccharomyces_cerevisiae", data: "gene"},
+        {longName: "Canis familiaris", shortName: "cfamiliaris", ensemblName: "Canis_familiaris", data: "gene"},
+        {longName: "Sus scrofa", shortName: "sscrofa", ensemblName: "Sus_scrofa", data: "gene"},
+        {longName: "Anopheles gambiae", shortName: "agambiae", ensemblName:"", data: "gene"},
+        {longName: "Plasmodium falciparum", shortName: "pfalciparum",ensemblName:"", data: "gene"}
     ];
     $scope.selectedSpecie = "Homo sapiens";
     //comunicate the new specie selected

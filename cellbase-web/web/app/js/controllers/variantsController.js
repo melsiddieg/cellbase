@@ -462,6 +462,17 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
             $scope.asignDefaultRegion($scope.specie);
             $scope.setResult(false);
         }
+
+		if($scope.specie.shortName == "hsapiens")
+		{
+			$('#variantsGV').show();
+        }
+		else
+		{
+   			$('#variantsResultTab a:first').tab('show');
+			$('#variantsGV').hide();
+		}
+
     });
     $scope.$on('variationsGV:regionFromGV', function (ev, event) {
         if(typeof event.sender.species != "undefined" && event.sender.species.text == $scope.specie.longName){

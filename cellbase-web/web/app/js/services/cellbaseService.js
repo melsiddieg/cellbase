@@ -1,5 +1,7 @@
 myApp.service('CellbaseService', function () {
     var host = 'http://ws-beta.bioinfo.cipf.es/cellbase/rest/v3/';
+//    var host = 'http://www.ebi.ac.uk/cellbase/webservices/rest/v3/';
+
 
     //obtain the chromosomes of a specie
     this.getSpecieChromosomes = function (specie) {
