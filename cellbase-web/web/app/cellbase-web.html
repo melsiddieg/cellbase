@@ -166,15 +166,17 @@
         </h1>
     </div>
     <div ng-controller="optionsBarController">
-        <nav class="navbar navbar-inverse" role="navigation">
+       <!-- <nav class="navbar navbar-inverse ocb-bg-blue" role="navigation"> -->
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand ocb-font-size-16"  ng-click="new()" >Home</a>
+                    <a class="navbar-brand ocb-cursor-pointer"  ng-click="new()" >Home</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a class="dropdown-toggle ocb-cursor-pointer ocb-font-size-14" data-toggle="dropdown">
+                            <a class="dropdown-toggle ocb-cursor-pointer ocb-font-size-16" data-toggle="dropdown">
                                 {{selectedSpecie}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a id="{{specie.shortName}}" class="ocb-cursor-pointer" ng-repeat="specie in species" ng-click="setSelectedSpecie(specie)">{{specie.longName}}</a>

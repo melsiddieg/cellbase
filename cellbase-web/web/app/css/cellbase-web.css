@@ -272,3 +272,11 @@
     display: inline-block;
     width: 220px;
 }
+
+.ocb-bg-blue{
+	background-color: #9BB0D4 !important;
+}
+
+ocb-font-size-16{
+	font-size:16px;
+}

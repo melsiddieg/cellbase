@@ -104,7 +104,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
                 for(var i=0;i< 10; i++){
                     $scope.toggleTree.push(false);
                 }
-
+			
                 $scope.showAll = true;
                 $scope.firstVariantId = $scope.paginationData[0].id;
                 $scope.lastDataShow = $scope.firstVariantId;

@@ -126,7 +126,7 @@ myApp.service('CellbaseService', function () {
             url = host + specie + '/genomic/region/' + regions + '/snp?';
         }
         else {
-            url = host + specie + '/genomic/region/' + regions + '/snp?consequence_type=' + conseqTypesFilter.join() + '&';
+            url = host + specie + '/genomic/region/' + regions + '/snp?consequenceTypes=' + conseqTypesFilter.join();
         }
         $.ajax({
             url: url,
@@ -153,7 +153,7 @@ myApp.service('CellbaseService', function () {
             url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10;
         }
         else {
-            url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10+'&consequence_type=' + conseqTypesFilter.join();
+            url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10+'&consequenceTypes=' + conseqTypesFilter.join();
         }
         $.ajax({
             url: url,
@@ -185,7 +185,7 @@ myApp.service('CellbaseService', function () {
             url = host + specie + '/feature/snp/' + snpIdFilter + '/info?count=true';
         }
         else{
-            url = host + specie + '/genomic/region/' + regions + '/snp?&consequence_type=' + conseqTypesFilter.join()+'&count=true';
+            url = host + specie + '/genomic/region/' + regions + '/snp?&consequenceTypes=' + conseqTypesFilter.join()+'&count=true';
         }
         $.ajax({
             url: url,
