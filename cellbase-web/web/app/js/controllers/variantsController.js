@@ -92,10 +92,14 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
                 $scope.paginationData = CellbaseService.getVariantsDataById($scope.specie.shortName, $scope.snpIdFilter);  //obtener los datos
                 $scope.checkSNPFilter($scope.snpIdFilter);
             }
+            else if($scope.conseqTypesFilter.length != 0){
+                $scope.paginationData = CellbaseService.getAllSNPData($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter);
+            }
             else{
-                $scope.paginationData = CellbaseService.getAllSNPDataPaginated($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter,1);
+                $scope.paginationData = CellbaseService.getAllSNPDataPaginated($scope.specie.shortName, $scope.completeRegions,1);
                 $scope.snpDataCache[1] = $scope.paginationData;
             }
+
             if($scope.paginationData.length != 0){
                 $scope.initPagination();
                 $scope.toggleTree = [];
