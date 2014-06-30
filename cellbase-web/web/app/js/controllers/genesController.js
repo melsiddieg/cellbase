@@ -217,7 +217,8 @@ var genesContr = genesModule.controller('genesController', ['$scope', '$rootScop
             }
         }
         $scope.selectedTranscripts = $scope.selectedGene.transcripts;
-        if ($('#genes_GV').hasClass("active") && !fromGV) {
+      //  if ($('#genes_GV').hasClass("active") && !fromGV) {
+        if (!fromGV) {
             $rootScope.$broadcast("genesGV:regionToGV", $scope.selectedGene.chromosome + ":" + $scope.selectedGene.start + "-" + $scope.selectedGene.end, $scope.specie.shortName);
         }
         if ($('#genesNVtab').hasClass("active")) {

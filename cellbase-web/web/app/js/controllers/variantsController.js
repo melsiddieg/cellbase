@@ -296,6 +296,7 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
         }
     };
     $scope.initPagination = function () {
+
         $scope.snpDataSize = CellbaseService.getCountSNPData($scope.specie.shortName, $scope.completeRegions, $scope.conseqTypesFilter, $scope.snpIdFilter);
         $scope.maxNumberPagination = Math.ceil( $scope.snpDataSize / $scope.numDataPerPage);
         //  0 --> 10
@@ -413,7 +414,8 @@ var variantsContr = variantsModule.controller('variantsController', ['$scope', '
                 $scope.selectedTranscriptVar = $scope.selectedVariant.transcriptVariations[i];
             }
         }
-        if($('#variants_GV').hasClass("active")&& !fromGV) {
+       // if($('#variants_GV').hasClass("active")&& !fromGV) {
+        if(!fromGV) {
             $rootScope.$broadcast("variationsGV:regionToGV", $scope.selectedVariant.chromosome + ":" + $scope.selectedVariant.start + "-" + $scope.selectedVariant.end, $scope.specie.shortName);
         }
     };
