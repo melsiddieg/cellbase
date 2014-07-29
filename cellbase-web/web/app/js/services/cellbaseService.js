@@ -146,15 +146,15 @@ myApp.service('CellbaseService', function () {
         });
         return dataGet;
     };
-    this.getAllSNPDataPaginated = function (specie, regions, page) {
+    this.getAllSNPDataPaginated = function (specie, regions, conseqTypesFilter, page) {
         var dataGet = [];
         var url;
-       // if (conseqTypesFilter.length == 0) {
+        if (conseqTypesFilter.length == 0) {
             url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10;
-       // }
-       // else {
-       //     url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10+'&consequenceTypes=' + conseqTypesFilter.join();
-       // }
+        }
+        else {
+            url = host + specie + '/genomic/region/' + regions + '/snp?limit=10&skip='+(page-1)*10+'&consequence_type=' + conseqTypesFilter.join();
+        }
         $.ajax({
             url: url,
             async: false,

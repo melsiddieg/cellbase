@@ -109,12 +109,12 @@ genesModule.directive('genomeViewer', function () {
                 },
                 handlers:{
                     'region:change':function(event){
-                        if(!(event.sender instanceof GenomeViewer)) {
-                            $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
-                        }
+                       // if(!(event.sender instanceof GenomeViewer)) {
+                       //     $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
+                       // }
                     },
                     'region:move':function(event){
-                        $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
+                       // $rootScope.$broadcast($scope.targetId+":regionFromGV", event);
                     },
 //                    'chromosome-button:change':function(event){
 //                    },
